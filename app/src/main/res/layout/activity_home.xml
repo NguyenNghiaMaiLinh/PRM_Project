@@ -74,6 +74,7 @@
             android:layout_weight="0.1"
             android:background="@color/colorPrimary"
             android:src="@drawable/ic_shopping_cart_black_24dp"
+            android:onClick="onClickCart"
             />
     </LinearLayout>
     <include layout="@layout/navigation_bar"></include>

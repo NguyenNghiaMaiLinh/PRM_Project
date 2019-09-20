@@ -55,6 +55,10 @@ public class HomeActivity extends AppCompatActivity {
         Toast.makeText(this, "book is clicked", Toast.LENGTH_SHORT).show();
     }
 
+    public void onClickCart(View view){
+        Intent intent = new Intent(this, Cart.class);
+        startActivity(intent);
+    }
 
 
 

@@ -12,6 +12,7 @@
         <activity android:name=".SplashScreen">
 
         </activity>
+        <activity android:name=".Cart"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".NotificationActivity" />
