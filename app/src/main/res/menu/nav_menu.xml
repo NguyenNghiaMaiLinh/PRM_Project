@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item
+        android:id="@+id/homee"
+        android:icon="@drawable/homee"
+        android:onClick="onClickHome"
+        android:title="Home" />
+    <item android:id="@+id/product"
+        android:icon="@drawable/products"
+        android:onClick="onClickProducts"
+        android:title="Products" />
+    <item
+        android:id="@+id/notification"
+        android:icon="@drawable/bells"
+        android:onClick="onClickNotification"
+        android:title="Notification" />
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/profile"
+        android:onClick="onClickProfile"
+        android:title="Profile" />
+</menu>
