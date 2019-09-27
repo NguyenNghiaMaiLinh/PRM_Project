@@ -13,21 +13,5 @@ public class ProductsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
     }
-    public void onClickHome(MenuItem view){
-        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-        startActivity(intent);
-    }
-    public void onClickProfile(MenuItem view){
-        Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
-        startActivity(intent);
-    }
-    public void onClickProducts(MenuItem view){
-        Intent intent = new Intent(getApplicationContext(),ProductsActivity.class);
-        startActivity(intent);
 
-    }
-    public void onClickNotification(MenuItem view){
-        Intent intent = new Intent(getApplicationContext(),NotificationActivity.class);
-        startActivity(intent);
-    }
 }

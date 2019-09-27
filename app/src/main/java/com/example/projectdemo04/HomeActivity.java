@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.projectdemo04.model.Book;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
     ViewPager viewPager;
@@ -19,50 +20,47 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        viewPager = findViewById(R.id.viewPagerHome);
-        adapter = new SlideFragmentAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        Book book1 = new Book("Thuc tinh", R.drawable.thuctinh, 10000);
-        Book book2 = new Book("Nha gia kim", R.drawable.nhagiakimm, 20000);
-        Book book3 = new Book("Nanh trang", R.drawable.nanhtrang, 60000);
-        Book book4 = new Book("Mat biec", R.drawable.matbiec, 52000);
-        Book[] books = {book1,book2,book3,book4};
-
-        transaction.add(R.id.containerTopSale, new CategoryFragment("Top sale",books));
-        transaction.add(R.id.containerTopSale, new CategoryFragment("New book",books));
+        Fragment fragment = new HomeFragment();
+        transaction.replace(R.id.main_container,fragment);
         transaction.commit();
-    }
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                Fragment fragment = new HomeFragment();
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_home:
+                        fragment = new HomeFragment();
+                        break;
+                    case R.id.nav_product:
+                        fragment = new ProductFragment();
+                        break;
+                    case R.id.nav_notification:
+                        fragment = new NotificationFragment();
+                        break;
+                    case R.id.nav_profile:
+                        fragment = new ProfileFragment();
+                        break;
 
-    public void onClickHome(MenuItem view){
-        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-        startActivity(intent);
-    }
-    public void onClickProfile(MenuItem view){
-        Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
-        startActivity(intent);
-    }
-    public void onClickProducts(MenuItem view){
-        Intent intent = new Intent(getApplicationContext(),ProductsActivity.class);
-        startActivity(intent);
+                }
+                transaction.replace(R.id.main_container, fragment);
+                transaction.commit();
+                return true;
+            }
+        });
+
 
     }
-    public void onClickNotification(MenuItem view){
-        Intent intent = new Intent(getApplicationContext(),NotificationActivity.class);
-        startActivity(intent);
-    }
-    public void onClickBook(View view){
-        Toast.makeText(this, "book is clicked", Toast.LENGTH_SHORT).show();
-    }
-    public void onClickBookDetail(View view) {
-        Intent intent = new Intent(getApplicationContext(), BookDetailActivity.class);
+    public void onClickBookDetails(View view){
+        Intent intent = new Intent(this, BookDetailActivity.class);
         startActivity(intent);
     }
     public void onClickCart(View view){
-        Intent intent = new Intent(this, Cart.class);
+        Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
     }
-
 
 
 }
