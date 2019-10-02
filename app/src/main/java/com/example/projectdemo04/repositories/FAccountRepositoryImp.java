@@ -41,7 +41,8 @@ public class FAccountRepositoryImp implements FAccountRepository {
                 if (response.code() == 200) {
                     try {
                         String result = response.body().string();
-                        Type type = new TypeToken<com.example.projectdemo04.model.Token>(){}.getType();
+                        Type type = new TypeToken<com.example.projectdemo04.model.Token>() {
+                        }.getType();
                         Token responseData = new Gson().fromJson(result, type);
 
                         if (responseData != null) {
@@ -63,46 +64,49 @@ public class FAccountRepositoryImp implements FAccountRepository {
     }
 
     @Override
-    public void register(String username, String email, String password,final CallBackData<Token> data) {
+    public void register(String username, String email, String password, final CallBackData<Token> data) {
 
-            ClientApi clientApi = new ClientApi();
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("username", username);
-                jsonObject.put("password", password);
-                jsonObject.put("email", email);
+        ClientApi clientApi = new ClientApi();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("username", username);
+            jsonObject.put("password", password);
+            jsonObject.put("email", email);
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
-            Call<ResponseBody> call = clientApi.fAccountService().register(body);
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if (response.code() == 200) {
-                        try {
-                            String result = response.body().string();
-                            Type type = new TypeToken<Token>(){}.getType();
-                            Token responseData = new Gson().fromJson(result, type);
-
-                            if (responseData != null) {
-                                data.onSuccess(responseData);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }else {
-                        data.onFail("Register Fail");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
-            });
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+        Call<ResponseBody> call = clientApi.fAccountService().register(body);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    try {
+                        String result = response.body().string();
+                        Type type = new TypeToken<Token>() {
+                        }.getType();
+                        Token responseData = new Gson().fromJson(result, type);
+
+                        if (responseData != null) {
+                            data.onSuccess(responseData);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (response.code() == 412) {
+                    data.onFail("Account duplicate");
+                } else {
+                    data.onFail("Register fail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
 
 
 }
