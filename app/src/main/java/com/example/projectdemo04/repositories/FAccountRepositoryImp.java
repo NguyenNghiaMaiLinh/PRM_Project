@@ -48,7 +48,7 @@ public class FAccountRepositoryImp implements FAccountRepository {
                         if (responseData != null) {
                             data.onSuccess(responseData);
                         } else {
-                            data.onFail("Login Fail");
+                            data.onFail("Đăng nhập không thành công");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -95,9 +95,9 @@ public class FAccountRepositoryImp implements FAccountRepository {
                         e.printStackTrace();
                     }
                 } else if (response.code() == 412) {
-                    data.onFail("Account duplicate");
+                    data.onFail("Tài khoản đã tồn tại");
                 } else {
-                    data.onFail("Register fail");
+                    data.onFail("Đăng ký không thành công");
                 }
             }
 

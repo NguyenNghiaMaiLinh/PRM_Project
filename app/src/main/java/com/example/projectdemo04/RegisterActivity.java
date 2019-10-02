@@ -86,6 +86,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     public void registerFailed(String s) {
-        Toast.makeText(getApplicationContext(), "Tài khoản đã tồn tại", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 }

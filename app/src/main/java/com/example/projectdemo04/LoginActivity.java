@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         Bundle bundle = new Bundle();
         bundle.putString("accessToken",accessToken);
         bundle.putString("tokenType",tokenType);
-        Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Thành công", Toast.LENGTH_LONG).show();
         final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Thành công");
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void loginFailed(String s) {
-        Toast.makeText(getApplicationContext(), "Đăng nhập thất bại", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 
 }
