@@ -6,28 +6,28 @@ import com.example.projectdemo04.repositories.FAccountRepository;
 import com.example.projectdemo04.repositories.FAccountRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
 import com.example.projectdemo04.views.LoginView;
+import com.example.projectdemo04.views.RegisterView;
 
-public class LoginPresenter {
-    private LoginView loginView;
+public class RegisterPresenter {
+    private RegisterView registerView;
     private FAccountRepository repo;
 
-    public LoginPresenter(LoginView loginView) {
-        this.loginView = loginView;
+    public RegisterPresenter(RegisterView registerView) {
+        this.registerView = registerView;
         repo = new FAccountRepositoryImp();
     }
 
-    public void login(String username, String password) {
-        repo.login(username, password, new CallBackData<Token>() {
+    public void register(String username,String email, String password) {
+        repo.register(username,email, password, new CallBackData<Token>() {
             @Override
             public void onSuccess(Token token) {
-                loginView.loginSuccess(token);
+                registerView.registerSuccess(token);
             }
 
             @Override
             public void onFail(String message) {
-                loginView.loginFailed(message);
+                registerView.registerFailed(message);
             }
         });
     }
 }
-

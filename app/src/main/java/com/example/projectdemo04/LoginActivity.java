@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.projectdemo04.model.Account;
+import com.example.projectdemo04.model.Token;
 import com.example.projectdemo04.presenters.LoginPresenter;
 import com.example.projectdemo04.views.LoginView;
 import com.kaopiz.kprogresshud.KProgressHUD;
@@ -24,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
-    private EditText userEmail;
+    private EditText userNamel;
     private EditText userPass;
     private String baseUrl;
     private LoginPresenter mLoginPresenter;
@@ -37,23 +37,22 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        userEmail = findViewById(R.id.userEmail);
+        userNamel = findViewById(R.id.userName1);
         userPass = findViewById(R.id.userPassword);
-        baseUrl = "http://192.168.43.24:9090/api/login";
         mLoginPresenter = new LoginPresenter(this);
     }
 
     public void onClickHomePage(View view) {
-        final String email = userEmail.getText().toString().trim();
+        final String username = userNamel.getText().toString().trim();
         final String pass = userPass.getText().toString().trim();
-        if (TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(pass).matches()) {
-            Toast.makeText(this, "Email không được trống", Toast.LENGTH_LONG).show();
+        if (TextUtils.isEmpty(username) && Patterns.EMAIL_ADDRESS.matcher(pass).matches()) {
+            Toast.makeText(this, "Tài khoản không được trống", Toast.LENGTH_LONG).show();
         } else if (TextUtils.isEmpty(pass)) {
             Toast.makeText(this, "Mật khẩu không được trống", Toast.LENGTH_LONG).show();
         } else if (pass.length() < 6) {
             Toast.makeText(this, "Mật khẩu phải lớn hơn 6 ký tự", Toast.LENGTH_LONG).show();
         } else {
-            mLoginPresenter.login(email, pass);
+            mLoginPresenter.login(username, pass);
 //            ApiAuthenticationClient apiAuthenticationClient = new ApiAuthenticationClient(baseUrl, email, pass);
 //            //ApiAuthenticationClient apiAuthenticationClient = new ApiAuthenticationClient(baseUrl);
 //            AsyncTask<Void, Void, String> execute = new ExecuteNetworkOperation(apiAuthenticationClient);
@@ -73,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void loginSuccess(Account account) {
+    public void loginSuccess(Token account) {
         accessToken = account.getAccessToken();
         tokenType = account.getTokenType();
         Bundle bundle = new Bundle();

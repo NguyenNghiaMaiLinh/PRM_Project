@@ -75,7 +75,7 @@
                 android:drawableLeft="@drawable/ic_face_gray_24dp"
                 android:textSize="14sp"
                 android:drawablePadding="5dp"
-                android:id="@+id/userName"
+                android:id="@+id/userName2"
                 android:layout_marginBottom="10dp"
                 />
             <AutoCompleteTextView
@@ -88,7 +88,7 @@
                 android:drawableLeft="@drawable/email"
                 android:textSize="14sp"
                 android:drawablePadding="5dp"
-                android:id="@+id/userEmail"
+                android:id="@+id/userEmail2"
                 android:layout_marginBottom="10dp"
                 />
             <AutoCompleteTextView
@@ -101,7 +101,7 @@
                 android:drawableLeft="@drawable/password"
                 android:textSize="14sp"
                 android:drawablePadding="5dp"
-                android:id="@+id/userPassword"
+                android:id="@+id/userPassword2"
                 android:layout_marginBottom="10dp"
                 />
             <AutoCompleteTextView
@@ -114,7 +114,7 @@
                 android:drawableLeft="@drawable/confirm"
                 android:textSize="14sp"
                 android:drawablePadding="5dp"
-                android:id="@+id/userConfirm"
+                android:id="@+id/userConfirm2"
                 android:layout_marginBottom="10dp"
                 />
             <RadioButton
@@ -140,7 +140,7 @@
                 android:fontFamily="sans-serif-black"
                 android:textColor="@color/white"
                 android:textStyle="normal"
-                android:onClick="onCLickDoneInput"
+                android:onClick="onRegisterDone"
                 />
             <Button
                 android:id="@+id/btnExit"

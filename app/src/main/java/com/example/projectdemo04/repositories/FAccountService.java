@@ -12,4 +12,6 @@ public interface FAccountService {
     @POST(ConfigApi.Api.LOGIN)
     Call<ResponseBody> login(@Body RequestBody body );
 
+    @POST(ConfigApi.Api.REGISTER)
+    Call<ResponseBody> register(@Body RequestBody body );
 }
