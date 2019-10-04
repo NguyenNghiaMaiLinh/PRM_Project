@@ -84,8 +84,7 @@ public class FAccountRepositoryImp implements FAccountRepository {
                 if (response.code() == 200) {
                     try {
                         String result = response.body().string();
-                        Type type = new TypeToken<Token>() {
-                        }.getType();
+                        Type type = new TypeToken<Token>() {}.getType();
                         Token responseData = new Gson().fromJson(result, type);
 
                         if (responseData != null) {

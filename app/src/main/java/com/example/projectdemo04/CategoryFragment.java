@@ -12,6 +12,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.projectdemo04.model.Book;
 
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,12 +21,12 @@ import com.example.projectdemo04.model.Book;
 public class CategoryFragment extends Fragment {
 
     String category;
-    Book[] books;
+    List<Book> books;
     public CategoryFragment() {
         // Required empty public constructor
     }
 
-    public CategoryFragment(String category, Book[] books) {
+    public CategoryFragment(String category, List<Book> books) {
         this.category = category;
         this.books = books;
     }
@@ -37,10 +39,10 @@ public class CategoryFragment extends Fragment {
         TextView txtCategory = view.findViewById(R.id.txtCategory);
         txtCategory.setText(category);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.bookRow1, new ItemFragment(books[0]));
-        transaction.add(R.id.bookRow1, new ItemFragment(books[1]));
-        transaction.add(R.id.bookRow2, new ItemFragment(books[2]));
-        transaction.add(R.id.bookRow2, new ItemFragment(books[3]));
+        transaction.add(R.id.bookRow1, new ItemFragment(books.get(0)));
+        transaction.add(R.id.bookRow1, new ItemFragment(books.get(1)));
+        transaction.add(R.id.bookRow2, new ItemFragment(books.get(2)));
+        transaction.add(R.id.bookRow2, new ItemFragment(books.get(3)));
         transaction.commit();
         return view;
     }

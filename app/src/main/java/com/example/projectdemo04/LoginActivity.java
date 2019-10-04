@@ -72,9 +72,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void loginSuccess(Token account) {
-        accessToken = account.getAccessToken();
-        tokenType = account.getTokenType();
+    public void loginSuccess(Token token) {
+        accessToken = token.getAccessToken();
+        tokenType = token.getTokenType();
         Bundle bundle = new Bundle();
         bundle.putString("accessToken",accessToken);
         bundle.putString("tokenType",tokenType);
