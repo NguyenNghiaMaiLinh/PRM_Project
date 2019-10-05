@@ -13,17 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 
-import com.example.projectdemo04.model.Book;
+import com.example.projectdemo04.model.BookViews;
 
 import java.util.List;
 
 public class Adapter extends PagerAdapter {
 
-    private List<Book> models;
+    private List<BookViews> models;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public Adapter(List<Book> models, Context context) {
+    public Adapter(List<BookViews> models, Context context) {
         this.models = models;
         this.context = context;
     }
