@@ -1,6 +1,11 @@
 package com.example.projectdemo04.utils;
 
-public class ResponseData<T> {
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class ResponseData<T> implements Serializable {
+    @SerializedName("data")
     private T data;
 
     public T getData() {
