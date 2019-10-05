@@ -42,7 +42,7 @@ public class FBookRepositoryImp implements FBookRepository {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }
