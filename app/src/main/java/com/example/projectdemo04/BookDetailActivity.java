@@ -58,12 +58,12 @@ public class BookDetailActivity extends AppCompatActivity implements BookView {
               }
           });
         mBookPresenter = new BookPresenter(this);
-        mBookPresenter.getTruyen("Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw");
+        mBookPresenter.getTruyen(
+                "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw");
     }
 
 
     public void onClickBookDecription(View view) {
-        mBookPresenter.getTruyen("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw");
         Intent intent = new Intent(this, BookActivity.class);
         startActivity(intent);
     }
@@ -72,7 +72,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookView {
 
     @Override
     public void getSuccess(List<Book> book) {
-        Toast.makeText(getApplicationContext(), book.get(0).getProductName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), book.get(1).getProductName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

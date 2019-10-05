@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.FullScreen">
         <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".LoginActivity" />
         <activity android:name=".BookDetailActivity" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".BookActivity" />
-        <activity android:name=".HomeActivity" >
+        <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

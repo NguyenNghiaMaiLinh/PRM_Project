@@ -5,6 +5,6 @@ public class ConfigApi {
     public interface Api{
         String LOGIN ="authen/login";
         String REGISTER ="authen/signup";
-        String GETTRUYEN ="book/category/Truyen";
+        String GETTRUYEN ="book/category/";
     }
 }

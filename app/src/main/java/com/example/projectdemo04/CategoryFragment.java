@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.projectdemo04.model.Book;
+import com.example.projectdemo04.model.BookViews;
 
 import java.util.List;
 

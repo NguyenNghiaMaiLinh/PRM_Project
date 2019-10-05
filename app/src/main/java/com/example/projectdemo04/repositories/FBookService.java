@@ -14,7 +14,8 @@ import retrofit2.http.Query;
 public interface FBookService {
     @GET(ConfigApi.Api.GETTRUYEN)
     Call<ResponseBody> getTruyen(@Header("Authorization") String token);
-    Call<ResponseBody> getTruyen(@Header("Authorization") String token, @Query("name=") String value);
+
+    Call<ResponseBody> search(@Header("Authorization") String token, @Query("name=") String value);
 
 }
 
