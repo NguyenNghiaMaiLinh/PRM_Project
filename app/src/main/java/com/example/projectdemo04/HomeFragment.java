@@ -12,6 +12,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.presenters.BookPresenter;
+import com.example.projectdemo04.repositories.FBookRepositoryImp;
+import com.example.projectdemo04.utils.CallBackData;
 import com.example.projectdemo04.views.BookView;
 
 import java.util.List;
@@ -20,9 +22,9 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment implements BookView {
-
-
+public class HomeFragment extends Fragment {
+    FBookRepositoryImp repo = new FBookRepositoryImp();
+    final String TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw";
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -37,23 +39,41 @@ public class HomeFragment extends Fragment implements BookView {
         SlideFragmentAdapter adapter = new SlideFragmentAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
 
-        BookPresenter getAllBooksPresenter = new BookPresenter(this);
-        getAllBooksPresenter.getTruyen("Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw");
 
 
+        initView();
         return view;
 
     }
 
-    @Override
-    public void getSuccess(List<Book> book) {
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.containerTopSale, new CategoryFragment("Top sale",book));
-        transaction.commit();
+    private void initView() {
+        repo.getClickedBooks(TOKEN, new CallBackData<List<Book>>() {
+            @Override
+            public void onSuccess(List<Book> books) {
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.add(R.id.homeContainer, new CategoryFragment("Sản phẩm đã xem",books));
+                transaction.commit();
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
+        repo.getTopDiscount(TOKEN, new CallBackData<List<Book>>() {
+            @Override
+            public void onSuccess(List<Book> books) {
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.add(R.id.homeContainer, new CategoryFragment("Top discount",books));
+                transaction.commit();
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
     }
 
-    @Override
-    public void getFailed(String s) {
-        System.out.println("Fail " + s);
-    }
+
 }

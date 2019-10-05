@@ -4,7 +4,6 @@ import com.example.projectdemo04.model.Book;
 
 import com.example.projectdemo04.model.BookViews;
 import com.example.projectdemo04.presenters.BookPresenter;
-import com.example.projectdemo04.presenters.LoginPresenter;
 import com.example.projectdemo04.views.BookView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,7 +57,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookView {
               }
           });
         mBookPresenter = new BookPresenter(this);
-        mBookPresenter.getTruyen(
+        mBookPresenter.getTopDiscount(
                 "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw");
     }
 

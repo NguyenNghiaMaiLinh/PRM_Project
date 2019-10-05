@@ -8,7 +8,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 
 public interface FAccountService {
     @POST(ConfigApi.Api.LOGIN)
@@ -17,6 +16,5 @@ public interface FAccountService {
     @POST(ConfigApi.Api.REGISTER)
     Call<ResponseBody> register(@Body RequestBody body );
 
-    @GET(ConfigApi.Api.GETTRUYEN)
-    Call<ResponseBody> getBooksByCategory();
+
 }

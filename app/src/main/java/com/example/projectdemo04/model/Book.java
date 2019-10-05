@@ -42,6 +42,12 @@ public class Book implements Serializable {
     public Book() {
     }
 
+    public Book(String productName, double price, String imgUrl) {
+        this.productName = productName;
+        this.price = price;
+        this.imgUrl = imgUrl;
+    }
+
     public Book(String productName, int quantity, int inventory, Date updateDate, String status, String description, String author, String publishedBy, String providedBy, int rating, double price, String imgUrl, double discount, String category, boolean delete) {
         this.productName = productName;
         this.quantity = quantity;
