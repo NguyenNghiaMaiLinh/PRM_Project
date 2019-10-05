@@ -12,7 +12,7 @@
         android:id="@+id/imageBook"
         android:layout_width="150dp"
         android:layout_height="200dp"
-        android:background="@drawable/thuctinh" />
+         />
     <TextView
         android:id="@+id/txtBookTitle"
         android:layout_width="match_parent"

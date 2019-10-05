@@ -46,7 +46,7 @@ public class FBookRepositoryImp implements FBookRepository {
                         e.printStackTrace();
                     }
                 }else {
-                    data.onFail("Bạn hết quyền truy cập");
+                    data.onFail(response.toString());
                 }
             }
 
