@@ -1,15 +1,17 @@
-package com.example.projectdemo04;
+package com.example.projectdemo04.home;
 
-import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projectdemo04.R;
 import com.example.projectdemo04.model.Book;
 import com.squareup.picasso.Picasso;
 
@@ -17,20 +19,25 @@ import java.util.List;
 
 public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapter.MyViewHolder> {
     List<Book> books;
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView bookImg;
-        private TextView bookTitle,bookPrice,bookDiscount;
+        private TextView bookTitle,bookPrice,bookDiscount,bookId;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             bookImg = itemView.findViewById(R.id.imageBook);
             bookTitle = itemView.findViewById(R.id.txtBookTitle);
             bookPrice = itemView.findViewById(R.id.txtBookPrice);
+            bookId = itemView.findViewById(R.id.bookId);
         }
+
+
     }
 
     public BookRecyclerAdapter(List<Book> books) {
         this.books = books;
     }
+
 
     @NonNull
     @Override
@@ -46,7 +53,9 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
         Book book = books.get(position);
         holder.bookPrice.setText(books.get(position).getPrice()+"");
         holder.bookTitle.setText(books.get(position).getProductName()+"");
+        holder.bookId.setText(books.get(position).getId()+"");
         Picasso.get().load(book.getImgUrl()).into(holder.bookImg);
+
     }
 
     @Override

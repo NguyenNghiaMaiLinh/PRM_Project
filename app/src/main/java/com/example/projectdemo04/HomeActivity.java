@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.projectdemo04.home.HomeFragment;
+import com.example.projectdemo04.home.SlideFragmentAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -54,7 +57,10 @@ public class HomeActivity extends AppCompatActivity {
 
     }
     public void onClickBookDetails(View view){
+        TextView textView = view.findViewById(R.id.bookId);
+        long bookId = Long.parseLong(textView.getText().toString());
         Intent intent = new Intent(this, BookDetailActivity.class);
+        intent.putExtra("bookId",bookId);
         startActivity(intent);
     }
     public void onClickCart(View view){

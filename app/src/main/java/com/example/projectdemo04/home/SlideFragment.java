@@ -1,4 +1,4 @@
-package com.example.projectdemo04;
+package com.example.projectdemo04.home;
 
 
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.projectdemo04.R;
 
 
 /**

@@ -17,8 +17,8 @@ public interface FBookService {
 
     @GET(ConfigApi.Api.GET_TOP_SALES)
     Call<ResponseBody> getTopSales(@Header("Authorization") String token);
-
-    Call<ResponseBody> search(@Header("Authorization") String token, @Query("name=") String value);
+    @GET(ConfigApi.Api.SEARCH)
+    Call<ResponseBody> search(@Header("Authorization") String token, @Query("name") String value);
 
 }
 

@@ -7,6 +7,7 @@ public class ConfigApi {
         String REGISTER ="authen/signup";
         String GET_TOP_DISCOUNT ="book/discount";
         String GET_CLICKED_BOOKS = "book/clicked-books";
-        String GET_TOP_SALES = "book/top-sales";
+        String GET_TOP_SALES = "book/topsales";
+        String SEARCH = "book";
     }
 }

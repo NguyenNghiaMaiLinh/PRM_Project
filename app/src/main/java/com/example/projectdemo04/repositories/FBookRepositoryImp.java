@@ -120,4 +120,38 @@ public class FBookRepositoryImp implements FBookRepository {
             }
         });
     }
+    @Override
+    public void search(String token, String search, final CallBackData<List<Book>> data) {
+        ClientApi clientApi = new ClientApi();
+        Call<ResponseBody> call = clientApi.fBookService().search(token,search);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    try {
+                        String result = response.body().string();
+                        Type type = new TypeToken<ResponseData<List<Book>>>() {
+                        }.getType();
+                        ResponseData<List<Book>> responseData = new Gson().fromJson(result, type);
+                        List<Book> list = responseData.getData();
+                        if (responseData != null) {
+                            data.onSuccess(list);
+                        } else {
+                            data.onFail("Lỗi server");
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    data.onFail(response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
 }
