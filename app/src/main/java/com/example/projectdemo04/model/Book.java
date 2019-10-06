@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Book implements Serializable {
     @SerializedName("id")
-    private int id;
+    private long id;
     @SerializedName("productName")
     private String productName;
     @SerializedName("quantity")
@@ -29,7 +29,7 @@ public class Book implements Serializable {
     @SerializedName("rating")
     private int rating;
     @SerializedName("price")
-    private double price;
+    private int price;
     @SerializedName("imgUrl")
     private String imgUrl;
     @SerializedName("discount")
@@ -42,13 +42,13 @@ public class Book implements Serializable {
     public Book() {
     }
 
-    public Book(String productName, double price, String imgUrl) {
+    public Book(String productName, int price, String imgUrl) {
         this.productName = productName;
         this.price = price;
         this.imgUrl = imgUrl;
     }
 
-    public Book(String productName, int quantity, int inventory, Date updateDate, String status, String description, String author, String publishedBy, String providedBy, int rating, double price, String imgUrl, double discount, String category, boolean delete) {
+    public Book(String productName, int quantity, int inventory, Date updateDate, String status, String description, String author, String publishedBy, String providedBy, int rating, int price, String imgUrl, double discount, String category, boolean delete) {
         this.productName = productName;
         this.quantity = quantity;
         this.inventory = inventory;
@@ -66,11 +66,11 @@ public class Book implements Serializable {
         this.delete = delete;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -154,11 +154,11 @@ public class Book implements Serializable {
         this.rating = rating;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

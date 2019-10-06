@@ -1,4 +1,4 @@
-package com.example.projectdemo04;
+package com.example.projectdemo04.home;
 
 
 import android.os.Bundle;
@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projectdemo04.R;
 import com.example.projectdemo04.model.Book;
-import com.example.projectdemo04.model.BookViews;
 
 import java.util.List;
 

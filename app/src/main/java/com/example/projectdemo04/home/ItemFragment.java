@@ -1,4 +1,4 @@
-package com.example.projectdemo04;
+package com.example.projectdemo04.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.projectdemo04.R;
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.BookViews;
 import com.squareup.picasso.Picasso;

@@ -1,4 +1,4 @@
-package com.example.projectdemo04;
+package com.example.projectdemo04.home;
 
 import android.os.Bundle;
 
@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.example.projectdemo04.R;
 
 public class SlideFragmentAdapter extends FragmentPagerAdapter {
     int[] images = {

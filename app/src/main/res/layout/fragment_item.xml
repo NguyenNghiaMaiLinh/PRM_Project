@@ -13,6 +13,11 @@
         android:layout_height="200dp"
          />
     <TextView
+        android:id="@+id/bookId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"></TextView>
+    <TextView
         android:id="@+id/txtBookTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

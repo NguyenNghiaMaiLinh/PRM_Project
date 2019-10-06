@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".home.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.viewpager.widget.ViewPager
@@ -34,6 +34,10 @@
                 android:layout_height="200dp">
 
             </androidx.viewpager.widget.ViewPager>
+            <FrameLayout
+                android:id="@+id/search_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -56,9 +60,9 @@
         android:focusableInTouchMode="true"
         android:layout_alignParentTop="true">
 
-        <EditText
+        <AutoCompleteTextView
             android:drawableLeft="@drawable/ic_search_black_24dp"
-            android:id="@+id/editText"
+            android:id="@+id/txtSearch"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_weight="1"
