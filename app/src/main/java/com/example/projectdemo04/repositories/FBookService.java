@@ -20,5 +20,18 @@ public interface FBookService {
     @GET(ConfigApi.Api.SEARCH)
     Call<ResponseBody> search(@Header("Authorization") String token, @Query("name") String value);
 
+    @GET(ConfigApi.Api.GET_TRUYEN_TRANH)
+    Call<ResponseBody> getTruyenTranh(@Header("Authorization") String token);
+
+    @GET(ConfigApi.Api.GET_TIEU_THUYET)
+    Call<ResponseBody> getTieuThuyet(@Header("Authorization") String token);
+
+    @GET(ConfigApi.Api.GET_VAN_HOC)
+    Call<ResponseBody> getVanHoc(@Header("Authorization") String token);
+
+    @GET(ConfigApi.Api.GET_XA_HOI)
+    Call<ResponseBody> getXaHoi(@Header("Authorization") String token);
+
+
 }
 
