@@ -154,7 +154,7 @@ public class Book implements Serializable {
         this.rating = rating;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 

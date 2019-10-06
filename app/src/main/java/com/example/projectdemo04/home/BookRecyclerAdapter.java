@@ -51,11 +51,16 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Book book = books.get(position);
-        holder.bookPrice.setText(books.get(position).getPrice()+"");
+        holder.bookPrice.setText(convertPriceToFormatString(book.getPrice()));
         holder.bookTitle.setText(books.get(position).getProductName()+"");
         holder.bookId.setText(books.get(position).getId()+"");
         Picasso.get().load(book.getImgUrl()).into(holder.bookImg);
 
+    }
+    private String convertPriceToFormatString(int price){
+        String raw = price +"";
+        String result = raw.substring(0,raw.length()-3)+ "." + raw.substring(raw.length()-3, raw.length()) + "đ";
+        return result;
     }
 
     @Override

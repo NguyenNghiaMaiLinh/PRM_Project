@@ -1,7 +1,9 @@
 package com.example.projectdemo04.home;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.projectdemo04.BookDetailActivity;
 import com.example.projectdemo04.R;
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.repositories.FBookRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,8 +59,32 @@ public class HomeFragment extends Fragment {
         txtSearch.setAdapter(searchAdapter);
         setDataSetForSearchField();
         initView();
+        txtSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER){
+                    searchEnter(txtSearch.getText().toString());
+                }
+                return false;
+            }
+        });
         return view;
 
+    }
+    private void searchEnter(String search){
+        repo.search(TOKEN, search, new CallBackData<List<Book>>() {
+            @Override
+            public void onSuccess(List<Book> books) {
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.replace(R.id.search_result, new CategoryFragment("Kết quả",books));
+                transaction.commit();
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
     }
 
     private void setDataSetForSearchField() {
@@ -75,6 +103,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
     }
 
     private void initView() {
