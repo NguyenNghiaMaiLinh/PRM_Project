@@ -9,5 +9,9 @@ public class ConfigApi {
         String GET_CLICKED_BOOKS = "book/clicked-books";
         String GET_TOP_SALES = "book/topsales";
         String SEARCH = "book";
+        String GET_TRUYEN_TRANH = "book/category/Truyen";
+        String GET_TIEU_THUYET = "book/category/Tieu thuyet";
+        String GET_VAN_HOC = "book/category/Van hoc";
+        String GET_XA_HOI = "book/category/Xa hoi";
     }
 }
