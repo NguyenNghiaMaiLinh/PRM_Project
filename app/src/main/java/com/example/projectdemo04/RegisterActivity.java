@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         String username = userName.getText().toString().trim();
 
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        if (TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(pass).matches()) {
+        if (TextUtils.isEmpty(email) ) {
             Toast.makeText(this, "Email không được trống", Toast.LENGTH_LONG).show();
         } else if (TextUtils.isEmpty(pass)) {
             Toast.makeText(this, "Mật khẩu không được để trống", Toast.LENGTH_LONG).show();
