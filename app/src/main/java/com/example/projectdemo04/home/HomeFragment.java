@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
     ArrayAdapter<String> searchAdapter;
 
     FBookRepositoryImp repo = new FBookRepositoryImp();
+
     final String TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw";
     public HomeFragment() {
         // Required empty public constructor

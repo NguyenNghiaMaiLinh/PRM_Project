@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class BookViews{
+public class BookViews {
 
     String title;
-    int imageID;
+    String imageID;
     long price;
 
-    public BookViews(String title, int imageID, long price) {
+    public BookViews(String title, String imageID, long price) {
         this.title = title;
         this.imageID = imageID;
         this.price = price;
@@ -24,11 +24,11 @@ public class BookViews{
         this.title = title;
     }
 
-    public int getImageID() {
+    public String getImageID() {
         return imageID;
     }
 
-    public void setImageID(int imageID) {
+    public void setImageID(String imageID) {
         this.imageID = imageID;
     }
 

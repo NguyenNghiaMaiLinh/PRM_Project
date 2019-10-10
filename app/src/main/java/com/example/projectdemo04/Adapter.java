@@ -14,6 +14,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 
 import com.example.projectdemo04.model.BookViews;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -48,9 +49,9 @@ public class Adapter extends PagerAdapter {
         imageView = view.findViewById(R.id.image);
         title = view.findViewById(R.id.title);
         desc = view.findViewById(R.id.desc);
-        imageView.setImageResource(models.get(position).getImageID());
+        Picasso.get().load(models.get(position).getImageID()).into(imageView);
         title.setText(models.get(position).getTitle());
-        desc.setText(String.valueOf(models.get(position).getPrice()+ " đ"));
+        desc.setText(String.valueOf(models.get(position).getPrice() + " đ"));
 
         container.addView(view, 0);
         return view;

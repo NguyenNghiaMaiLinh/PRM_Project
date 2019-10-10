@@ -39,7 +39,7 @@ public class FBookRepositoryImp implements FBookRepository {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
                     data.onFail(response.toString());
                 }
             }
@@ -51,8 +51,9 @@ public class FBookRepositoryImp implements FBookRepository {
         });
     }
 
+
     @Override
-    public void getClickedBooks(String token,final CallBackData<List<Book>> data) {
+    public void getClickedBooks(String token, final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getClickedBooks(token);
         call.enqueue(new Callback<ResponseBody>() {
@@ -74,7 +75,7 @@ public class FBookRepositoryImp implements FBookRepository {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
                     data.onFail(response.toString());
                 }
             }
@@ -87,7 +88,7 @@ public class FBookRepositoryImp implements FBookRepository {
     }
 
     @Override
-    public void getTopSales(String token,final CallBackData<List<Book>> data) {
+    public void getTopSales(String token, final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getTopSales(token);
         call.enqueue(new Callback<ResponseBody>() {
@@ -109,7 +110,7 @@ public class FBookRepositoryImp implements FBookRepository {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
                     data.onFail(response.toString());
                 }
             }
@@ -120,10 +121,11 @@ public class FBookRepositoryImp implements FBookRepository {
             }
         });
     }
+
     @Override
     public void search(String token, String search, final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
-        Call<ResponseBody> call = clientApi.fBookService().search(token,search);
+        Call<ResponseBody> call = clientApi.fBookService().search(token, search);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -143,7 +145,7 @@ public class FBookRepositoryImp implements FBookRepository {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
                     data.onFail(response.toString());
                 }
             }
@@ -178,7 +180,42 @@ public class FBookRepositoryImp implements FBookRepository {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
+                    data.onFail(response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void getBookById(String token, long id, final CallBackData<Book> data) {
+        ClientApi clientApi = new ClientApi();
+        Call<ResponseBody> call = clientApi.fBookService().getBookById(token, id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    try {
+                        String result = response.body().string();
+                        Type type = new TypeToken<ResponseData<Book>>() {
+                        }.getType();
+                        ResponseData<Book> responseData = new Gson().fromJson(result, type);
+                        Book book = responseData.getData();
+                        if (responseData != null) {
+                            data.onSuccess(book);
+                        } else {
+                            data.onFail("Lỗi server");
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
                     data.onFail(response.toString());
                 }
             }
@@ -212,7 +249,7 @@ public class FBookRepositoryImp implements FBookRepository {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
                     data.onFail(response.toString());
                 }
             }
@@ -246,7 +283,7 @@ public class FBookRepositoryImp implements FBookRepository {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
                     data.onFail(response.toString());
                 }
             }
@@ -280,7 +317,7 @@ public class FBookRepositoryImp implements FBookRepository {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
                     data.onFail(response.toString());
                 }
             }

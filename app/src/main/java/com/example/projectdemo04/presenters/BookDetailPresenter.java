@@ -1,27 +1,30 @@
 package com.example.projectdemo04.presenters;
 
 import com.example.projectdemo04.model.Book;
-import com.example.projectdemo04.repositories.FBookRepositoryImp;
-import com.example.projectdemo04.views.BookView;
 import com.example.projectdemo04.repositories.FBookRepository;
+import com.example.projectdemo04.repositories.FBookRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
+import com.example.projectdemo04.views.BookDetailView;
+import com.example.projectdemo04.views.BookView;
 
 import java.util.List;
 
-public class BookPresenter {
-    private BookView bookView;
+public class BookDetailPresenter {
+    private BookDetailView bookView;
     private FBookRepository repo;
 
-    public BookPresenter(BookView bookView) {
+
+    public BookDetailPresenter(BookDetailView bookView) {
         this.bookView = bookView;
         repo = new FBookRepositoryImp() {
         };
     }
 
-    public void getTopDiscount(String token) {
-        repo.getTopDiscount(token, new CallBackData<List<Book>>() {
+    public void getBookById(String token, long id) {
+        repo.getBookById(token, id, new CallBackData<Book>() {
+
             @Override
-            public void onSuccess(List<Book> book) {
+            public void onSuccess(Book book) {
                 bookView.getSuccess(book);
             }
 
@@ -31,6 +34,4 @@ public class BookPresenter {
             }
         });
     }
-
-
 }

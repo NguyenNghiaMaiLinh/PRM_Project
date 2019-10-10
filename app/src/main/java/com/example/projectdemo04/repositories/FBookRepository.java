@@ -13,5 +13,6 @@ public interface FBookRepository {
     void getTopSales(String token, CallBackData<List<Book>> data);
     void search(String token, String name, CallBackData<List<Book>> data);
     void getTruyenTranh(String token, CallBackData<List<Book>> data);
+    void getBookById(String token,long id, CallBackData<Book> data);
 
 }
