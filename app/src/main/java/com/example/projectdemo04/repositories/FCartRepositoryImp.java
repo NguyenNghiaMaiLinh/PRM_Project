@@ -134,7 +134,7 @@ public class FCartRepositoryImp implements FCartRepository {
                     try {
                         String result = response.body().string();
                         if (result == null) {
-                            data.onSuccess("Thành công");
+                            data.onSuccess("Thanh toán Thành công");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

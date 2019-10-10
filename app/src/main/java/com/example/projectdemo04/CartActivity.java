@@ -3,6 +3,8 @@ package com.example.projectdemo04;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.projectdemo04.model.Book;
@@ -21,29 +23,51 @@ import com.example.projectdemo04.views.CartView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartActivity extends AppCompatActivity implements CartBookView , BillView {
+public class CartActivity extends AppCompatActivity implements CartBookView, BillView {
     private CartBookPresenter cartBookPresenter;
     private BillPresenter billPresenter;
+    Button button;
     String token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
+button = findViewById(R.id.btnPayment);
         CartFragment cartFragment = new CartFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.container, cartFragment).commit();
-
+        billPresenter = new BillPresenter(this);
         cartBookPresenter = new CartBookPresenter(this);
+
+
         cartBookPresenter.getAllInCart(token);
         List<Order> list = new ArrayList<>();
-        Order item = new Order(1,1);
-        Order item1 = new Order(2,1);
+        Order item = new Order(1, 3);
+        Order item1 = new Order(1, 4);
         list.add(item);
         list.add(item1);
         BookOrders bookOrders = new BookOrders(list);
-        billPresenter = new BillPresenter(this);
-        billPresenter.payment(token,list);
+
+        billPresenter.payment(token, list);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartBookPresenter.getAllInCart(token);
+                List<Order> list = new ArrayList<>();
+                Order item = new Order(1, 1);
+                Order item1 = new Order(2, 1);
+                list.add(item);
+                list.add(item1);
+                BookOrders bookOrders = new BookOrders(list);
+
+                billPresenter.payment(token, list);
+            }
+        });
+    }
+
+    private void onPayment1(View view) {
+
     }
 
     @Override
