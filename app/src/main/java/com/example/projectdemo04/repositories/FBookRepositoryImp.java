@@ -1,5 +1,7 @@
 package com.example.projectdemo04.repositories;
 
+import android.content.Context;
+
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.utils.CallBackData;
 import com.example.projectdemo04.utils.ClientApi;
@@ -16,8 +18,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FBookRepositoryImp implements FBookRepository {
+    static String token;
+    public FBookRepositoryImp(Context context) {
+        token = context.getSharedPreferences("autheninfo", 0).getString("token","");
+
+    }
+
+    public FBookRepositoryImp() {
+    }
+
     @Override
-    public void getTopDiscount(String token, final CallBackData<List<Book>> data) {
+    public void getTopDiscount( final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getTopDiscount(token);
         call.enqueue(new Callback<ResponseBody>() {

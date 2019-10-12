@@ -1,5 +1,7 @@
 package com.example.projectdemo04.repositories;
 
+import android.content.Context;
+
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.Cart;
 import com.example.projectdemo04.model.CartBook;
@@ -26,8 +28,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FCartRepositoryImp implements FCartRepository {
+    static String token;
+    public FCartRepositoryImp() {
+
+    }
+    public FCartRepositoryImp(Context context) {
+        token = context.getSharedPreferences("autheninfo", 0).getString("token","");
+
+    }
+
     @Override
-    public void addToCart(String token, long id, int quantity, final CallBackData<Cart> data) {
+    public void addToCart(long id, int quantity, final CallBackData<Cart> data) {
         ClientApi clientApi = new ClientApi();
         JSONObject jsonObject = new JSONObject();
         try {
