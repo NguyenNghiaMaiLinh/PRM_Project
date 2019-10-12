@@ -76,7 +76,7 @@
                 android:drawableLeft="@drawable/ic_face_gray_24dp"
                 android:textSize="14sp"
                 android:drawablePadding="5dp"
-                android:id="@+id/userName1"
+                android:id="@+id/userName123"
                 android:layout_marginBottom="10dp"
                 />
             <AutoCompleteTextView
@@ -89,7 +89,7 @@
                 android:drawableLeft="@drawable/password"
                 android:textSize="14sp"
                 android:drawablePadding="5dp"
-                android:id="@+id/userPassword"
+                android:id="@+id/userPassword123"
                 android:layout_marginBottom="10dp"
                 />
 

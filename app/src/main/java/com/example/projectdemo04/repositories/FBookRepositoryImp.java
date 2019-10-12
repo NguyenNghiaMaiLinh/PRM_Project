@@ -205,6 +205,7 @@ public class FBookRepositoryImp implements FBookRepository {
 
     @Override
     public void getBookById(String token, long id, final CallBackData<Book> data) {
+
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getBookById(token, id);
         call.enqueue(new Callback<ResponseBody>() {
