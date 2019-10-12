@@ -19,7 +19,7 @@ public class BookPresenter {
     }
 
     public void getTopDiscount(String token) {
-        repo.getTopDiscount(token, new CallBackData<List<Book>>() {
+        repo.getTopDiscount( new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> book) {
                 bookView.getSuccess(book);

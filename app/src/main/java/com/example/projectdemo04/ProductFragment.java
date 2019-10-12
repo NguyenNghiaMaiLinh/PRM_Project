@@ -22,9 +22,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ProductFragment extends Fragment {
-    FBookRepositoryImp repo = new FBookRepositoryImp();
-
-    final String TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw";
+    FBookRepositoryImp repo ;
 
 
     public ProductFragment() {
@@ -37,12 +35,13 @@ public class ProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        repo = new FBookRepositoryImp(getContext());
         initView();
         return view;
     }
 
     private void initView() {
-        repo.getTruyenTranh(TOKEN, new CallBackData<List<Book>>() {
+        repo.getTruyenTranh( new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -56,7 +55,7 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        repo.getTieuThuyet(TOKEN, new CallBackData<List<Book>>() {
+        repo.getTieuThuyet( new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -70,7 +69,7 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        repo.getVanHoc(TOKEN, new CallBackData<List<Book>>() {
+        repo.getVanHoc( new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -84,7 +83,7 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        repo.getXaHoi(TOKEN, new CallBackData<List<Book>>() {
+        repo.getXaHoi( new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

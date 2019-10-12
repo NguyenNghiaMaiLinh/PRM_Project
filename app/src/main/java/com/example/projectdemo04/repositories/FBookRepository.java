@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface FBookRepository {
 
-    void getTopDiscount(String token, CallBackData<List<Book>> data);
-    void getClickedBooks(String token, CallBackData<List<Book>> data);
-    void getTopSales(String token, CallBackData<List<Book>> data);
-    void search(String token, String name, CallBackData<List<Book>> data);
-    void getTruyenTranh(String token, CallBackData<List<Book>> data);
-    void getBookById(String token,long id, CallBackData<Book> data);
+    void getTopDiscount( CallBackData<List<Book>> data);
+    void getClickedBooks( CallBackData<List<Book>> data);
+    void getTopSales( CallBackData<List<Book>> data);
+    void search( String name, CallBackData<List<Book>> data);
+    void getTruyenTranh( CallBackData<List<Book>> data);
+    void getBookById(long id, CallBackData<Book> data);
 
 }

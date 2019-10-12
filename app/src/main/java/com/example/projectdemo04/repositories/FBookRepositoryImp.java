@@ -20,7 +20,7 @@ import retrofit2.Response;
 public class FBookRepositoryImp implements FBookRepository {
     static String token;
     public FBookRepositoryImp(Context context) {
-        token = context.getSharedPreferences("autheninfo", 0).getString("token","");
+        token = context.getSharedPreferences("MySharedPref", 0).getString("ACCESSTOKEN",null);
 
     }
 
@@ -28,7 +28,7 @@ public class FBookRepositoryImp implements FBookRepository {
     }
 
     @Override
-    public void getTopDiscount(String token, final CallBackData<List<Book>> data) {
+    public void getTopDiscount( final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getTopDiscount(token);
         call.enqueue(new Callback<ResponseBody>() {
@@ -64,7 +64,7 @@ public class FBookRepositoryImp implements FBookRepository {
 
 
     @Override
-    public void getClickedBooks(String token, final CallBackData<List<Book>> data) {
+    public void getClickedBooks( final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getClickedBooks(token);
         call.enqueue(new Callback<ResponseBody>() {
@@ -99,7 +99,7 @@ public class FBookRepositoryImp implements FBookRepository {
     }
 
     @Override
-    public void getTopSales(String token, final CallBackData<List<Book>> data) {
+    public void getTopSales( final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getTopSales(token);
         call.enqueue(new Callback<ResponseBody>() {
@@ -134,7 +134,7 @@ public class FBookRepositoryImp implements FBookRepository {
     }
 
     @Override
-    public void search(String token, String search, final CallBackData<List<Book>> data) {
+    public void search( String search, final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().search(token, search);
         call.enqueue(new Callback<ResponseBody>() {
@@ -169,7 +169,7 @@ public class FBookRepositoryImp implements FBookRepository {
     }
 
     @Override
-    public void getTruyenTranh(String token, final CallBackData<List<Book>> data) {
+    public void getTruyenTranh( final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getTruyenTranh(token);
         call.enqueue(new Callback<ResponseBody>() {
@@ -204,7 +204,7 @@ public class FBookRepositoryImp implements FBookRepository {
     }
 
     @Override
-    public void getBookById(String token, long id, final CallBackData<Book> data) {
+    public void getBookById( long id, final CallBackData<Book> data) {
 
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getBookById(token, id);
@@ -239,7 +239,7 @@ public class FBookRepositoryImp implements FBookRepository {
         });
     }
 
-    public void getTieuThuyet(String token, final CallBackData<List<Book>> data) {
+    public void getTieuThuyet( final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getTieuThuyet(token);
         call.enqueue(new Callback<ResponseBody>() {
@@ -273,7 +273,7 @@ public class FBookRepositoryImp implements FBookRepository {
         });
     }
 
-    public void getVanHoc(String token, final CallBackData<List<Book>> data) {
+    public void getVanHoc( final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getXaHoi(token);
         call.enqueue(new Callback<ResponseBody>() {
@@ -307,7 +307,7 @@ public class FBookRepositoryImp implements FBookRepository {
         });
     }
 
-    public void getXaHoi(String token, final CallBackData<List<Book>> data) {
+    public void getXaHoi( final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getXaHoi(token);
         call.enqueue(new Callback<ResponseBody>() {

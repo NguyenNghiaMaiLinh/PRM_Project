@@ -60,6 +60,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         preferences = new Preferences();
+        String check = preferences.getAccessToken(this);
+        if (check != null) {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+        }
         userName = (AutoCompleteTextView) findViewById(R.id.userName123);
         userPass = (AutoCompleteTextView) findViewById(R.id.userPassword123);
         mLoginPresenter = new LoginPresenter(this);
@@ -125,17 +130,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             public void onError(FacebookException exception) {
             }
         });
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-        if (isLoggedIn) {
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-        }
-    }
 
+    }
 
 
     public void onClickHomePage(View view) {
@@ -171,7 +167,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         bundle.putString("accessToken", accessToken);
         bundle.putString("tokenType", tokenType);
 //        preferences.removeAccessToken(this);
-        preferences.setAccessToken(this, tokenType+ " " + accessToken );
+        preferences.setAccessToken(this, tokenType + " " + accessToken);
         Toast.makeText(getApplicationContext(), "Thành công", Toast.LENGTH_LONG).show();
         final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Thành công");
         new Handler().postDelayed(new Runnable() {

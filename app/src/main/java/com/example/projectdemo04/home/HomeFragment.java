@@ -1,8 +1,6 @@
 package com.example.projectdemo04.home;
 
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,13 +13,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.projectdemo04.BookDetailActivity;
 import com.example.projectdemo04.R;
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.repositories.FBookRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +30,8 @@ public class HomeFragment extends Fragment {
     List<String> listOfBookName = new ArrayList<>();
     ArrayAdapter<String> searchAdapter;
 
-    FBookRepositoryImp repo = new FBookRepositoryImp();
+    FBookRepositoryImp repo;
 
-    final String TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw";
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -48,7 +43,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-
+        repo = new FBookRepositoryImp(getActivity());
 
         //mapping slideshow and set it's adapter
         ViewPager viewPager = view.findViewById(R.id.viewPagerHome);
@@ -74,7 +69,7 @@ public class HomeFragment extends Fragment {
 
     }
     private void searchEnter(String search){
-        repo.search(TOKEN, search, new CallBackData<List<Book>>() {
+        repo.search( search, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -90,7 +85,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setDataSetForSearchField() {
-        repo.search(TOKEN, "", new CallBackData<List<Book>>() {
+        repo.search( "", new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 for(Book book: books){
@@ -109,7 +104,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initView() {
-        repo.getTopSales(TOKEN, new CallBackData<List<Book>>() {
+        repo.getTopSales( new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -122,7 +117,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        repo.getTopDiscount(TOKEN, new CallBackData<List<Book>>() {
+        repo.getTopDiscount( new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -135,7 +130,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        repo.getClickedBooks(TOKEN, new CallBackData<List<Book>>() {
+        repo.getClickedBooks( new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

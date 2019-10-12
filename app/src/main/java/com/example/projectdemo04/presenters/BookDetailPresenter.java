@@ -21,7 +21,7 @@ public class BookDetailPresenter {
     }
 
     public void getBookById(String token, long id) {
-        repo.getBookById(token, id, new CallBackData<Book>() {
+        repo.getBookById( id, new CallBackData<Book>() {
 
             @Override
             public void onSuccess(Book book) {
