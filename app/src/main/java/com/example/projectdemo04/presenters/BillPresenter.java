@@ -1,5 +1,7 @@
 package com.example.projectdemo04.presenters;
 
+import android.content.Context;
+
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.BookOrders;
 import com.example.projectdemo04.model.Order;
@@ -16,16 +18,19 @@ import java.util.List;
 public class BillPresenter {
     private BillView billView;
     private FCartRepository repo;
+    Context context;
+    String token;
 
 
-    public BillPresenter(BillView billView) {
+    public BillPresenter(BillView billView, Context context) {
         this.billView = billView;
-        repo = new FCartRepositoryImp() {
+        this.context = context;
+        repo = new FCartRepositoryImp(context) {
         };
     }
 
-    public void payment(String token, List<Order> list) {
-        repo.payment(token, list, new CallBackData<String>() {
+    public void payment(List<Order> list) {
+        repo.payment(list, new CallBackData<String>() {
 
             @Override
             public void onSuccess(String book) {

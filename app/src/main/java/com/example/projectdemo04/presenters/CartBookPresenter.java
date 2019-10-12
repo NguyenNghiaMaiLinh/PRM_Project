@@ -20,8 +20,8 @@ public class CartBookPresenter {
         };
     }
 
-    public void getAllInCart(String token) {
-        repo.getAllInCart(token, new CallBackData<List<CartBook>>() {
+    public void getAllInCart() {
+        repo.getAllInCart( new CallBackData<List<CartBook>>() {
 
             @Override
             public void onSuccess(List<CartBook> cartBooks) {

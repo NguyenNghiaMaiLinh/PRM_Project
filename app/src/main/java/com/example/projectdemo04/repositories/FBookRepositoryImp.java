@@ -275,7 +275,7 @@ public class FBookRepositoryImp implements FBookRepository {
 
     public void getVanHoc( final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
-        Call<ResponseBody> call = clientApi.fBookService().getXaHoi(token);
+        Call<ResponseBody> call = clientApi.fBookService().getVanHoc(token);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

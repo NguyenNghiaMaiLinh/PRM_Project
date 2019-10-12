@@ -27,7 +27,6 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     private CartBookPresenter cartBookPresenter;
     private BillPresenter billPresenter;
     Button button;
-    String token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +35,11 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
 button = findViewById(R.id.btnPayment);
         CartFragment cartFragment = new CartFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.container, cartFragment).commit();
-        billPresenter = new BillPresenter(this);
+        billPresenter = new BillPresenter(this, this);
         cartBookPresenter = new CartBookPresenter(this);
 
 
-        cartBookPresenter.getAllInCart(token);
+        cartBookPresenter.getAllInCart();
         List<Order> list = new ArrayList<>();
         Order item = new Order(1, 3);
         Order item1 = new Order(1, 4);
@@ -48,12 +47,12 @@ button = findViewById(R.id.btnPayment);
         list.add(item1);
         BookOrders bookOrders = new BookOrders(list);
 
-        billPresenter.payment(token, list);
+        billPresenter.payment( list);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartBookPresenter.getAllInCart(token);
+                cartBookPresenter.getAllInCart();
                 List<Order> list = new ArrayList<>();
                 Order item = new Order(1, 1);
                 Order item1 = new Order(2, 1);
@@ -61,7 +60,7 @@ button = findViewById(R.id.btnPayment);
                 list.add(item1);
                 BookOrders bookOrders = new BookOrders(list);
 
-                billPresenter.payment(token, list);
+                billPresenter.payment( list);
             }
         });
     }

@@ -38,7 +38,7 @@ public class FCartRepositoryImp implements FCartRepository {
     }
 
     @Override
-    public void addToCart(String token, long id, int quantity, final CallBackData<Cart> data) {
+    public void addToCart(long id, int quantity, final CallBackData<Cart> data) {
         ClientApi clientApi = new ClientApi();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -81,7 +81,7 @@ public class FCartRepositoryImp implements FCartRepository {
     }
 
     @Override
-    public void getAllInCart(String token, final CallBackData<List<CartBook>> data) {
+    public void getAllInCart( final CallBackData<List<CartBook>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fCartService().getAllInCart(token);
         call.enqueue(new Callback<ResponseBody>() {
@@ -116,7 +116,7 @@ public class FCartRepositoryImp implements FCartRepository {
     }
 
     @Override
-    public void payment(String token, List<Order> list, final CallBackData<String> data) {
+    public void payment( List<Order> list, final CallBackData<String> data) {
 
         ClientApi clientApi = new ClientApi();
         JSONArray jsonArray = new JSONArray();

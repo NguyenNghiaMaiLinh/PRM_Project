@@ -20,7 +20,7 @@ public class BookDetailPresenter {
         };
     }
 
-    public void getBookById(String token, long id) {
+    public void getBookById( long id) {
         repo.getBookById( id, new CallBackData<Book>() {
 
             @Override

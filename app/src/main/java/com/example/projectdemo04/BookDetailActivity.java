@@ -57,8 +57,6 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
 
         preferences = new Preferences();
         token = preferences.getAccessToken(this);
-        Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
-
         viewPager = findViewById(R.id.viewPager011);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar01);
@@ -87,33 +85,20 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
         bookId = (long) intent.getLongExtra("bookId", 1);
         mBookPresenter = new BookPresenter(this);
         bookDetailPresenter = new BookDetailPresenter(this);
-        if (!token.isEmpty()) {
-            mBookPresenter.getTopDiscount(token);
-            bookDetailPresenter.getBookById(token, bookId);
-        } else {
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-        }
+
+        mBookPresenter.getTopDiscount();
+        bookDetailPresenter.getBookById(bookId);
 
 
-        mCartPresenter = new CartPresenter(this);
+        mCartPresenter = new CartPresenter(this, this);
 
     }
 
-    public void onClickBookDecription(View view) {
+    public void onClickBookDescription(View view) {
         Intent intent = new Intent(this, BookActivity.class);
         startActivity(intent);
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RESULT_OK) {
-            long bookId = Long.parseLong(data.getStringExtra("bookId"));
-            Toast.makeText(getApplicationContext(), bookId + "", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     @Override
     public void getSuccess(List<Book> book) {
@@ -128,26 +113,19 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
     }
 
     public void onAddToCart(View view) {
-        if (!token.isEmpty()) {
-            mCartPresenter.portAddToCart(token, bookId, 1);
-            Intent intent = new Intent(getApplicationContext(), CartActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-        }
+        mCartPresenter.portAddToCart(bookId, 1);
 
     }
 
     @Override
     public void getSuccess(Cart cart) {
-        Toast.makeText(getApplicationContext(), cart.getBook_id(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void getSuccess(Book book) {
         productName1.setText(book.getProductName());
-        price1.setText(String.valueOf(book.getPrice()));
+        price1.setText(String.valueOf(book.getPrice())+" đ");
         author1.setText(book.getAuthor());
         providedBy1.setText(book.getProvidedBy());
         publishedBy1.setText(book.getPublishedBy());

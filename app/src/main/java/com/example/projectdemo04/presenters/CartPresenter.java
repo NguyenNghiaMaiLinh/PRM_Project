@@ -1,5 +1,7 @@
 package com.example.projectdemo04.presenters;
 
+import android.content.Context;
+
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.Cart;
 import com.example.projectdemo04.repositories.FBookRepository;
@@ -16,14 +18,14 @@ public class CartPresenter {
     private CartView cartView;
     private FCartRepository repo;
 
-    public CartPresenter(CartView cartView) {
+    public CartPresenter(CartView cartView, Context context) {
         this.cartView = cartView;
-        repo = new FCartRepositoryImp() {
+        repo = new FCartRepositoryImp(context) {
         };
     }
 
-    public void portAddToCart(String token, long id, int quantity) {
-        repo.addToCart(token,id, quantity, new CallBackData<Cart>() {
+    public void portAddToCart( long id, int quantity) {
+        repo.addToCart(id, quantity, new CallBackData<Cart>() {
 
             @Override
             public void onSuccess(Cart cart) {

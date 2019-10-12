@@ -14,20 +14,17 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.projectdemo04.home.HomeFragment;
+import com.example.projectdemo04.home.ProductFragment;
 import com.example.projectdemo04.home.SlideFragmentAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
     ViewPager viewPager;
     SlideFragmentAdapter adapter;
-    private Preferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        preferences = new Preferences();
-        String token = preferences.getAccessToken(this);
-            Toast.makeText(this,token, Toast.LENGTH_SHORT).show();
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment fragment = new HomeFragment();
