@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,20 +20,25 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
     ViewPager viewPager;
     SlideFragmentAdapter adapter;
+    private Preferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        preferences = new Preferences();
+        String token = preferences.getAccessToken(this);
+            Toast.makeText(this,token, Toast.LENGTH_SHORT).show();
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment fragment = new HomeFragment();
-        transaction.replace(R.id.main_container,fragment);
+        transaction.replace(R.id.main_container, fragment);
         transaction.commit();
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 Fragment fragment = new HomeFragment();
+
                 switch (menuItem.getItemId()) {
                     case R.id.nav_home:
                         fragment = new HomeFragment();
@@ -56,14 +62,17 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
-    public void onClickBookDetails(View view){
+
+
+    public void onClickBookDetails(View view) {
         TextView textView = view.findViewById(R.id.bookId);
         long bookId = Long.parseLong(textView.getText().toString());
         Intent intent = new Intent(this, BookDetailActivity.class);
-        intent.putExtra("bookId",bookId);
+        intent.putExtra("bookId", bookId);
         startActivity(intent);
     }
-    public void onClickCart(View view){
+
+    public void onClickCart(View view) {
         Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
     }

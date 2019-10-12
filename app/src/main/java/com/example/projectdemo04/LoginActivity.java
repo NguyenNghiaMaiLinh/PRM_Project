@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,14 +41,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
-    private EditText userNamel;
-    private EditText userPass;
+    private AutoCompleteTextView userName;
+    private AutoCompleteTextView userPass;
+    private String username;
+    private String pass;
     private String baseUrl;
     private LoginPresenter mLoginPresenter;
     private static int REGISTER_ACTIVITY = 1;
     private String accessToken;
     private String tokenType;
-
+    private Preferences preferences;
     private CallbackManager callbackManager;
     private LoginButton loginButton;
 
@@ -55,14 +58,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        savedInstanceState.putString("token","Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw");
-        userNamel = findViewById(R.id.userName1);
-        userPass = findViewById(R.id.userPassword);
+        setContentView(R.layout.activity_login);
+        preferences = new Preferences();
+        userName = (AutoCompleteTextView) findViewById(R.id.userName123);
+        userPass = (AutoCompleteTextView) findViewById(R.id.userPassword123);
         mLoginPresenter = new LoginPresenter(this);
-
         FacebookSdk.sdkInitialize(getApplicationContext());
 //        AppEventsLogger.activateApp(this);
-        setContentView(R.layout.activity_login);
+
 
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -127,14 +130,18 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         if (isLoggedIn) {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
+        } else {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
         }
     }
 
 
+
     public void onClickHomePage(View view) {
-        final String username = userNamel.getText().toString().trim();
-        final String pass = userPass.getText().toString().trim();
-        if (TextUtils.isEmpty(username) && Patterns.EMAIL_ADDRESS.matcher(pass).matches()) {
+        username = userName.getText().toString().trim();
+        pass = userPass.getText().toString().trim();
+        if (TextUtils.isEmpty(username)) {
             Toast.makeText(this, "Tài khoản không được trống", Toast.LENGTH_LONG).show();
         } else if (TextUtils.isEmpty(pass)) {
             Toast.makeText(this, "Mật khẩu không được trống", Toast.LENGTH_LONG).show();
@@ -142,10 +149,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             Toast.makeText(this, "Mật khẩu phải lớn hơn 6 ký tự", Toast.LENGTH_LONG).show();
         } else {
             mLoginPresenter.login(username, pass);
-//            ApiAuthenticationClient apiAuthenticationClient = new ApiAuthenticationClient(baseUrl, email, pass);
-//            //ApiAuthenticationClient apiAuthenticationClient = new ApiAuthenticationClient(baseUrl);
-//            AsyncTask<Void, Void, String> execute = new ExecuteNetworkOperation(apiAuthenticationClient);
-//            execute.execute();
 
         }
     }
@@ -167,6 +170,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         Bundle bundle = new Bundle();
         bundle.putString("accessToken", accessToken);
         bundle.putString("tokenType", tokenType);
+//        preferences.removeAccessToken(this);
+        preferences.setAccessToken(this, tokenType+ " " + accessToken );
         Toast.makeText(getApplicationContext(), "Thành công", Toast.LENGTH_LONG).show();
         final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Thành công");
         new Handler().postDelayed(new Runnable() {

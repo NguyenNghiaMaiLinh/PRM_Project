@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.felipecsl:gifimageview:2.1.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f8f4037693511611c83865619fd15bbf/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f8f4037693511611c83865619fd15bbf/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eaccf4f95c53f204dce6115cdf42d470/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eaccf4f95c53f204dce6115cdf42d470/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

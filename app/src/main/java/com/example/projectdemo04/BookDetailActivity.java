@@ -37,7 +37,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
     Adapter adapter;
     long bookId;
     List<BookViews> model;
-    String token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw";
+
 
     TextView productName1;
     TextView price1;
@@ -47,23 +47,18 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
     TextView providedBy12;
     ImageView imageView1;
     TextView category1;
+    private Preferences preferences;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
 
-//        model = new ArrayList<>();
-//        model.add(new BookViews("Nhà Giả Kim", R.drawable.nhagiakim, 123));
-//        model.add(new BookViews("Mắt Biếc", R.drawable.matbiec, 123));
-//        model.add(new BookViews("Nhà Trắng", R.drawable.nanhtrang, 123));
-//        model.add(new BookViews("Thức Tỉnh", R.drawable.thuctinh, 123));
-//        model.add(new BookViews("Nhà Giả Kim", R.drawable.nhagiakim, 123));
-//
-//        adapter = new Adapter(model, this);
-//        viewPager = findViewById(R.id.viewPager01);
-//        viewPager.setAdapter(adapter);
-//        viewPager.setPadding(10, 0, 128, 0);
+        preferences = new Preferences();
+        token = preferences.getAccessToken(this);
+        Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
+
         viewPager = findViewById(R.id.viewPager011);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar01);
@@ -92,23 +87,16 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
         bookId = (long) intent.getLongExtra("bookId", 1);
         mBookPresenter = new BookPresenter(this);
         bookDetailPresenter = new BookDetailPresenter(this);
-        if (savedInstanceState != null) {
-            String s = savedInstanceState.getString("token");
-            mBookPresenter.getTopDiscount(s);
-        } else {
+        if (!token.isEmpty()) {
             mBookPresenter.getTopDiscount(token);
             bookDetailPresenter.getBookById(token, bookId);
+        } else {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
 
 
         mCartPresenter = new CartPresenter(this);
 
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("token", token);
     }
 
     public void onClickBookDecription(View view) {
@@ -140,9 +128,15 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
     }
 
     public void onAddToCart(View view) {
-        mCartPresenter.portAddToCart("Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU3MDIwNjg4N30.kpGegav6pUTZR46v1NjNuEL14UUhEMzJdTgxnQvVHC3cmtGjZMHR61bCHjQX0TJgntk_1IH6i4JaczYDks8Bgw", bookId, 1);
-        Intent intent = new Intent(getApplicationContext(), CartActivity.class);
-        startActivity(intent);
+        if (!token.isEmpty()) {
+            mCartPresenter.portAddToCart(token, bookId, 1);
+            Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     @Override
