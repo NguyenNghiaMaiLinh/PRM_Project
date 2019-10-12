@@ -4,11 +4,13 @@ import com.example.projectdemo04.model.Book;
 
 import com.example.projectdemo04.model.BookViews;
 import com.example.projectdemo04.model.Cart;
+import com.example.projectdemo04.model.CartBook;
 import com.example.projectdemo04.presenters.BookDetailPresenter;
 import com.example.projectdemo04.presenters.BookPresenter;
 import com.example.projectdemo04.presenters.CartPresenter;
 import com.example.projectdemo04.views.BookDetailView;
 import com.example.projectdemo04.views.BookView;
+import com.example.projectdemo04.views.CartBookView;
 import com.example.projectdemo04.views.CartView;
 import com.squareup.picasso.Picasso;
 
@@ -38,7 +40,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
     long bookId;
     List<BookViews> model;
 
-
+    TextView cartquantity;
     TextView productName1;
     TextView price1;
     TextView author1;
@@ -49,12 +51,14 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
     TextView category1;
     private Preferences preferences;
     String token;
+    int totalOfCartItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
 
+        cartquantity = findViewById(R.id.cartquantity);
         preferences = new Preferences();
         token = preferences.getAccessToken(this);
         viewPager = findViewById(R.id.viewPager011);
@@ -119,13 +123,14 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
 
     @Override
     public void getSuccess(Cart cart) {
+        totalOfCartItem = totalOfCartItem+1;
         Toast.makeText(getApplicationContext(), "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void getSuccess(Book book) {
         productName1.setText(book.getProductName());
-        price1.setText(String.valueOf(book.getPrice())+" đ");
+        price1.setText(String.valueOf(book.getPrice()) + " đ");
         author1.setText(book.getAuthor());
         providedBy1.setText(book.getProvidedBy());
         publishedBy1.setText(book.getPublishedBy());

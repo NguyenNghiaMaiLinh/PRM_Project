@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Account implements Serializable {
+public class User implements Serializable {
 
     @SerializedName("id")
     private long id;
@@ -19,10 +19,10 @@ public class Account implements Serializable {
     @SerializedName("address")
     private String address;
 
-    public Account() {
+    public User() {
     }
 
-    public Account(long id, String username, String email, String fullname, String phone, String address) {
+    public User(long id, String username, String email, String fullname, String phone, String address) {
         this.id = id;
         this.username = username;
         this.email = email;

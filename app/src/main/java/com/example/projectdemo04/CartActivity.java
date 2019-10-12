@@ -32,13 +32,11 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-button = findViewById(R.id.btnPayment);
+        button = findViewById(R.id.btnPayment);
         CartFragment cartFragment = new CartFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.container, cartFragment).commit();
         billPresenter = new BillPresenter(this, this);
         cartBookPresenter = new CartBookPresenter(this);
-
-
         cartBookPresenter.getAllInCart();
         List<Order> list = new ArrayList<>();
         Order item = new Order(1, 3);
@@ -47,7 +45,7 @@ button = findViewById(R.id.btnPayment);
         list.add(item1);
         BookOrders bookOrders = new BookOrders(list);
 
-        billPresenter.payment( list);
+        billPresenter.payment(list);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +58,7 @@ button = findViewById(R.id.btnPayment);
                 list.add(item1);
                 BookOrders bookOrders = new BookOrders(list);
 
-                billPresenter.payment( list);
+                billPresenter.payment(list);
             }
         });
     }

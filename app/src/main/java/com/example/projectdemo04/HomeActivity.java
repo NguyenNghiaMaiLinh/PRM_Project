@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,11 +17,17 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.projectdemo04.home.HomeFragment;
 import com.example.projectdemo04.home.ProductFragment;
 import com.example.projectdemo04.home.SlideFragmentAdapter;
+import com.example.projectdemo04.model.CartBook;
+import com.example.projectdemo04.views.CartBookView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     ViewPager viewPager;
     SlideFragmentAdapter adapter;
+    Preferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         Fragment fragment = new HomeFragment();
         transaction.replace(R.id.main_container, fragment);
         transaction.commit();
+        preferences = new Preferences();
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -60,6 +68,10 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    public void onLogout(View view) {
+        preferences.removeAccessToken(this);
+        startActivity(new Intent(this, LoginActivity.class));
+    }
 
     public void onClickBookDetails(View view) {
         TextView textView = view.findViewById(R.id.bookId);
@@ -73,6 +85,4 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
     }
-
-
 }

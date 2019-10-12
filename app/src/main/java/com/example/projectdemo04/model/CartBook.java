@@ -9,16 +9,16 @@ public class CartBook implements Serializable {
     private long id;
     @SerializedName("book")
     private Book book;
-    @SerializedName("account")
-    private Account account;
+    @SerializedName("user")
+    private User user;
+    @SerializedName("quantity")
+    private int quantity;
 
-    public CartBook(long id, Book book, Account account) {
+    public CartBook(long id, Book book, User user, int quantity) {
         this.id = id;
         this.book = book;
-        this.account = account;
-    }
-
-    public CartBook() {
+        this.user = user;
+        this.quantity = quantity;
     }
 
     public long getId() {
@@ -37,11 +37,19 @@ public class CartBook implements Serializable {
         this.book = book;
     }
 
-    public Account getAccount() {
-        return account;
+    public User getUser() {
+        return user;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

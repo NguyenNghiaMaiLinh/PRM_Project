@@ -130,6 +130,6 @@
         android:layout_marginTop="32dp"
         android:paddingStart="30dp"
         android:text="We vill be sending a confirmation code via SMS. Please,input
-the CODE to activate your account"
+the CODE to activate your user"
         android:textColor="@color/white" />
 </RelativeLayout>

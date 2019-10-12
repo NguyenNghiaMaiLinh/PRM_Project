@@ -27,13 +27,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FCartRepositoryImp implements FCartRepository {
+public class
+FCartRepositoryImp implements FCartRepository {
     static String token;
     public FCartRepositoryImp() {
 
     }
     public FCartRepositoryImp(Context context) {
-        token = context.getSharedPreferences("autheninfo", 0).getString("token","");
+        token = context.getSharedPreferences("MySharedPref", 0).getString("ACCESSTOKEN",null);
 
     }
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,7 +16,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.projectdemo04.R;
 import com.example.projectdemo04.model.Book;
+import com.example.projectdemo04.model.CartBook;
 import com.example.projectdemo04.repositories.FBookRepositoryImp;
+import com.example.projectdemo04.repositories.FCartRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
 
 import java.util.ArrayList;
@@ -31,6 +34,9 @@ public class HomeFragment extends Fragment {
     ArrayAdapter<String> searchAdapter;
 
     FBookRepositoryImp repo;
+    FCartRepositoryImp repoCart;
+    TextView cartquantityhome;
+    private int totalOfCartItem;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -43,13 +49,14 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        repo = new FBookRepositoryImp(getActivity());
 
+        repo = new FBookRepositoryImp(getActivity());
+        repoCart = new FCartRepositoryImp(getActivity());
         //mapping slideshow and set it's adapter
         ViewPager viewPager = view.findViewById(R.id.viewPagerHome);
         SlideFragmentAdapter adapter = new SlideFragmentAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
-
+        cartquantityhome = view.findViewById(R.id.cartquantityhome);
         //mapping search field and set it's adapter
         txtSearch = view.findViewById(R.id.txtSearch);
         searchAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, listOfBookName);
@@ -59,7 +66,7 @@ public class HomeFragment extends Fragment {
         txtSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_ENTER){
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     searchEnter(txtSearch.getText().toString());
                 }
                 return false;
@@ -68,12 +75,13 @@ public class HomeFragment extends Fragment {
         return view;
 
     }
-    private void searchEnter(String search){
-        repo.search( search, new CallBackData<List<Book>>() {
+
+    private void searchEnter(String search) {
+        repo.search(search, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.search_result, new CategoryFragment("Kết quả",books));
+                transaction.replace(R.id.search_result, new CategoryFragment("Kết quả", books));
                 transaction.commit();
             }
 
@@ -85,10 +93,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void setDataSetForSearchField() {
-        repo.search( "", new CallBackData<List<Book>>() {
+        repo.search("", new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
-                for(Book book: books){
+                for (Book book : books) {
                     listOfBookName.add(book.getProductName());
                 }
                 searchAdapter.notifyDataSetChanged();
@@ -104,11 +112,27 @@ public class HomeFragment extends Fragment {
     }
 
     private void initView() {
-        repo.getTopSales( new CallBackData<List<Book>>() {
+        repoCart.getAllInCart(new CallBackData<List<CartBook>>() {
+            @Override
+            public void onSuccess(List<CartBook> cartBooks) {
+
+                for (CartBook cartBook : cartBooks) {
+                    totalOfCartItem += cartBook.getQuantity();
+                }
+                cartquantityhome.setText(totalOfCartItem+"");
+                cartquantityhome.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
+        repo.getTopSales(new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Top sales",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Top sales", books));
                 transaction.commit();
             }
 
@@ -117,11 +141,11 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        repo.getTopDiscount( new CallBackData<List<Book>>() {
+        repo.getTopDiscount(new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Top discount",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Top discount", books));
                 transaction.commit();
             }
 
@@ -130,11 +154,11 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        repo.getClickedBooks( new CallBackData<List<Book>>() {
+        repo.getClickedBooks(new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Sản phẩm đã xem",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Sản phẩm đã xem", books));
                 transaction.commit();
             }
 
