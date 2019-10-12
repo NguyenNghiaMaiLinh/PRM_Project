@@ -28,7 +28,7 @@ public class FBookRepositoryImp implements FBookRepository {
     }
 
     @Override
-    public void getTopDiscount( final CallBackData<List<Book>> data) {
+    public void getTopDiscount(String token, final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getTopDiscount(token);
         call.enqueue(new Callback<ResponseBody>() {

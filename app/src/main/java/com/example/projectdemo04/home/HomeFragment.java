@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        repo.getTopDiscount( new CallBackData<List<Book>>() {
+        repo.getTopDiscount(TOKEN, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

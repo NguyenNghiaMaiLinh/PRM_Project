@@ -38,7 +38,7 @@ public class FCartRepositoryImp implements FCartRepository {
     }
 
     @Override
-    public void addToCart(long id, int quantity, final CallBackData<Cart> data) {
+    public void addToCart(String token, long id, int quantity, final CallBackData<Cart> data) {
         ClientApi clientApi = new ClientApi();
         JSONObject jsonObject = new JSONObject();
         try {
