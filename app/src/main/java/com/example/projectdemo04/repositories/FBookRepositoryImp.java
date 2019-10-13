@@ -3,15 +3,20 @@ package com.example.projectdemo04.repositories;
 import android.content.Context;
 
 import com.example.projectdemo04.model.Book;
+import com.example.projectdemo04.model.Cart;
 import com.example.projectdemo04.utils.CallBackData;
 import com.example.projectdemo04.utils.ClientApi;
 import com.example.projectdemo04.utils.ResponseData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.List;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +30,36 @@ public class FBookRepositoryImp implements FBookRepository {
     }
 
     public FBookRepositoryImp() {
+    }
+
+    @Override
+    public void postClickedBook(long bookId) {
+        ClientApi clientApi = new ClientApi();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("bookId", bookId);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+        Call<ResponseBody> call = clientApi.fBookService().addToClickedBooks(token, body);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

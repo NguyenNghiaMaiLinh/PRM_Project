@@ -64,16 +64,36 @@
             android:focusable="true"
             android:hint="Search"/>
 
-        <ImageButton
-            android:id="@+id/imageButton2"
 
+        <RelativeLayout
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:background="@color/colorPrimary"
-            android:src="@drawable/ic_shopping_cart_black_24dp"
-            android:onClick="onClickCart"/>
+            android:layout_height="wrap_content">
 
+            <ImageButton
+                android:id="@+id/imageButton2"
+
+                android:layout_width="35sp"
+                android:layout_height="35sp"
+                android:layout_weight="0.1"
+                android:background="@color/colorPrimary"
+                android:onClick="onClickCart"
+                android:src="@drawable/ic_buy" />
+
+            <TextView
+                android:id="@+id/cartquantityhome"
+                android:visibility="invisible"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/roundbackgroundyellow"
+                android:elevation="7dp"
+                android:gravity="center"
+                android:layout_marginLeft="18dp"
+                android:text="1"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

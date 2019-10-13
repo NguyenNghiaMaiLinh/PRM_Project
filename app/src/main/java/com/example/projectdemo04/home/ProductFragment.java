@@ -12,11 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import com.example.projectdemo04.R;
 import com.example.projectdemo04.home.CategoryFragment;
 import com.example.projectdemo04.model.Book;
+import com.example.projectdemo04.model.CartBook;
 import com.example.projectdemo04.repositories.FBookRepositoryImp;
+import com.example.projectdemo04.repositories.FCartRepository;
+import com.example.projectdemo04.repositories.FCartRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
 
 import java.util.ArrayList;
@@ -31,6 +35,9 @@ public class ProductFragment extends Fragment {
     List<String> listOfBookName = new ArrayList<>();
     ArrayAdapter<String> searchAdapter;
     FBookRepositoryImp repo ;
+    FCartRepository repoCart;
+    TextView cartquantityhome;
+    private int totalOfCartItem;
 
 
     public ProductFragment() {
@@ -44,6 +51,8 @@ public class ProductFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product, container, false);
         repo = new FBookRepositoryImp(getContext());
+        repoCart = new FCartRepositoryImp(getActivity());
+        cartquantityhome = view.findViewById(R.id.cartquantityhome);
         txtSearch = view.findViewById(R.id.txtSearch);
         searchAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, listOfBookName);
         txtSearch.setAdapter(searchAdapter);
@@ -58,7 +67,6 @@ public class ProductFragment extends Fragment {
                 return false;
             }
         });
-        initView();
         return view;
     }
 
@@ -82,11 +90,27 @@ public class ProductFragment extends Fragment {
     }
 
     private void initView() {
+        repoCart.getAllInCart(new CallBackData<List<CartBook>>() {
+            @Override
+            public void onSuccess(List<CartBook> cartBooks) {
+
+                for (CartBook cartBook : cartBooks) {
+                    totalOfCartItem += cartBook.getQuantity();
+                }
+                cartquantityhome.setText(totalOfCartItem+"");
+                cartquantityhome.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
         repo.getTruyenTranh( new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Truyện Tranh",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Truyện",books));
                 transaction.commit();
             }
 

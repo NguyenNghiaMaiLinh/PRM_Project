@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,15 +15,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.projectdemo04.home.HomeFragment;
 import com.example.projectdemo04.home.ProductFragment;
 import com.example.projectdemo04.home.SlideFragmentAdapter;
-import com.example.projectdemo04.model.CartBook;
-import com.example.projectdemo04.views.CartBookView;
+import com.example.projectdemo04.repositories.FBookRepository;
+import com.example.projectdemo04.repositories.FBookRepositoryImp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
-
 public class HomeActivity extends AppCompatActivity {
-    ViewPager viewPager;
-    SlideFragmentAdapter adapter;
     Preferences preferences;
 
     @Override
@@ -76,6 +70,8 @@ public class HomeActivity extends AppCompatActivity {
     public void onClickBookDetails(View view) {
         TextView textView = view.findViewById(R.id.bookId);
         long bookId = Long.parseLong(textView.getText().toString());
+        FBookRepository fBookRepository = new FBookRepositoryImp(this);
+        fBookRepository.postClickedBook(bookId);
         Intent intent = new Intent(this, BookDetailActivity.class);
         intent.putExtra("bookId", bookId);
         startActivity(intent);

@@ -14,5 +14,6 @@ public interface FBookRepository {
     void search( String name, CallBackData<List<Book>> data);
     void getTruyenTranh( CallBackData<List<Book>> data);
     void getBookById(long id, CallBackData<Book> data);
+    void postClickedBook(long bookId);
 
 }
