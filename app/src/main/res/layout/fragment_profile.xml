@@ -47,6 +47,7 @@
                         android:textSize="@dimen/text_size_content" />
 
                     <TextView
+                        android:text="Unknown"
                         android:id="@+id/txtFullname"
                         android:textSize="@dimen/text_size_content" />
                 </TableRow>
@@ -69,6 +70,7 @@
                         android:textSize="@dimen/text_size_content" />
 
                     <TextView
+                        android:text="Unknown"
                         android:id="@+id/txtPhone"
                         android:textSize="@dimen/text_size_content" />
 
@@ -88,7 +90,7 @@
                     android:drawableLeft="@drawable/ic_location_on_black_24dp"
                     android:drawablePadding="10dp"
                     android:gravity="center"
-                    android:text="@string/address_information" />
+                    android:text="Địa chỉ" />
 
                 <TextView
                     android:id="@+id/txtAddressManage"
@@ -97,7 +99,7 @@
                     android:layout_alignParentRight="true"
                     android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
                     android:gravity="center"
-                    android:text="@string/address_manager"
+                    android:text="Unknown"
                     android:textSize="18dp" />
             </RelativeLayout>
 
@@ -187,7 +189,7 @@
             style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="clickToExit"
+            android:onClick="onLogout"
             android:text="Đăng xuất" />
     </LinearLayout>
 

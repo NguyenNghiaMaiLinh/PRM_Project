@@ -3,9 +3,12 @@ package com.example.projectdemo04.repositories;
 
 import android.content.Context;
 
+import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.Token;
+import com.example.projectdemo04.model.User;
 import com.example.projectdemo04.utils.CallBackData;
 import com.example.projectdemo04.utils.ClientApi;
+import com.example.projectdemo04.utils.ResponseData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -115,6 +118,41 @@ public class FAccountRepositoryImp implements FAccountRepository {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
+            }
+        });
+    }
+
+    @Override
+    public void getProfile(final CallBackData<User> data) {
+        ClientApi clientApi = new ClientApi();
+        Call<ResponseBody> call = clientApi.fAccountService().getProfile(token);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    try {
+                        String result = response.body().string();
+                        Type type = new TypeToken<ResponseData<User>>() {
+                        }.getType();
+                        ResponseData<User> responseData = new Gson().fromJson(result, type);
+                        User user = responseData.getData();
+                        if (responseData != null) {
+                            data.onSuccess(user);
+                        } else {
+                            data.onFail("Lỗi server");
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    data.onFail(response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
             }
         });
     }

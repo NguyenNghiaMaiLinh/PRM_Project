@@ -17,4 +17,7 @@ public interface FAccountService {
     @POST(ConfigApi.Api.REGISTER)
     Call<ResponseBody> register(@Body RequestBody body);
 
+    @GET(ConfigApi.Api.GET_PROFILE)
+    Call<ResponseBody> getProfile(@Header("Authorization") String token);
+
 }
