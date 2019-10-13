@@ -42,20 +42,20 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initView() {
-        repon.getProfile(new CallBackData<List<String>>() {
-
-            @Override
-            public void onSuccess(List<String> list) {
-                fullname.setText(list.get(0));
-                email.setText(list.get(1));
-                phone.setText(list.get(2));
-            }
-
-            @Override
-            public void onFail(String message) {
-
-            }
-        });
+//        repon.getProfile(new CallBackData<List<String>>() {
+//
+//            @Override
+//            public void onSuccess(List<String> list) {
+//                fullname.setText(list.get(0));
+//                email.setText(list.get(1));
+//                phone.setText(list.get(2));
+//            }
+//
+//            @Override
+//            public void onFail(String message) {
+//
+//            }
+//        });
     }
     public  void clickToExit(View view){
 
