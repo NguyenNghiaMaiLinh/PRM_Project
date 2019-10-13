@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.Cart;
+import com.example.projectdemo04.model.CartBook;
 import com.example.projectdemo04.repositories.FBookRepository;
 import com.example.projectdemo04.repositories.FBookRepositoryImp;
 import com.example.projectdemo04.repositories.FCartRepository;
@@ -25,16 +26,16 @@ public class CartPresenter {
     }
 
     public void portAddToCart( long id, int quantity) {
-        repo.addToCart(id, quantity, new CallBackData<Cart>() {
+        repo.addToCart(id, quantity, new CallBackData<List<CartBook>>() {
 
             @Override
-            public void onSuccess(Cart cart) {
-                cartView.getSuccess(cart);
+            public void onSuccess(List<CartBook> cart) {
+                cartView.getCartSuccess(cart);
             }
 
             @Override
             public void onFail(String message) {
-                cartView.getFailed(message);
+                cartView.getCartFailed(message);
             }
         });
     }

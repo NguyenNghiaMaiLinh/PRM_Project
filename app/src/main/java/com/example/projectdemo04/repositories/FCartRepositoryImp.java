@@ -39,7 +39,7 @@ FCartRepositoryImp implements FCartRepository {
     }
 
     @Override
-    public void addToCart(long id, int quantity, final CallBackData<Cart> data) {
+    public void addToCart(long id, int quantity, final CallBackData<List<CartBook>> data) {
         ClientApi clientApi = new ClientApi();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -57,9 +57,9 @@ FCartRepositoryImp implements FCartRepository {
                 if (response.code() == 200) {
                     try {
                         String result = response.body().string();
-                        Type type = new TypeToken<Cart>() {
+                        Type type = new TypeToken<List<CartBook>>() {
                         }.getType();
-                        Cart responseData = new Gson().fromJson(result, type);
+                        List<CartBook> responseData = new Gson().fromJson(result, type);
 
                         if (responseData != null) {
                             data.onSuccess(responseData);
