@@ -25,12 +25,12 @@ public class CartBookPresenter {
 
             @Override
             public void onSuccess(List<CartBook> cartBooks) {
-                cartBookView.getSuccess(cartBooks);
+                cartBookView.getCartBookSuccess(cartBooks);
             }
 
             @Override
             public void onFail(String message) {
-                cartBookView.getFailed(message);
+                cartBookView.getCartBookFailed(message);
             }
         });
     }

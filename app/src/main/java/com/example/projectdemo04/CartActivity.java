@@ -68,11 +68,6 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     }
 
     @Override
-    public void getSuccess(List<CartBook> cartBook) {
-        Toast.makeText(getApplicationContext(), cartBook.get(0).getBook().getProductName(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void getSuccess(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
     }
@@ -80,5 +75,15 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     @Override
     public void getFailed(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getCartBookSuccess(List<CartBook> cartBook) {
+        Toast.makeText(getApplicationContext(), cartBook.get(0).getBook().getProductName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getCartBookFailed(String s) {
+
     }
 }
