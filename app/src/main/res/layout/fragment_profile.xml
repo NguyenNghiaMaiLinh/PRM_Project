@@ -1,19 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Profile" />
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:text="Đăng xuất"
-    android:onClick="onLogout"
-    />
-</FrameLayout>
+        android:background="@color/app_background_color"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingVertical="5dp">
+
+                <TextView
+                    style="@style/CustomTextViewTitleProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/ic_person_outline_black_24dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="@string/user_information" />
+            </RelativeLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*">
+
+                <TableRow android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:text="Họ và tên"
+                        android:textSize="@dimen/text_size_content" />
+
+                    <TextView
+                        android:id="@+id/txtFullname"
+                        android:textSize="@dimen/text_size_content" />
+                </TableRow>
+
+                <TableRow android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:text="Email"
+                        android:textSize="@dimen/text_size_content" />
+
+                    <TextView
+                        android:id="@+id/txtEmail"
+                        android:textSize="@dimen/text_size_content" />
+                </TableRow>
+
+                <TableRow android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:text="Số điện thoại"
+                        android:textSize="@dimen/text_size_content" />
+
+                    <TextView
+                        android:id="@+id/txtPhone"
+                        android:textSize="@dimen/text_size_content" />
+
+                </TableRow>
+            </TableLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    style="@style/CustomTextViewTitleProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/ic_location_on_black_24dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="@string/address_information" />
+
+                <TextView
+                    android:id="@+id/txtAddressManage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                    android:gravity="center"
+                    android:text="@string/address_manager"
+                    android:textSize="18dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    style="@style/CustomTextViewTitleProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/ic_history_black_24dp"
+                    android:drawablePadding="10dp"
+
+                    android:gravity="center"
+                    android:text="@string/renting_history" />
+
+                <TextView
+                    android:id="@+id/txtHistoryReadmore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                    android:gravity="center"
+                    android:text="@string/read_more"
+                    android:textSize="18dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    style="@style/CustomTextViewTitleProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/ic_favorite_border_black_24dp"
+                    android:drawablePadding="10dp"
+
+                    android:gravity="center"
+                    android:text="@string/book_favorite" />
+
+                <TextView
+                    android:id="@+id/txtFavoriteReadmore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                    android:gravity="center"
+                    android:text="@string/read_more"
+                    android:textSize="18dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    style="@style/CustomTextViewTitleProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/ic_referral_black_24dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="@string/referral_code" />
+
+                <TextView
+                    android:id="@+id/txtReferralReadmore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                    android:gravity="center"
+                    android:text="@string/read_more"
+                    android:textSize="18dp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnLogout"
+            style="@style/CustomButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="clickToExit"
+            android:text="Đăng xuất" />
+    </LinearLayout>
+
+</RelativeLayout>
