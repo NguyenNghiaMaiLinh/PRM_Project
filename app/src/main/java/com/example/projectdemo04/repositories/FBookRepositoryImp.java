@@ -9,7 +9,10 @@ import com.example.projectdemo04.utils.ResponseData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -337,6 +340,45 @@ public class FBookRepositoryImp implements FBookRepository {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
+            }
+        });
+    }
+    public void getProfile(final CallBackData<List<String>> data) {
+        ClientApi clientApi = new ClientApi();
+        Call<ResponseBody> call = clientApi.fBookService().getProfile(token);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    try {
+                        String result = response.body().string();
+                        JSONObject obj = new JSONObject(result);
+                        Object username =obj.getJSONObject("data").getString("username");
+                        Object email =obj.getJSONObject("data").getString("email");
+                        Object phone =obj.getJSONObject("data").getString("phone");
+                        Object address =obj.getJSONObject("data").getString("address");
+                        ArrayList<String> list = new ArrayList<String>();
+                        list.add(username.toString());
+                        list.add(email.toString());
+                        list.add(phone.toString());
+                        list.add(address.toString());
+                        if (result != null) {
+                            data.onSuccess(list);
+                        } else {
+                            data.onFail("Lỗi server");
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    data.onFail(response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
             }
         });
     }

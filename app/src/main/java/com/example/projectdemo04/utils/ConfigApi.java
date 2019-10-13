@@ -17,5 +17,6 @@ public class ConfigApi {
         String PAYMENT = "bill";
         String POST_ADD_TO_CART = "cart";
         String GET_ALL_IN_CART = "cart";
+        String GET_PROFILE="user";
     }
 }
