@@ -7,6 +7,7 @@ import com.example.projectdemo04.model.Cart;
 import com.example.projectdemo04.model.CartBook;
 import com.example.projectdemo04.presenters.BookDetailPresenter;
 import com.example.projectdemo04.presenters.BookPresenter;
+import com.example.projectdemo04.presenters.CartBookPresenter;
 import com.example.projectdemo04.presenters.CartPresenter;
 import com.example.projectdemo04.views.BookDetailView;
 import com.example.projectdemo04.views.BookView;
@@ -31,11 +32,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDetailActivity extends AppCompatActivity implements BookView, CartView, BookDetailView {
+public class BookDetailActivity extends AppCompatActivity implements BookView, CartView, BookDetailView, CartBookView {
     ViewPager viewPager;
     private BookPresenter mBookPresenter;
     private BookDetailPresenter bookDetailPresenter;
     private CartPresenter mCartPresenter;
+    private CartBookPresenter cartBookPresenter;
     Adapter adapter;
     long bookId;
     List<BookViews> model;
@@ -59,6 +61,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
         setContentView(R.layout.activity_book_detail);
 
         cartquantity = findViewById(R.id.cartquantity);
+        cartquantity.setVisibility(View.INVISIBLE);
         preferences = new Preferences();
         token = preferences.getAccessToken(this);
         viewPager = findViewById(R.id.viewPager011);
@@ -95,11 +98,14 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
 
 
         mCartPresenter = new CartPresenter(this, this);
-
+        cartBookPresenter = new CartBookPresenter(this);
+        cartBookPresenter.getAllInCart();
     }
 
     public void onClickBookDescription(View view) {
+
         Intent intent = new Intent(this, BookActivity.class);
+        intent.putExtra("bookId", bookId);
         startActivity(intent);
     }
 
@@ -116,6 +122,11 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
         viewPager.setPadding(10, 0, 10, 0);
     }
 
+    @Override
+    public void getFailed(String s) {
+
+    }
+
     public void onAddToCart(View view) {
         mCartPresenter.portAddToCart(bookId, 1);
 
@@ -123,7 +134,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
 
     @Override
     public void getSuccess(Cart cart) {
-        totalOfCartItem = totalOfCartItem+1;
+        totalOfCartItem = totalOfCartItem + 1;
         Toast.makeText(getApplicationContext(), "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
     }
 
@@ -139,8 +150,18 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
         category1.setText(book.getCategory());
     }
 
+
     @Override
-    public void getFailed(String s) {
-        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+    public void getCartBookSuccess(List<CartBook> cartBooks) {
+        for (CartBook cartBook : cartBooks) {
+            totalOfCartItem += cartBook.getQuantity();
+        }
+        cartquantity.setText(totalOfCartItem + "");
+        cartquantity.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void getCartBookFailed(String s) {
+
     }
 }
