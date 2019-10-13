@@ -43,5 +43,7 @@ public interface FBookService {
     @GET(ConfigApi.Api.GET_BOOK_ID)
     Call<ResponseBody> getBookById(@Header("Authorization") String token, @Path("id") long id);
 
+    @GET(ConfigApi.Api.GET_PROFILE)
+    Call<ResponseBody> getProfile(@Header("Authorization") String token);
 }
 

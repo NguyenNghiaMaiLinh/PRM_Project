@@ -30,4 +30,11 @@
     <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="CustomTextViewTitleProfile" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textSize">20dp</item>
+    </style>
+    <style name="CustomButton" parent="TextAppearance.AppCompat.Widget.Button">
+        <item name="android:background">#ff4285f4</item>
+        <item name="android:textColor">@color/cardview_light_background</item>
+    </style>
 </resources>

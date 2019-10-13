@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface FCartRepository {
 
-    void addToCart( long id, int quantity, CallBackData<Cart> data);
+    void addToCart( long id, int quantity, CallBackData<List<CartBook>> data);
     void getAllInCart( CallBackData<List<CartBook>> data);
     void payment(List<Order> bookOrders, CallBackData<String> data);
 

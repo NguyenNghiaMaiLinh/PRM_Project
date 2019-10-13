@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -86,7 +86,7 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
-                </RelativeLayout>
+                </LinearLayout>
 
 
                 <LinearLayout
@@ -114,11 +114,12 @@
                         android:textStyle="normal" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="123dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
-                        android:onClick="onClickBookDescription"
-                        android:text="Xem Mô Tả" />
+                        android:background="@color/colorPrimary"
+                        android:onClick="onAddToCart"
+                        android:text="Add To Cart" />
                 </LinearLayout>
 
                 <View
@@ -309,34 +310,36 @@
         </androidx.cardview.widget.CardView>
     </androidx.core.widget.NestedScrollView>
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:onClick="onAddToCart"
+        android:onClick="onClickToCart"
         android:src="@drawable/ic_buy" />
+
     <TextView
         android:id="@+id/cartquantity"
         android:layout_width="25sp"
         android:layout_height="25sp"
-        android:text="1"
-        android:gravity="center"
+        android:layout_gravity="bottom|right|end"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="35dp"
         android:background="@drawable/roundbackgroundyellow"
         android:elevation="7dp"
-        android:textSize="18sp"
-        android:layout_gravity="bottom|right|end"
-        android:layout_marginBottom="35dp"
-        android:layout_marginRight="5dp"
-        />
-    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:elevation="6dp"-->
+        android:gravity="center"
+        android:text="1"
+        android:textSize="18sp" />
 
-        <!--android:src="@drawable/ic_favorite_black_24dp"-->
-        <!--app:layout_anchor="@id/app_bar_layout"-->
-        <!--app:layout_anchorGravity="bottom|right|end"-->
-        <!--app:pressedTranslationZ="12dp" />-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:onClick="onClickBookDescription"
+        android:src="@drawable/ic_description_black_24dp"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|right|end"
+        app:pressedTranslationZ="12dp" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

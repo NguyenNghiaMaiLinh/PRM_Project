@@ -9,6 +9,9 @@ import com.example.projectdemo04.presenters.BookDetailPresenter;
 import com.example.projectdemo04.presenters.BookPresenter;
 import com.example.projectdemo04.presenters.CartBookPresenter;
 import com.example.projectdemo04.presenters.CartPresenter;
+import com.example.projectdemo04.repositories.FCartRepository;
+import com.example.projectdemo04.repositories.FCartRepositoryImp;
+import com.example.projectdemo04.utils.CallBackData;
 import com.example.projectdemo04.views.BookDetailView;
 import com.example.projectdemo04.views.BookView;
 import com.example.projectdemo04.views.CartBookView;
@@ -32,7 +35,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDetailActivity extends AppCompatActivity implements BookView, CartView, BookDetailView, CartBookView {
+public class BookDetailActivity extends AppCompatActivity implements BookView,CartView, BookDetailView, CartBookView {
     ViewPager viewPager;
     private BookPresenter mBookPresenter;
     private BookDetailPresenter bookDetailPresenter;
@@ -65,7 +68,6 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
         preferences = new Preferences();
         token = preferences.getAccessToken(this);
         viewPager = findViewById(R.id.viewPager011);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar01);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -124,19 +126,18 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
 
     @Override
     public void getFailed(String s) {
-
+        Toast.makeText(BookDetailActivity.this, s, Toast.LENGTH_SHORT).show();
     }
 
     public void onAddToCart(View view) {
+
         mCartPresenter.portAddToCart(bookId, 1);
+    }
+    public void onClickToCart(View view) {
+       startActivity(new Intent(getApplicationContext(), CartActivity.class));
 
     }
 
-    @Override
-    public void getSuccess(Cart cart) {
-        totalOfCartItem = totalOfCartItem + 1;
-        Toast.makeText(getApplicationContext(), "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void getSuccess(Book book) {
@@ -162,6 +163,18 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
 
     @Override
     public void getCartBookFailed(String s) {
+        Toast.makeText(BookDetailActivity.this, s, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getCartSuccess(List<CartBook> cart) {
+        totalOfCartItem = totalOfCartItem + 1;
+        cartquantity.setText(totalOfCartItem + "");
+        Toast.makeText(BookDetailActivity.this, "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getCartFailed(String s) {
 
     }
 }
