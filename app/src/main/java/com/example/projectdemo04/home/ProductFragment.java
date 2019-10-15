@@ -57,7 +57,6 @@ public class ProductFragment extends Fragment {
         searchAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, listOfBookName);
         txtSearch.setAdapter(searchAdapter);
         setDataSetForSearchField();
-        initView();
         txtSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -68,6 +67,12 @@ public class ProductFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initView();
     }
 
     private void setDataSetForSearchField() {
@@ -93,12 +98,16 @@ public class ProductFragment extends Fragment {
         repoCart.getAllInCart(new CallBackData<List<CartBook>>() {
             @Override
             public void onSuccess(List<CartBook> cartBooks) {
-
+                totalOfCartItem = 0;
                 for (CartBook cartBook : cartBooks) {
                     totalOfCartItem += cartBook.getQuantity();
                 }
-                cartquantityhome.setText(totalOfCartItem+"");
-                cartquantityhome.setVisibility(View.VISIBLE);
+                if(totalOfCartItem > 0){
+                    cartquantityhome.setText(totalOfCartItem+"");
+                    cartquantityhome.setVisibility(View.VISIBLE);
+                }
+
+
             }
 
             @Override

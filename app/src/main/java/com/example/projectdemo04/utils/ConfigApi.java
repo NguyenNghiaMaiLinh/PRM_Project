@@ -15,7 +15,7 @@ public class ConfigApi {
         String GET_VAN_HOC = "book/category/Van hoc";
         String GET_XA_HOI = "book/category/Xa hoi";
         String GET_BOOK_ID = "book/{id}";
-        String PAYMENT = "bill";
+        String PAYMENT = "cart/pay";
         String POST_ADD_TO_CART = "cart";
         String GET_ALL_IN_CART = "cart";
         String GET_PROFILE="user";

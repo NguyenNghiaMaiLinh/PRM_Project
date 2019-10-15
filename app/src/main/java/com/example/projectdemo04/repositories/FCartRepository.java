@@ -1,5 +1,6 @@
 package com.example.projectdemo04.repositories;
 
+import com.example.projectdemo04.model.Bill;
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.Cart;
 import com.example.projectdemo04.model.CartBook;
@@ -13,6 +14,6 @@ public interface FCartRepository {
 
     void addToCart( long id, int quantity, CallBackData<List<CartBook>> data);
     void getAllInCart( CallBackData<List<CartBook>> data);
-    void payment(List<Order> bookOrders, CallBackData<String> data);
+    void payment( CallBackData<Bill> data);
 
 }

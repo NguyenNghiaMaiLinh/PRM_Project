@@ -2,6 +2,7 @@ package com.example.projectdemo04.repositories;
 
 import android.content.Context;
 
+import com.example.projectdemo04.model.Bill;
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.Cart;
 import com.example.projectdemo04.model.CartBook;
@@ -117,24 +118,11 @@ FCartRepositoryImp implements FCartRepository {
     }
 
     @Override
-    public void payment( List<Order> list, final CallBackData<String> data) {
+    public void payment(  final CallBackData<Bill> data) {
 
         ClientApi clientApi = new ClientApi();
-        JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
-        JSONObject jsonObject1 = new JSONObject();
-        try {
-            for (Order item : list) {
-                jsonObject1.put("id", item.getId());
-                jsonObject1.put("quantity", item.getQuantity());
-                jsonArray.put(jsonObject1);
-            }
-            jsonObject.put("bookOrders", jsonArray);
 
-        } catch (
-                JSONException e) {
-            e.printStackTrace();
-        }
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
         Call<ResponseBody> call = clientApi.fCartService().payment(token, body);
@@ -145,20 +133,25 @@ FCartRepositoryImp implements FCartRepository {
                 if (response.code() == 200) {
                     try {
                         String result = response.body().string();
-                        if (result == null) {
-                            data.onSuccess("Thanh toán Thành công");
+                        Type type = new TypeToken<ResponseData<Bill>>() {
+                        }.getType();
+                        ResponseData<Bill> responseData = new Gson().fromJson(result, type);
+                        Bill bill = responseData.getData();
+                        if (responseData != null) {
+                            data.onSuccess(bill);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
+                    System.out.println(response.body());
                     data.onFail("Thanh toán thất bại");
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
 

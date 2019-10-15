@@ -2,6 +2,7 @@ package com.example.projectdemo04.presenters;
 
 import android.content.Context;
 
+import com.example.projectdemo04.model.Bill;
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.BookOrders;
 import com.example.projectdemo04.model.Order;
@@ -29,12 +30,12 @@ public class BillPresenter {
         };
     }
 
-    public void payment(List<Order> list) {
-        repo.payment(list, new CallBackData<String>() {
+    public void payment(Bill list) {
+        repo.payment(new CallBackData<Bill>() {
 
             @Override
-            public void onSuccess(String book) {
-                billView.getSuccess(book);
+            public void onSuccess(Bill bill) {
+
             }
 
             @Override
