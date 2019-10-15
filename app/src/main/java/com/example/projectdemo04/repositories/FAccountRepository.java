@@ -13,4 +13,5 @@ public interface FAccountRepository {
     void register(String username, String email, String password, CallBackData<Token> data);
 
     void getProfile(CallBackData<User> data);
+    void updateProfile(User user, CallBackData<User> data);
 }

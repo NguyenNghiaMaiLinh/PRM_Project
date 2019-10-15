@@ -1,5 +1,6 @@
 package com.example.projectdemo04.repositories;
 
+import com.example.projectdemo04.model.User;
 import com.example.projectdemo04.utils.ConfigApi;
 
 import okhttp3.RequestBody;
@@ -9,6 +10,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface FAccountService {
     @POST(ConfigApi.Api.LOGIN)
@@ -19,5 +21,8 @@ public interface FAccountService {
 
     @GET(ConfigApi.Api.GET_PROFILE)
     Call<ResponseBody> getProfile(@Header("Authorization") String token);
+
+    @PUT(ConfigApi.Api.GET_PROFILE)
+    Call<ResponseBody> updateProfile(@Header("Authorization") String token, @Body User user);
 
 }

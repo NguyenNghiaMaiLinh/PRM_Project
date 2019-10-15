@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfileActivity">
+    <TableLayout
+        android:layout_marginTop="30sp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow>
+            <TextView android:layout_weight="1" android:text="Tên đăng nhập"/>
+            <TextView android:layout_weight="1" android:text="Username"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_weight="1" android:text="Họ và tên" />
+            <EditText android:id="@+id/txtFullname" android:layout_weight="1" android:text="Nguyễn Văn An"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_weight="1" android:text="Email" />
+            <EditText android:id="@+id/txtEmail" android:layout_weight="1" android:text="annv@gmail.com"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_weight="1" android:text="Điện thoại" />
+            <EditText android:id="@+id/txtPhone" android:layout_weight="1" android:text="0123456789"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:layout_weight="1" android:text="Địa chỉ" />
+            <EditText android:id="@+id/txtAddress" android:layout_weight="1" android:text="123 Tô Ký, Q12, TP HCM"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="30sp">
+            <Button   android:text="Hủy" android:onClick="onClickCancel" />
+            <Button android:onClick="onClickSave" android:layout_marginLeft="60dp" android:background="@drawable/roundbutton"  android:text="Lưu"/>
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

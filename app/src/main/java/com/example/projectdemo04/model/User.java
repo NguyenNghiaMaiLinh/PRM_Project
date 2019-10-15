@@ -31,6 +31,13 @@ public class User implements Serializable {
         this.address = address;
     }
 
+    public User(String fullname, String email, String phone, String address) {
+        this.email = email;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.address = address;
+    }
+
     public long getId() {
         return id;
     }
@@ -78,4 +85,5 @@ public class User implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
 }

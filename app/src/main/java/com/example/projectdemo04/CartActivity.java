@@ -51,8 +51,6 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
         repoCart = new FCartRepositoryImp(this);
 
         listProduct = new ArrayList<>();
-        //listProduct.add(new CartBook(1, new Book("mat bao",100,"asdasd"),new User(),1));
-        //listProduct.add(new CartBook(1, new Book("mat bao",100,"asdasd"),new User(),1));
 
         myCartRecyclerView = findViewById(R.id.listCart);
         adapter =new CartAdapter(listProduct,this);
@@ -62,49 +60,17 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
 
 
 
-//        CartFragment cartFragment = new CartFragment();
-//        getSupportFragmentManager().beginTransaction().add(R.id.container, cartFragment).commit();
-//        billPresenter = new BillPresenter(this, this);
-//        cartBookPresenter = new CartBookPresenter(this);
-//        cartBookPresenter.getAllInCart();
-//
-//        List<Order> list = new ArrayList<>();
-//        Order item = new Order(1, 3);
-//        Order item1 = new Order(1, 4);
-//        list.add(item);
-//        list.add(item1);
-//        BookOrders bookOrders = new BookOrders(list);
-//
-//        billPresenter.payment(list);
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                cartBookPresenter.getAllInCart();
-//                List<Order> list = new ArrayList<>();
-//                Order item = new Order(1, 1);
-//                Order item1 = new Order(2, 1);
-//                list.add(item);
-//                list.add(item1);
-//                BookOrders bookOrders = new BookOrders(list);
-//
-//                billPresenter.payment(list);
-//            }
-//        });
+
     }
 
-    public void onPayment1(View view) {
+    public void onPayment(View view) {
         Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra("total",total);
         startActivity(intent);
 
-
     }
 
-//    @Override
-//    public void getSuccess(List<CartBook> cartBook) {
-//        Toast.makeText(getApplicationContext(), cartBook.get(0).getBook().getProductName(), Toast.LENGTH_SHORT).show();
-//    }
+
 
     @Override
     public void getSuccess(String s) {

@@ -157,5 +157,38 @@ public class FAccountRepositoryImp implements FAccountRepository {
         });
     }
 
+    @Override
+    public void updateProfile(User user,final CallBackData<User> data) {
+        ClientApi clientApi = new ClientApi();
+        Call<ResponseBody> call = clientApi.fAccountService().updateProfile(token,user);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    try {
+                        String result = response.body().string();
+                        Type type = new TypeToken<ResponseData<User>>() {
+                        }.getType();
+                        ResponseData<User> responseData = new Gson().fromJson(result, type);
+                        User user = responseData.getData();
+                        if (responseData != null) {
+                            data.onSuccess(user);
+                        } else {
+                            data.onFail("Lỗi server");
 
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    data.onFail(response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
 }

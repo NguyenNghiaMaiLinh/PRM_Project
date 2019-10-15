@@ -1,6 +1,7 @@
 package com.example.projectdemo04;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,8 @@ import java.util.List;
 public class ProfileFragment extends Fragment {
     FAccountRepository repon ;
     private TextView fullname, email, phone, txtAddress;
+    TextView btnEditProfile;
+    User userInfo;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -40,6 +43,15 @@ public class ProfileFragment extends Fragment {
         email = view.findViewById(R.id.txtEmail);
         phone = view.findViewById(R.id.txtPhone);
         txtAddress = view.findViewById(R.id.txtAddressManage);
+        btnEditProfile = view.findViewById(R.id.btnEditProfile);
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),EditProfileActivity.class);
+                intent.putExtra("userInfo",userInfo);
+                startActivity(intent);
+            }
+        });
         initView();
         return view;
     }
@@ -49,9 +61,10 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onSuccess(User user) {
+                userInfo = user;
                 email.setText(user.getEmail());
                 if(user.getFullname() != null && !user.getFullname().isEmpty())
-                fullname.setText(user.getFullname());
+                    fullname.setText(user.getFullname());
 
                 if(user.getPhone() != null && !user.getPhone().isEmpty())
                     phone.setText(user.getPhone());
