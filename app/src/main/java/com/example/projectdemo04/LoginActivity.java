@@ -7,24 +7,21 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import android.text.TextUtils;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.projectdemo04.model.Token;
 import com.example.projectdemo04.presenters.LoginPresenter;
+import com.example.projectdemo04.presenters.RegisterPresenter;
 import com.example.projectdemo04.views.LoginView;
-import com.facebook.AccessToken;
+import com.example.projectdemo04.views.RegisterView;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -35,24 +32,24 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements LoginView {
+public class LoginActivity extends AppCompatActivity implements LoginView, RegisterView {
     private AutoCompleteTextView userName;
     private AutoCompleteTextView userPass;
     private String username;
     private String pass;
     private String baseUrl;
     private LoginPresenter mLoginPresenter;
+    private RegisterPresenter mRegisterPresenter;
     private static int REGISTER_ACTIVITY = 1;
     private String accessToken;
     private String tokenType;
     private Preferences preferences;
     private CallbackManager callbackManager;
     private LoginButton loginButton;
+    private String id = null;
+    private String name = null;
+    private String email = null;
 
 
     @Override
@@ -67,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         }
         userName = (AutoCompleteTextView) findViewById(R.id.userName123);
         userPass = (AutoCompleteTextView) findViewById(R.id.userPassword123);
+        mRegisterPresenter = new RegisterPresenter(this);
         mLoginPresenter = new LoginPresenter(this);
         FacebookSdk.sdkInitialize(getApplicationContext());
 //        AppEventsLogger.activateApp(this);
@@ -74,8 +72,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList(
-                "user_friends", "email", "public_profile", "user_gender", "user_location"));
+        loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -87,26 +84,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                             public void onCompleted(
                                     JSONObject object,
                                     GraphResponse response) {
-                                Log.v("LoginActivity Response ", response.toString());
 
                                 try {
-                                    String id = object.getString("id");
-                                    String name = object.getString("name");
-                                    String gender = object.getString("gender");
-                                    String birthday = object.getString("birthday");
-                                    String location = object.getJSONObject("location").getString("name");
-                                    Log.v("id = ", " " + id);
-                                    Log.v("name = ", " " + name);
-                                    Log.v("gender = ", " " + gender);
-                                    Log.v("birthday = ", " " + birthday);
-                                    Log.v("location = ", " " + location);
-
-                                    String email;
+                                    id = object.getString("id");
+//                                    name = object.getString("name");
                                     if (object.has("email")) {
                                         email = object.getString("email");
-                                        Log.v("email = ", " " + email);
                                     }
-
+                                    mRegisterPresenter.register(id, email, "123456");
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -114,11 +99,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,gender,email, birthday,location");
+                parameters.putString("fields", "id,name,email");
                 request.setParameters(parameters);
                 request.executeAsync();
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(intent);
             }
 
             @Override
@@ -191,6 +174,28 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public void registerSuccess(Token token) {
+        accessToken = token.getAccessToken();
+        tokenType = token.getTokenType();
+        Bundle bundle = new Bundle();
+        bundle.putString("accessToken", accessToken);
+        bundle.putString("tokenType", tokenType);
+        preferences.setAccessToken(this, tokenType + " " + accessToken);
+        final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Thành công");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                kProgressHUD.dismiss();
+                LoginActivity.this.startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            }
+        }, 1000);// = 1 seconds
+    }
+
+    @Override
+    public void registerFailed(String s) {
+        mLoginPresenter.login(id, "123456");
+    }
 }
 
 

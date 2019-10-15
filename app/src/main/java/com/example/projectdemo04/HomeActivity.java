@@ -17,6 +17,7 @@ import com.example.projectdemo04.home.ProductFragment;
 import com.example.projectdemo04.home.SlideFragmentAdapter;
 import com.example.projectdemo04.repositories.FBookRepository;
 import com.example.projectdemo04.repositories.FBookRepositoryImp;
+import com.facebook.AccessToken;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -64,6 +65,8 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onLogout(View view) {
         preferences.removeAccessToken(this);
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        accessToken.setCurrentAccessToken(null);
         startActivity(new Intent(this, LoginActivity.class));
     }
 
