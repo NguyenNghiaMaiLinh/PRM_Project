@@ -19,5 +19,7 @@ public class ConfigApi {
         String POST_ADD_TO_CART = "cart";
         String GET_ALL_IN_CART = "cart";
         String GET_PROFILE="user";
+        String EDIT_CART = "cart/{id}";
+        String DELETE_ITEM_IN_CART = "cart/{id}";
     }
 }

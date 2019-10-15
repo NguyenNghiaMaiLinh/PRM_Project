@@ -11,22 +11,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_gravity="center_vertical"
         android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
-        android:layout_gravity="center_vertical">
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/cart_img"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/cart_img"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="9"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/cart_item_name"
@@ -34,9 +34,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical|start"
+                android:text="Book 01"
                 android:textAllCaps="true"
-                android:textStyle="bold"
-                android:text="Book 01" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/cart_item_price"
@@ -44,47 +44,63 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical|start"
+                android:text="100,000"
                 android:textAllCaps="true"
-                android:textStyle="italic"
-                android:text="100,000" />
+                android:textStyle="italic" />
 
 
         </LinearLayout>
 
         <TextView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginRight="20dp"
+            android:id="@+id/cart_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/btSub"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="20dp"
+            android:onClick="onRemoveItem"
             android:text="-"
-            android:textSize="20sp"
+            android:textSize="20sp" />
 
-
-
-            />
         <TextView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginRight="20dp"
             android:id="@+id/cart_item_quantity"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
             android:text="1"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
 
         <TextView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginRight="20dp"
             android:id="@+id/btAdd"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="20dp"
+
+            android:onClick="onAddingItem"
+
             android:text="+"
+
             android:textSize="20sp"
+            />
 
-            android:background="@color/white"
 
-            android:onClick="onAddToCart"/>
-
+        <TextView
+            android:id="@+id/btDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_remove_shopping_cart_black_24dp"
+            android:layout_gravity="center_vertical"
+            android:onClick="onDeleteBook"
+            />
     </LinearLayout>
+
+
 </androidx.cardview.widget.CardView>
