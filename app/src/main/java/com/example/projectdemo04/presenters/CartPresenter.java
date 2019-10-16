@@ -25,7 +25,7 @@ public class CartPresenter {
         };
     }
 
-    public void portAddToCart( long id, int quantity) {
+    public void postAddToCart(long id, int quantity) {
         repo.addToCart(id, quantity, new CallBackData<List<CartBook>>() {
 
             @Override

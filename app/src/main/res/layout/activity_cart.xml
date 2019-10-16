@@ -7,8 +7,16 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:padding="16dp">
+    <TextView
+        android:id="@+id/txtCartTitle"
+        android:text="Giỏ hàng của bạn"
+        android:gravity="center"
+        android:textSize="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/txtCartTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listCart"
@@ -24,13 +32,16 @@
             android:layout_height="match_parent">
             
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="8dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:gravity="center_vertical">
                 
                 <TextView
+                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -38,14 +49,16 @@
                     android:text="Total: "/>
 
                 <TextView
+                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/total"
                     android:textSize="24sp"
-                    android:text="7000.vnd"/>
+                    android:text="0 đ"/>
             </LinearLayout>
 
             <Button
+                android:background="@drawable/roundbutton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

@@ -57,8 +57,9 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
         holder.bookPrice.setText(convertPriceToFormatString(book.getPrice()));
         holder.bookTitle.setText(books.get(position).getProductName()+"");
         holder.bookId.setText(books.get(position).getId()+"");
+        holder.bookTitle.setTag(book);
         if(book.getDiscount() >0){
-            holder.bookDiscount.setText("-" + book.getDiscount()*100 + "%");
+            holder.bookDiscount.setText("-" + Math.round(book.getDiscount()*100) + "%");
             holder.bookDiscount.setVisibility(View.VISIBLE);
             holder.bookOriginalPrice.setText(convertPriceToFormatString(book.getPrice()));
             holder.bookOriginalPrice.setVisibility(View.VISIBLE);
@@ -72,8 +73,7 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
     }
     public static String convertPriceToFormatString(long price){
         String raw = price +"";
-        String result = raw.substring(0,raw.length()-3)+ "." + raw.substring(raw.length()-3, raw.length()) + " đ";
-        return result;
+        return raw.substring(0,raw.length()-3)+ "." + raw.substring(raw.length()-3) + " đ";
     }
 
     @Override

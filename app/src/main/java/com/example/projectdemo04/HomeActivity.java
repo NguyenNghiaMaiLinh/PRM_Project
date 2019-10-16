@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.projectdemo04.home.HomeFragment;
 import com.example.projectdemo04.home.ProductFragment;
 import com.example.projectdemo04.home.SlideFragmentAdapter;
+import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.repositories.FBookRepository;
 import com.example.projectdemo04.repositories.FBookRepositoryImp;
 import com.facebook.AccessToken;
@@ -71,12 +72,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void onClickBookDetails(View view) {
-        TextView textView = view.findViewById(R.id.bookId);
-        long bookId = Long.parseLong(textView.getText().toString());
+        TextView textView = view.findViewById(R.id.txtBookTitle);
+        Book book =(Book) textView.getTag();
         FBookRepository fBookRepository = new FBookRepositoryImp(this);
-        fBookRepository.postClickedBook(bookId);
+        fBookRepository.postClickedBook(book.getId());
         Intent intent = new Intent(this, BookDetailActivity.class);
-        intent.putExtra("bookId", bookId);
+        intent.putExtra("book", book);
         startActivity(intent);
     }
 
