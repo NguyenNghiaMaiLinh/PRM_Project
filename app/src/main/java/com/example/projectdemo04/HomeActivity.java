@@ -1,5 +1,6 @@
 package com.example.projectdemo04;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -65,10 +67,24 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void onLogout(View view) {
-        preferences.removeAccessToken(this);
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        accessToken.setCurrentAccessToken(null);
-        startActivity(new Intent(this, LoginActivity.class));
+        new AlertDialog.Builder(this)
+                .setMessage("Bạn chắc chắn muốn đăng xuất?")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        preferences.removeAccessToken(HomeActivity.this);
+                        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                        accessToken.setCurrentAccessToken(null);
+                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton("Không", null)
+                .show();
+
     }
 
     public void onClickBookDetails(View view) {

@@ -138,17 +138,32 @@
                     android:text="@string/read_more"
                     android:textSize="18dp" />
             </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/btnLogout"
+                    android:layout_marginLeft="5dp"
+                    style="@style/CustomTextViewTitleProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/logout"
+                    android:drawablePadding="10dp"
+                    android:onClick="onLogout"
+                    android:gravity="center"
+                    android:text="@string/logout" />
+
+
+            </RelativeLayout>
 
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnLogout"
-            style="@style/CustomButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onLogout"
-            android:text="Đăng xuất" />
+
+
     </LinearLayout>
 
 </RelativeLayout>

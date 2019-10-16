@@ -13,4 +13,5 @@
     <string name="referral_code">Mã giới thiệu</string>
     <string name="renting_history">Lịch sử mua sách</string>
     <string name="read_more">Xem thêm</string>
+    <string name="logout">Đăng xuất</string>
 </resources>
