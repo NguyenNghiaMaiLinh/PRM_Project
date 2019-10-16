@@ -19,17 +19,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 class CartViewHolder extends RecyclerView.ViewHolder{
 
-    public TextView cart_name, book_price, cart_quantity;
+    public TextView cart_name, book_price, cart_quantity, cart_id;
     public ImageView cart_img;
+    public TextView btnAdd, btnRemove, btnDelete;
 
 
 
     public CartViewHolder(@NonNull View itemView) {
         super(itemView);
+        cart_id = itemView.findViewById(R.id.cart_id);
         cart_name = itemView.findViewById(R.id.cart_item_name);
         book_price = itemView.findViewById(R.id.cart_item_price);
         cart_quantity = itemView.findViewById(R.id.cart_item_quantity);
         cart_img = itemView.findViewById(R.id.cart_img);
+        btnAdd = itemView.findViewById(R.id.btAdd);
+        btnRemove = itemView.findViewById(R.id.btSub);
+        btnDelete = itemView.findViewById(R.id.btDelete);
     }
 }
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
@@ -53,6 +58,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
+        holder.cart_id.setText(listData.get(position).getId()+"");
         holder.cart_name.setText(listData.get(position).getBook().getProductName());
         String price = String.valueOf(listData.get(position).getBook().getPrice());
         String quantity = String.valueOf(listData.get(position).getQuantity());
@@ -60,6 +66,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
         holder.book_price.setText(price);
 
         Picasso.get().load(listData.get(position).getBook().getImgUrl()).into(holder.cart_img);
+        holder.btnAdd.setTag(listData.get(position).getId());
+        holder.btnRemove.setTag(listData.get(position).getId());
+        holder.btnDelete.setTag(listData.get(position).getId());
 
     }
 

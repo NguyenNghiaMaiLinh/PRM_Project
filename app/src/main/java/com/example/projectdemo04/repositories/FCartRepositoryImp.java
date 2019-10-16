@@ -156,4 +156,84 @@ FCartRepositoryImp implements FCartRepository {
         });
 
     }
+
+
+    @Override
+    public void editCart(long id, int quantity, final CallBackData<List<CartBook>> data) {
+        ClientApi clientApi = new ClientApi();
+        JSONObject jsonObject = new JSONObject();
+        try {
+
+            jsonObject.put("quantity", quantity);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+        Call<ResponseBody> call = clientApi.fCartService().editCart(token, id, body);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    try {
+                        String result = response.body().string();
+                        Type type = new TypeToken<List<CartBook>>() {
+                        }.getType();
+                        ResponseData<List<CartBook>> responseData = new Gson().fromJson(result, type);
+                        List<CartBook> list = responseData.getData();
+                        if (responseData != null) {
+                            data.onSuccess(list);
+                        } else {
+                            data.onFail("Sửa không thành công");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    data.onFail("Bạn cần đăng nhập lại");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    @Override
+    public void delete(long id, final CallBackData<List<CartBook>> data) {
+        ClientApi clientApi = new ClientApi();
+        JSONObject jsonObject = new JSONObject();
+        Call<ResponseBody> call = clientApi.fCartService().deleteItemInCart(token, id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    try {
+                        String result = response.body().string();
+                        Type type = new TypeToken<List<CartBook>>() {
+                        }.getType();
+                        List<CartBook> responseData = new Gson().fromJson(result, type);
+
+                        if (responseData != null) {
+                            data.onSuccess(responseData);
+                        } else {
+                            data.onFail("Xóa không thành công");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    data.onFail("Bạn cần đăng nhập lại");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
 }
