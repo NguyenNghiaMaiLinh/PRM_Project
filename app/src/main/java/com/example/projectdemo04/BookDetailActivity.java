@@ -150,6 +150,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookView,Ca
 
     @Override
     public void getCartBookSuccess(List<CartBook> cartBooks) {
+        totalOfCartItem = 0;
         for (CartBook cartBook : cartBooks) {
             totalOfCartItem += cartBook.getQuantity();
         }

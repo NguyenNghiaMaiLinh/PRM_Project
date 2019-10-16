@@ -58,7 +58,7 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     }
 
     public void onPayment(View view) {
-        Intent intent = new Intent(this, PaymentActivity.class);
+        Intent intent = new Intent(this, ConfirmPaymentActivity.class);
         intent.putExtra("total",total);
         startActivity(intent);
 

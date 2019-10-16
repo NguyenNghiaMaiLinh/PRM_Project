@@ -60,10 +60,10 @@ public class FAccountRepositoryImp implements FAccountRepository {
                         }.getType();
                         Token responseData = new Gson().fromJson(result, type);
 
-                        if (responseData != null) {
+                        if (responseData != null && responseData.getTokenType().equals("Bearer")) {
                             data.onSuccess(responseData);
                         } else {
-                            data.onFail("Đăng nhập không thành công");
+                            data.onFail("Tên đăng nhập hoặc mật khẩu sai");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -73,7 +73,7 @@ public class FAccountRepositoryImp implements FAccountRepository {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                data.onFail("Lỗi server");
             }
         });
     }
