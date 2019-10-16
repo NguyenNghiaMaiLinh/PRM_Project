@@ -76,14 +76,12 @@ public class ProductFragment extends Fragment {
     }
 
     private void setDataSetForSearchField() {
-        repo.search( "", new CallBackData<List<Book>>() {
+        repo.getAllBookNames( new CallBackData<List<String>>() {
             @Override
-            public void onSuccess(List<Book> books) {
-                for(Book book: books){
-                    listOfBookName.add(book.getProductName());
-                }
+            public void onSuccess(List<String> names) {
+                listOfBookName.clear();
+                listOfBookName.addAll(names);
                 searchAdapter.notifyDataSetChanged();
-                System.out.println("Data set size :" + listOfBookName.size());
             }
 
             @Override
@@ -115,7 +113,7 @@ public class ProductFragment extends Fragment {
 
             }
         });
-        repo.getTruyenTranh( new CallBackData<List<Book>>() {
+        repo.getCategory("Truyen",0, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -129,7 +127,7 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        repo.getTieuThuyet( new CallBackData<List<Book>>() {
+        repo.getCategory("Tieu thuyet",0, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -143,7 +141,7 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        repo.getVanHoc( new CallBackData<List<Book>>() {
+        repo.getCategory("Van hoc",0, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -157,7 +155,7 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        repo.getXaHoi( new CallBackData<List<Book>>() {
+        repo.getCategory("Xa hoi",0, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

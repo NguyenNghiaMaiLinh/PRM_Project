@@ -28,20 +28,16 @@ public interface FBookService {
     @POST(ConfigApi.Api.POST_CLICKED_BOOKS)
     Call<ResponseBody> addToClickedBooks(@Header("Authorization") String token, @Body RequestBody body);
 
-    @GET(ConfigApi.Api.GET_TRUYEN_TRANH)
-    Call<ResponseBody> getTruyenTranh(@Header("Authorization") String token);
-
-    @GET(ConfigApi.Api.GET_TIEU_THUYET)
-    Call<ResponseBody> getTieuThuyet(@Header("Authorization") String token);
-
-    @GET(ConfigApi.Api.GET_VAN_HOC)
-    Call<ResponseBody> getVanHoc(@Header("Authorization") String token);
-
-    @GET(ConfigApi.Api.GET_XA_HOI)
-    Call<ResponseBody> getXaHoi(@Header("Authorization") String token);
 
     @GET(ConfigApi.Api.GET_BOOK_ID)
     Call<ResponseBody> getBookById(@Header("Authorization") String token, @Path("id") long id);
+
+    @GET(ConfigApi.Api.GET_ALL_BOOK_NAMES)
+    Call<ResponseBody> getAllBookNames(@Header("Authorization") String token);
+    @GET(ConfigApi.Api.GET_CATEGORY)
+    Call<ResponseBody> getBookByCategory(@Header("Authorization") String token, @Path("category") String category, @Query("page") int page);
+
+
 
 
 }
