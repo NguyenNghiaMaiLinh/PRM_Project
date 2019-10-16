@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.projectdemo04.home.BookRecyclerAdapter;
 import com.example.projectdemo04.model.CartBook;
 import com.example.projectdemo04.presenters.BillPresenter;
 import com.example.projectdemo04.presenters.CartBookPresenter;
@@ -81,13 +82,7 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
             @Override
             public void onSuccess(List<CartBook> cartBooks) {
                 listProduct.addAll(cartBooks);
-                adapter.notifyDataSetChanged();
-                total = 0;
-                for(CartBook book : cartBooks){
-                    total += book.getBook().getPrice()*book.getQuantity();
-                }
-                String totalConvert = String.valueOf(total);
-                txtTotalPrice.setText(totalConvert);
+                updateView();
             }
 
             @Override
@@ -122,12 +117,7 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
                 break;
             }
         }
-        for(CartBook cartBook: listProduct){
-            total += cartBook.getBook().getPrice()*cartBook.getQuantity();
-        }
-        String totalConvert = String.valueOf(total);
-        txtTotalPrice.setText(totalConvert);
-        adapter.notifyDataSetChanged();
+        updateView();
 
         repoCart.editCart((long)view.getTag(), quan, new CallBackData<List<CartBook>>() {
             @Override
@@ -155,13 +145,7 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
                 break;
             }
         }
-        for(CartBook cartBook: listProduct){
-
-            total += cartBook.getBook().getPrice()*cartBook.getQuantity();
-        }
-        String totalConvert = String.valueOf(total);
-        txtTotalPrice.setText(totalConvert);
-        adapter.notifyDataSetChanged();
+        updateView();
 
         repoCart.editCart((long)view.getTag(), quan, new CallBackData<List<CartBook>>() {
             @Override
@@ -177,20 +161,13 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     }
 
     public void onDeleteBook(View view){
-        total= 0;
         for(CartBook cartBook: listProduct){
             if(cartBook.getId() == (long) view.getTag()){
                 listProduct.remove(cartBook);
                 break;
             }
         }
-
-        for(CartBook cartBook:listProduct){
-            total += cartBook.getBook().getPrice()*cartBook.getQuantity();
-        }
-        String totalConvert = String.valueOf(total);
-        txtTotalPrice.setText(totalConvert);
-        adapter.notifyDataSetChanged();
+        updateView();
         repoCart.delete((long) view.getTag(), new CallBackData<List<CartBook>>() {
 
             @Override
@@ -203,5 +180,14 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
 
             }
         });
+    }
+    private void updateView(){
+        adapter.notifyDataSetChanged();
+        double sum = 0;
+        for(CartBook cartBook:listProduct){
+            sum += cartBook.getBook().getPrice()*(1-cartBook.getBook().getDiscount())*cartBook.getQuantity();
+        }
+        long roundSum = Math.round(sum);
+        txtTotalPrice.setText(BookRecyclerAdapter.convertPriceToFormatString(roundSum));
     }
 }

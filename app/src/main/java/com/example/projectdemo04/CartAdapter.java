@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.projectdemo04.home.BookRecyclerAdapter;
+import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.CartBook;
 import com.squareup.picasso.Picasso;
 
@@ -58,12 +60,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
+        Book book = listData.get(position).getBook();
         holder.cart_id.setText(listData.get(position).getId()+"");
-        holder.cart_name.setText(listData.get(position).getBook().getProductName());
-        String price = String.valueOf(listData.get(position).getBook().getPrice());
-        String quantity = String.valueOf(listData.get(position).getQuantity());
-        holder.cart_quantity.setText(quantity);
-        holder.book_price.setText(price);
+        holder.cart_name.setText(book.getProductName());
+        holder.cart_quantity.setText(listData.get(position).getQuantity()+"");
+        long sellPrice =Math.round( book.getPrice()*(1-book.getDiscount()));
+        holder.book_price.setText(BookRecyclerAdapter.convertPriceToFormatString(sellPrice));
 
         Picasso.get().load(listData.get(position).getBook().getImgUrl()).into(holder.cart_img);
         holder.btnAdd.setTag(listData.get(position).getId());

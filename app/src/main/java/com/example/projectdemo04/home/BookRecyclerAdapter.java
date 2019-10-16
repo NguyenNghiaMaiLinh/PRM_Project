@@ -70,9 +70,9 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
         Picasso.get().load(book.getImgUrl()).into(holder.bookImg);
 
     }
-    private String convertPriceToFormatString(long price){
+    public static String convertPriceToFormatString(long price){
         String raw = price +"";
-        String result = raw.substring(0,raw.length()-3)+ "." + raw.substring(raw.length()-3, raw.length()) + "đ";
+        String result = raw.substring(0,raw.length()-3)+ "." + raw.substring(raw.length()-3, raw.length()) + " đ";
         return result;
     }
 
