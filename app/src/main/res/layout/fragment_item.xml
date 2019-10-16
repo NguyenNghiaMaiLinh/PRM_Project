@@ -25,14 +25,36 @@
         android:gravity="center"
         android:textSize="20dp"
        />
-    <TextView
-        android:id="@+id/txtBookPrice"
-        android:textColor="@color/bookPrice"
-        android:text="150.000đ"
-        android:textSize="18sp"
-        android:gravity="center"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtBookPrice"
+            android:textColor="@color/bookPrice"
+            android:text="150.000đ"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/txtBookDiscount"
+            android:textSize="16sp"
+            android:text="-10%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/txtBookOriginalPrice"
+        android:textSize="16sp"
+        android:layout_marginLeft="30dp"
+        android:text="160.000 đ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
 
