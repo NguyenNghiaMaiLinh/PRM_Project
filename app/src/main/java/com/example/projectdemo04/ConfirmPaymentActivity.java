@@ -5,8 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.projectdemo04.model.User;
+import com.example.projectdemo04.repositories.FAccountRepository;
+import com.example.projectdemo04.repositories.FAccountRepositoryImp;
+import com.example.projectdemo04.utils.CallBackData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +24,18 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
     List<String> listAddress = new ArrayList<>();
     AddressListViewAdapter addressListViewAdapter;
     TextView currentAddressCheckBox;
+    TextView btnAddAddress;
+    EditText txtNewAddress;
+    FAccountRepository fAccountRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_payment);
         listView = findViewById(R.id.listAddress);
+        btnAddAddress = findViewById(R.id.buttonAddAddress);
+        txtNewAddress = findViewById(R.id.txtNewAddress);
+        fAccountRepository = new FAccountRepositoryImp(this);
         initView();
 
 
@@ -33,7 +46,6 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.txtTotal);
         textView.setText(total+"đ");
         UserInfo userInfo = (UserInfo) getApplication();
-        listAddress = new ArrayList<>();
         listAddress.addAll(userInfo.getListAddress());
         addressListViewAdapter = new AddressListViewAdapter(listAddress);
         listView.setAdapter(addressListViewAdapter);
@@ -51,5 +63,31 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
         });
 
 
+    }
+    public void onClickAddMoreAddress(View view){
+        if(txtNewAddress.getVisibility() == View.GONE){
+            txtNewAddress.setVisibility(View.VISIBLE);
+            btnAddAddress.setText("Lưu");
+        }
+        else {
+            listAddress.add(txtNewAddress.getText().toString());
+            addressListViewAdapter.notifyDataSetChanged();
+            UserInfo userInfo = (UserInfo) getApplication();
+            userInfo.setListAddress(listAddress);
+            txtNewAddress.setVisibility(View.GONE);
+            User user = new User();
+            user.setListAddress(listAddress);
+            fAccountRepository.updateProfile(user, new CallBackData<User>() {
+                @Override
+                public void onSuccess(User user) {
+                }
+
+                @Override
+                public void onFail(String message) {
+
+                }
+            });
+            btnAddAddress.setText("Thêm địa chỉ");
+        }
     }
 }

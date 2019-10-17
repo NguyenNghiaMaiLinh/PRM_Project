@@ -50,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
+        android:onClick="onClickAddMoreAddress"
         android:gravity="center"
         android:id="@+id/buttonAddAddress"
         android:layout_width="wrap_content"
