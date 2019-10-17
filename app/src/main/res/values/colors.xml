@@ -9,5 +9,6 @@
     <color name="black">#000000</color>
     <color name="colorPrimaryText">#040555</color>
     <color name="lightgray">#ededed</color>
+    <color name="green">#4CDA4C</color>
     <color name="app_background_color">#ffeceff1</color>
 </resources>

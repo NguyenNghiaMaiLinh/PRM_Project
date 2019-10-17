@@ -183,11 +183,11 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     }
     private void updateView(){
         adapter.notifyDataSetChanged();
-        double sum = 0;
+        float sum = 0;
         for(CartBook cartBook:listProduct){
             sum += cartBook.getBook().getPrice()*(1-cartBook.getBook().getDiscount())*cartBook.getQuantity();
         }
-        long roundSum = Math.round(sum);
-        txtTotalPrice.setText(BookRecyclerAdapter.convertPriceToFormatString(roundSum));
+        total= Math.round(sum);
+        txtTotalPrice.setText(BookRecyclerAdapter.convertPriceToFormatString(total));
     }
 }

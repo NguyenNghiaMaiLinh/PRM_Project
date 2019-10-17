@@ -3,6 +3,7 @@ package com.example.projectdemo04.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class User implements Serializable {
 
@@ -18,6 +19,17 @@ public class User implements Serializable {
     private String phone;
     @SerializedName("address")
     private String address;
+
+    @SerializedName("addressList")
+    private List<String> listAddress;
+
+    public List<String> getListAddress() {
+        return listAddress;
+    }
+
+    public void setListAddress(List<String> listAddress) {
+        this.listAddress = listAddress;
+    }
 
     public User() {
     }
