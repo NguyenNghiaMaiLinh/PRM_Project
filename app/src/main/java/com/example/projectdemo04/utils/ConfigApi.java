@@ -5,15 +5,9 @@ public class ConfigApi {
     public interface Api{
         String LOGIN ="authen/login";
         String REGISTER ="authen/signup";
-        String GET_TOP_DISCOUNT ="book/discount";
-        String GET_CLICKED_BOOKS = "book/clicked-books";
-        String POST_CLICKED_BOOKS = "book/clicked-books";
-        String GET_TOP_SALES = "book/topsales";
+        String GET_CLICKED_BOOKS = "user/clickedBooks";
+        String POST_CLICKED_BOOKS = "user/clickedBooks";
         String SEARCH = "book";
-        String GET_TRUYEN_TRANH = "book/category/Truyen";
-        String GET_TIEU_THUYET = "book/category/Tieu thuyet";
-        String GET_VAN_HOC = "book/category/Van hoc";
-        String GET_XA_HOI = "book/category/Xa hoi";
         String GET_CATEGORY = "book/category/{category}";
 
         String GET_BOOK_ID = "book/{id}";

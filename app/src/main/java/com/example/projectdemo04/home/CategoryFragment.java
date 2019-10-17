@@ -26,6 +26,7 @@ import java.util.List;
  */
 public class CategoryFragment extends Fragment {
 
+    String displayCategory;
     String category;
     List<Book> books;
     RecyclerView recyclerView;
@@ -37,7 +38,13 @@ public class CategoryFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public CategoryFragment(String category, List<Book> books) {
+    public CategoryFragment(String displayCategory, List<Book> books) {
+        this.displayCategory = displayCategory;
+        this.books = books;
+    }
+
+    public CategoryFragment(String displayCategory, String category, List<Book> books) {
+        this.displayCategory = displayCategory;
         this.category = category;
         this.books = books;
     }
@@ -48,7 +55,7 @@ public class CategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         TextView txtCategory = view.findViewById(R.id.txtCategory);
-        txtCategory.setText(category);
+        txtCategory.setText(displayCategory);
         recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);

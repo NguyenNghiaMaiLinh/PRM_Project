@@ -116,7 +116,7 @@ public class ProductFragment extends Fragment {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Truyen",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Truyện","Truyen",books));
                 transaction.commit();
             }
 
@@ -130,7 +130,7 @@ public class ProductFragment extends Fragment {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Tieu thuyet",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Tiểu thuyết","Tieu thuyet",books));
                 transaction.commit();
             }
 
@@ -144,7 +144,7 @@ public class ProductFragment extends Fragment {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Van hoc",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Văn học","Van hoc",books));
                 transaction.commit();
             }
 
@@ -158,7 +158,7 @@ public class ProductFragment extends Fragment {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Xa hoi",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Xã hội","Xa hoi",books));
                 transaction.commit();
             }
 

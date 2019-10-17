@@ -137,11 +137,11 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        repo.getTopSales(new CallBackData<List<Book>>() {
+        repo.getBooksByCategory("topSales", 0, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Top sales", books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Bán chạy","topSale", books));
                 transaction.commit();
             }
 
@@ -150,11 +150,11 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        repo.getTopDiscount(new CallBackData<List<Book>>() {
+        repo.getBooksByCategory("discount",0,new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Top discount", books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Giảm giá","discount", books));
                 transaction.commit();
             }
 
@@ -167,7 +167,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Sản phẩm đã xem", books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Sản phẩm đã xem","clickedBooks", books));
                 transaction.commit();
             }
 

@@ -13,14 +13,11 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface FBookService {
-    @GET(ConfigApi.Api.GET_TOP_DISCOUNT)
-    Call<ResponseBody> getTopDiscount(@Header("Authorization") String token);
+
 
     @GET(ConfigApi.Api.GET_CLICKED_BOOKS)
     Call<ResponseBody> getClickedBooks(@Header("Authorization") String token);
 
-    @GET(ConfigApi.Api.GET_TOP_SALES)
-    Call<ResponseBody> getTopSales(@Header("Authorization") String token);
 
     @GET(ConfigApi.Api.SEARCH)
     Call<ResponseBody> search(@Header("Authorization") String token, @Query("name") String value);
@@ -34,6 +31,7 @@ public interface FBookService {
 
     @GET(ConfigApi.Api.GET_ALL_BOOK_NAMES)
     Call<ResponseBody> getAllBookNames(@Header("Authorization") String token);
+
     @GET(ConfigApi.Api.GET_CATEGORY)
     Call<ResponseBody> getBookByCategory(@Header("Authorization") String token, @Path("category") String category, @Query("page") int page);
 

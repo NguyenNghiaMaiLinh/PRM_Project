@@ -4,7 +4,7 @@ import com.example.projectdemo04.home.BookRecyclerAdapter;
 import com.example.projectdemo04.model.Book;
 
 import com.example.projectdemo04.model.CartBook;
-import com.example.projectdemo04.presenters.BookPresenter;
+import com.example.projectdemo04.presenters.BooksPresenter;
 import com.example.projectdemo04.presenters.CartBookPresenter;
 import com.example.projectdemo04.presenters.CartPresenter;
 import com.example.projectdemo04.repositories.FBookRepository;
@@ -31,7 +31,7 @@ import java.util.List;
 
 public class BookDetailActivity extends AppCompatActivity implements BookView,CartView, CartBookView {
     ViewPager viewPager;
-    private BookPresenter mBookPresenter;
+    private BooksPresenter mBooksPresenter;
     private CartPresenter mCartPresenter;
     private CartBookPresenter cartBookPresenter;
     Adapter adapter;
@@ -93,7 +93,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookView,Ca
         category1.setText(book.getCategory());
         txtBookDescription.setText(book.getDescription());
 
-        mBookPresenter = new BookPresenter(this);
+        mBooksPresenter = new BooksPresenter(this);
 
 
 
@@ -106,7 +106,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookView,Ca
     protected void onStart() {
         super.onStart();
         cartBookPresenter.getAllInCart();
-        mBookPresenter.getTopDiscount();
+        mBooksPresenter.getTopDiscount();
     }
 
     @Override

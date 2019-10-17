@@ -64,40 +64,6 @@ public class FBookRepositoryImp implements FBookRepository {
         });
     }
 
-    @Override
-    public void getTopDiscount( final CallBackData<List<Book>> data) {
-        ClientApi clientApi = new ClientApi();
-        Call<ResponseBody> call = clientApi.fBookService().getTopDiscount(token);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.code() == 200) {
-                    try {
-                        String result = response.body().string();
-                        Type type = new TypeToken<ResponseData<List<Book>>>() {
-                        }.getType();
-                        ResponseData<List<Book>> responseData = new Gson().fromJson(result, type);
-                        List<Book> list = responseData.getData();
-                        if (responseData != null) {
-                            data.onSuccess(list);
-                        } else {
-                            data.onFail("Lỗi server");
-
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    data.onFail(response.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
 
 
     @Override
@@ -135,40 +101,7 @@ public class FBookRepositoryImp implements FBookRepository {
         });
     }
 
-    @Override
-    public void getTopSales( final CallBackData<List<Book>> data) {
-        ClientApi clientApi = new ClientApi();
-        Call<ResponseBody> call = clientApi.fBookService().getTopSales(token);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.code() == 200) {
-                    try {
-                        String result = response.body().string();
-                        Type type = new TypeToken<ResponseData<List<Book>>>() {
-                        }.getType();
-                        ResponseData<List<Book>> responseData = new Gson().fromJson(result, type);
-                        List<Book> list = responseData.getData();
-                        if (responseData != null) {
-                            data.onSuccess(list);
-                        } else {
-                            data.onFail("Lỗi server");
 
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    data.onFail(response.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
 
     @Override
     public void search( String search, final CallBackData<List<Book>> data) {

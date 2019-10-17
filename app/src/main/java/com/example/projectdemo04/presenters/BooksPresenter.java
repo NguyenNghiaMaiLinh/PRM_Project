@@ -8,18 +8,18 @@ import com.example.projectdemo04.utils.CallBackData;
 
 import java.util.List;
 
-public class BookPresenter {
+public class BooksPresenter {
     private BookView bookView;
     private FBookRepository repo;
 
-    public BookPresenter(BookView bookView) {
+    public BooksPresenter(BookView bookView) {
         this.bookView = bookView;
         repo = new FBookRepositoryImp() {
         };
     }
 
     public void getTopDiscount() {
-        repo.getTopDiscount( new CallBackData<List<Book>>() {
+        repo.getBooksByCategory("discount",0, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> book) {
                 bookView.getSuccess(book);
