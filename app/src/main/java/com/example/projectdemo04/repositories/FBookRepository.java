@@ -15,5 +15,6 @@ public interface FBookRepository {
     void getBookById(long id, CallBackData<Book> data);
     void postClickedBook(long bookId);
     void getAllBookNames(CallBackData<List<String>> data);
+    void getBooksByCategory(String category,int page, CallBackData<List<Book>> data);
 
 }

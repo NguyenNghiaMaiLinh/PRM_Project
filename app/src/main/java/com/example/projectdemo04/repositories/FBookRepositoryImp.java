@@ -240,8 +240,8 @@ public class FBookRepositoryImp implements FBookRepository {
             }
         });
     }
-
-    public void getCategory(String category, int page, final CallBackData<List<Book>> data) {
+    @Override
+    public void getBooksByCategory(String category, int page, final CallBackData<List<Book>> data) {
         ClientApi clientApi = new ClientApi();
         Call<ResponseBody> call = clientApi.fBookService().getBookByCategory(token,category,page);
         call.enqueue(new Callback<ResponseBody>() {

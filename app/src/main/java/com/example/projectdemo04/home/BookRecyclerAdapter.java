@@ -1,12 +1,11 @@
 package com.example.projectdemo04.home;
 
-import android.content.Intent;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,13 +17,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapter.MyViewHolder> {
+public class BookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<Book> books;
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class ItemViewHolder extends RecyclerView.ViewHolder {
         private ImageView bookImg;
         private TextView bookTitle,bookPrice,bookDiscount,bookId,bookOriginalPrice;
-        public MyViewHolder(@NonNull View itemView) {
+        public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             bookImg = itemView.findViewById(R.id.imageBook);
             bookTitle = itemView.findViewById(R.id.txtBookTitle);
@@ -36,6 +37,14 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
 
 
     }
+    public static class LoadingViewHolder extends RecyclerView.ViewHolder{
+        ProgressBar progressBar;
+
+        public LoadingViewHolder(@NonNull View itemView) {
+            super(itemView);
+            progressBar = itemView.findViewById(R.id.progressBar);
+        }
+    }
 
     public BookRecyclerAdapter(List<Book> books) {
         this.books = books;
@@ -44,15 +53,31 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item,parent,false);
-        MyViewHolder vHolder = new MyViewHolder(v);
-        return vHolder;
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == VIEW_TYPE_ITEM) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item, parent, false);
+            return new ItemViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_loading, parent, false);
+            return new LoadingViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        if (viewHolder instanceof ItemViewHolder) {
+
+            setContentForBookItem((ItemViewHolder) viewHolder, position);
+        } else if (viewHolder instanceof LoadingViewHolder) {
+            showLoadingView((LoadingViewHolder) viewHolder, position);
+        }
+    }
+    private void showLoadingView(LoadingViewHolder viewHolder, int position) {
+        //ProgressBar would be displayed
+
+    }
+
+    public void setContentForBookItem(@NonNull ItemViewHolder holder, int position) {
         Book book = books.get(position);
         holder.bookPrice.setText(convertPriceToFormatString(book.getPrice()));
         holder.bookTitle.setText(books.get(position).getProductName()+"");
@@ -77,7 +102,12 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position>= books.size() ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+    }
+
+    @Override
     public int getItemCount() {
-        return books.size();
+        return books.size() + 1;
     }
 }

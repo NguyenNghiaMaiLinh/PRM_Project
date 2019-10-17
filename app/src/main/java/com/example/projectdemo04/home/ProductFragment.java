@@ -15,7 +15,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import com.example.projectdemo04.R;
-import com.example.projectdemo04.home.CategoryFragment;
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.CartBook;
 import com.example.projectdemo04.repositories.FBookRepositoryImp;
@@ -113,11 +112,11 @@ public class ProductFragment extends Fragment {
 
             }
         });
-        repo.getCategory("Truyen",0, new CallBackData<List<Book>>() {
+        repo.getBooksByCategory("Truyen",0, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Truyện",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Truyen",books));
                 transaction.commit();
             }
 
@@ -127,11 +126,11 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        repo.getCategory("Tieu thuyet",0, new CallBackData<List<Book>>() {
+        repo.getBooksByCategory("Tieu thuyet",0, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Tiểu Thuyết",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Tieu thuyet",books));
                 transaction.commit();
             }
 
@@ -141,11 +140,11 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        repo.getCategory("Van hoc",0, new CallBackData<List<Book>>() {
+        repo.getBooksByCategory("Van hoc",0, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Văn Học",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Van hoc",books));
                 transaction.commit();
             }
 
@@ -155,11 +154,11 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        repo.getCategory("Xa hoi",0, new CallBackData<List<Book>>() {
+        repo.getBooksByCategory("Xa hoi",0, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.add(R.id.homeContainer, new CategoryFragment("Xã Hội",books));
+                transaction.add(R.id.homeContainer, new CategoryFragment("Xa hoi",books));
                 transaction.commit();
             }
 
