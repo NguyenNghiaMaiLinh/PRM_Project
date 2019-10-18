@@ -10,26 +10,25 @@ import android.widget.TextView;
 import com.example.projectdemo04.model.Bill;
 import com.example.projectdemo04.model.CartBook;
 import com.example.projectdemo04.model.Order;
+import com.example.projectdemo04.model.User;
 import com.example.projectdemo04.repositories.FCartRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
 
 import java.util.List;
 
-public class PaymentActivity extends AppCompatActivity {
+public class SuccessPaymentActivity extends AppCompatActivity {
 
-    FCartRepositoryImp repoCart;
-    Bill payBill;
-    TextView txtAmount, txtDate, txtCustomer;
+    TextView txtAmount, txtDate, txtCustomer,txtBillID,txtDeliveryAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        repoCart = new FCartRepositoryImp(this);
         txtAmount = findViewById(R.id.txtAmount);
         txtDate = findViewById(R.id.txtDate);
         txtCustomer = findViewById(R.id.txtCustomer);
-
+        txtBillID = findViewById(R.id.txtBillId);
+        txtDeliveryAddress = findViewById(R.id.txtDeliveryAddress);
     }
 
     @Override
@@ -42,24 +41,16 @@ public class PaymentActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
-
     private void initView(){
-        txtAmount.setText(getIntent().getIntExtra("total",0)+"");
-        repoCart.payment(new CallBackData<Bill>() {
-
-            @Override
-            public void onSuccess(Bill bill) {
-
-                txtCustomer.setText(bill.getUser().getFullname());
-                txtDate.setText(bill.getDateCreated());
-            }
-
-            @Override
-            public void onFail(String message) {
-
-            }
-        });
-
+        Bill bill =(Bill) getIntent().getSerializableExtra("bill");
+        User user = bill.getUser();
+        txtDate.setText(bill.getDateCreated());
+        String username = user.getFullname() != null && user.getFullname().isEmpty() ? user.getFullname() : user.getUsername();
+        txtCustomer.setText(username);
+        txtDeliveryAddress.setText(bill.getDeliveryAddress());
+        txtAmount.setText(getIntent().getStringExtra("total"));
+        txtBillID.setText(bill.getId()+"");
 
     }
+
 }

@@ -1,5 +1,6 @@
 package com.example.projectdemo04.repositories;
 
+import com.example.projectdemo04.model.MakePaymentRequest;
 import com.example.projectdemo04.utils.ConfigApi;
 
 import okhttp3.RequestBody;
@@ -21,7 +22,7 @@ public interface FCartService {
     Call<ResponseBody> getAllInCart(@Header("Authorization") String token);
 
     @POST(ConfigApi.Api.PAYMENT)
-    Call<ResponseBody> payment(@Header("Authorization") String token, @Body RequestBody body);
+    Call<ResponseBody> payment(@Header("Authorization") String token, @Body MakePaymentRequest body);
 
     @PUT(ConfigApi.Api.EDIT_CART)
     Call<ResponseBody> editCart(@Header("Authorization") String token, @Path("id") long id,@Body RequestBody body);

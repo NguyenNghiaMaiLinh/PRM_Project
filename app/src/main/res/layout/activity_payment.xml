@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentActivity"
+    tools:context=".SuccessPaymentActivity"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -12,26 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Amount"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="total"
-                android:id="@+id/txtAmount"/>
-        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
@@ -43,11 +24,55 @@
         android:layout_margin="16dp">
 
         <LinearLayout
+            android:paddingHorizontal="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mã giao dịch"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="total"
+                    android:id="@+id/txtBillId"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tổng tiền"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="total"
+                    android:id="@+id/txtAmount"/>
+            </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -57,7 +82,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Date"
+                    android:text="Ngày"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     />
@@ -79,7 +104,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Customer"
+                    android:text="Tên khách hàng"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     />
@@ -101,12 +126,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Status"
+                    android:text="Địa chỉ giao hàng"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     />
 
                 <TextView
+                    android:id="@+id/txtDeliveryAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -120,7 +146,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@color/colorPrimaryDark"
-        android:text="Back to Home"
+        android:text="Trang chủ"
         android:id="@+id/btPayBack"
         android:onClick="backToHome"/>
 

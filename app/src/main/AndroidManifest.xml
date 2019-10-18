@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme.FullScreen">
         <activity android:name=".ConfirmPaymentActivity"></activity>
         <activity android:name=".EditProfileActivity" />
-        <activity android:name=".PaymentActivity" />
+        <activity android:name=".SuccessPaymentActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".BookDetailActivity" />
         <activity android:name=".LoginActivity">

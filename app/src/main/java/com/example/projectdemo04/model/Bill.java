@@ -15,6 +15,9 @@ public class Bill implements Serializable {
     @SerializedName("dateCreated")
     private String dateCreated;
 
+    @SerializedName("deliveryAddress")
+    private String deliveryAddress;
+
     public long getId() {
         return id;
     }
@@ -46,5 +49,13 @@ public class Bill implements Serializable {
     }
 
     public Bill() {
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 }

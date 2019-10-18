@@ -2,6 +2,7 @@ package com.example.projectdemo04;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,9 +11,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.projectdemo04.model.Bill;
+import com.example.projectdemo04.model.MakePaymentRequest;
 import com.example.projectdemo04.model.User;
 import com.example.projectdemo04.repositories.FAccountRepository;
 import com.example.projectdemo04.repositories.FAccountRepositoryImp;
+import com.example.projectdemo04.repositories.FCartRepository;
+import com.example.projectdemo04.repositories.FCartRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
 
 import java.util.ArrayList;
@@ -27,6 +32,8 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
     TextView btnAddAddress;
     EditText txtNewAddress;
     FAccountRepository fAccountRepository;
+    FCartRepository fCartRepository;
+    String total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +43,16 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
         btnAddAddress = findViewById(R.id.buttonAddAddress);
         txtNewAddress = findViewById(R.id.txtNewAddress);
         fAccountRepository = new FAccountRepositoryImp(this);
+        fCartRepository = new FCartRepositoryImp(this);
         initView();
 
 
 
     }
     private void initView(){
-        int total = getIntent().getIntExtra("total",0);
+        total = getIntent().getStringExtra("total");
         TextView textView = findViewById(R.id.txtTotal);
-        textView.setText(total+"đ");
+        textView.setText(total);
         UserInfo userInfo = (UserInfo) getApplication();
         listAddress.addAll(userInfo.getListAddress());
         addressListViewAdapter = new AddressListViewAdapter(listAddress);
@@ -88,6 +96,28 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
                 }
             });
             btnAddAddress.setText("Thêm địa chỉ");
+        }
+    }
+    public void onClickMakePayment(View view){
+        if(selectedAddress == null){
+            Toast.makeText(this, "Làm ơn chọn 1 địa chỉ", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            fCartRepository.payment(new MakePaymentRequest(selectedAddress), new CallBackData<Bill>() {
+                @Override
+                public void onSuccess(Bill bill) {
+                    Intent intent = new Intent(ConfirmPaymentActivity.this, SuccessPaymentActivity.class);
+                    intent.putExtra("total",total);
+                    intent.putExtra("bill", bill);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onFail(String message) {
+
+                }
+            });
+
         }
     }
 }

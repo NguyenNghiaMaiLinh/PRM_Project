@@ -96,19 +96,7 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-        FCartRepositoryImp repoCart = new FCartRepositoryImp(this);
-        repoCart.getAllInCart(new CallBackData<List<CartBook>>() {
-            @Override
-            public void onSuccess(List<CartBook> cartBooks) {
-                UserInfo userInfo = (UserInfo) getApplication();
-                userInfo.setListCart(cartBooks);
-            }
 
-            @Override
-            public void onFail(String message) {
-                System.out.println("null");
-            }
-        });
 
     }
 

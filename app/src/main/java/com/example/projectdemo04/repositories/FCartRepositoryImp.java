@@ -6,6 +6,7 @@ import com.example.projectdemo04.model.Bill;
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.Cart;
 import com.example.projectdemo04.model.CartBook;
+import com.example.projectdemo04.model.MakePaymentRequest;
 import com.example.projectdemo04.model.Order;
 import com.example.projectdemo04.model.Token;
 import com.example.projectdemo04.model.BookOrders;
@@ -119,15 +120,14 @@ FCartRepositoryImp implements FCartRepository {
     }
 
     @Override
-    public void payment(  final CallBackData<Bill> data) {
+    public void payment(MakePaymentRequest request,  final CallBackData<Bill> data) {
 
         ClientApi clientApi = new ClientApi();
         JSONObject jsonObject = new JSONObject();
 
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
-        Call<ResponseBody> call = clientApi.fCartService().payment(token, body);
-        System.out.println("body" + body);
+        Call<ResponseBody> call = clientApi.fCartService().payment(token, request);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -138,14 +138,12 @@ FCartRepositoryImp implements FCartRepository {
                         }.getType();
                         ResponseData<Bill> responseData = new Gson().fromJson(result, type);
                         Bill bill = responseData.getData();
-                        if (responseData != null) {
-                            data.onSuccess(bill);
-                        }
+                        data.onSuccess(bill);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        data.onFail("Thanh toán thất bại");
                     }
                 } else {
-                    System.out.println(response.body());
                     data.onFail("Thanh toán thất bại");
                 }
             }
@@ -153,6 +151,7 @@ FCartRepositoryImp implements FCartRepository {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
+                data.onFail("Thanh toán thất bại");
             }
         });
 

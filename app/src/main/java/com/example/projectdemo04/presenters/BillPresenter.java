@@ -30,18 +30,5 @@ public class BillPresenter {
         };
     }
 
-    public void payment(Bill list) {
-        repo.payment(new CallBackData<Bill>() {
 
-            @Override
-            public void onSuccess(Bill bill) {
-
-            }
-
-            @Override
-            public void onFail(String message) {
-                billView.getFailed(message);
-            }
-        });
-    }
 }
