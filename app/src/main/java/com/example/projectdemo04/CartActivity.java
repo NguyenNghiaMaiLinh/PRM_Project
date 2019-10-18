@@ -47,14 +47,20 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
         listProduct = new ArrayList<>();
 
         myCartRecyclerView = findViewById(R.id.listCart);
-        adapter =new CartAdapter(listProduct,this);
+        adapter = new CartAdapter(listProduct,this);
         myCartRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         myCartRecyclerView.setAdapter(adapter);
+
+
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         initView();
-
-
-
-
     }
 
     public void onPayment(View view) {
@@ -77,20 +83,12 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     }
 
     private void initView(){
-
-        repoCart.getAllInCart(new CallBackData<List<CartBook>>() {
-            @Override
-            public void onSuccess(List<CartBook> cartBooks) {
-                listProduct.addAll(cartBooks);
-                updateView();
-            }
-
-            @Override
-            public void onFail(String message) {
-                System.out.println("null");
-            }
-        });
-
+        listProduct.clear();
+        UserInfo userInfo = (UserInfo) getApplication();
+        if(userInfo.getListCart()!=null) {
+            listProduct.addAll(userInfo.getListCart());
+        }
+        updateView();
     }
 
     @Override
@@ -122,7 +120,7 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
         repoCart.editCart((long)view.getTag(), quan, new CallBackData<List<CartBook>>() {
             @Override
             public void onSuccess(List<CartBook> cartBooks) {
-
+                updateUserInfo(cartBooks);
             }
 
             @Override
@@ -150,7 +148,7 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
         repoCart.editCart((long)view.getTag(), quan, new CallBackData<List<CartBook>>() {
             @Override
             public void onSuccess(List<CartBook> cartBooks) {
-
+                updateUserInfo(cartBooks);
             }
 
             @Override
@@ -172,7 +170,7 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
 
             @Override
             public void onSuccess(List<CartBook> cartBooks) {
-
+                updateUserInfo(cartBooks);
             }
 
             @Override
@@ -189,5 +187,10 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
         }
         total= Math.round(sum);
         txtTotalPrice.setText(BookRecyclerAdapter.convertPriceToFormatString(total));
+    }
+
+    private void updateUserInfo(List<CartBook> cartBooks){
+        UserInfo userInfo = (UserInfo) getApplication();
+        userInfo.setListCart(cartBooks);
     }
 }

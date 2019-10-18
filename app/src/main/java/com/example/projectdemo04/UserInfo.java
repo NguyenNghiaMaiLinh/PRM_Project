@@ -2,6 +2,7 @@ package com.example.projectdemo04;
 
 import android.app.Application;
 
+import com.example.projectdemo04.model.CartBook;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -12,6 +13,15 @@ public class UserInfo extends Application {
     private String fullname;
     private String phone;
     private String username;
+    private List<CartBook>  listCart;
+
+    public List<CartBook> getListCart() {
+        return listCart;
+    }
+
+    public void setListCart(List<CartBook> listCart) {
+        this.listCart = listCart;
+    }
 
     public UserInfo(List<String> listAddress, String email, String fullname, String phone, String username) {
         this.listAddress = listAddress;

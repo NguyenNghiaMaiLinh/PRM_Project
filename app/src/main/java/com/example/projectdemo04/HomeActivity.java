@@ -18,24 +18,32 @@ import com.example.projectdemo04.home.HomeFragment;
 import com.example.projectdemo04.home.ProductFragment;
 import com.example.projectdemo04.home.SlideFragmentAdapter;
 import com.example.projectdemo04.model.Book;
+import com.example.projectdemo04.model.CartBook;
 import com.example.projectdemo04.model.User;
 import com.example.projectdemo04.repositories.FAccountRepository;
 import com.example.projectdemo04.repositories.FAccountRepositoryImp;
 import com.example.projectdemo04.repositories.FBookRepository;
 import com.example.projectdemo04.repositories.FBookRepositoryImp;
+import com.example.projectdemo04.repositories.FCartRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
 import com.facebook.AccessToken;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
     Preferences preferences;
     FAccountRepository fAccountRepository;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         fAccountRepository = new FAccountRepositoryImp(this);
+
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment fragment = new HomeFragment();
@@ -88,6 +96,20 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+        FCartRepositoryImp repoCart = new FCartRepositoryImp(this);
+        repoCart.getAllInCart(new CallBackData<List<CartBook>>() {
+            @Override
+            public void onSuccess(List<CartBook> cartBooks) {
+                UserInfo userInfo = (UserInfo) getApplication();
+                userInfo.setListCart(cartBooks);
+            }
+
+            @Override
+            public void onFail(String message) {
+                System.out.println("null");
+            }
+        });
+
     }
 
     public void onLogout(View view) {

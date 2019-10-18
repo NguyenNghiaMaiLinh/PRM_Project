@@ -58,14 +58,15 @@ FCartRepositoryImp implements FCartRepository {
                 if (response.code() == 200) {
                     try {
                         String result = response.body().string();
-                        Type type = new TypeToken<List<CartBook>>() {
+                        Type type = new TypeToken<ResponseData<List<CartBook>>>() {
                         }.getType();
-                        List<CartBook> responseData = new Gson().fromJson(result, type);
-
+                        ResponseData<List<CartBook>> responseData = new Gson().fromJson(result, type);
+                        List<CartBook> list = responseData.getData();
                         if (responseData != null) {
-                            data.onSuccess(responseData);
+                            data.onSuccess(list);
                         } else {
-                            data.onFail("Thêm vào giỏ hàng không thành công");
+                            data.onFail("Lỗi server");
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -177,14 +178,15 @@ FCartRepositoryImp implements FCartRepository {
                 if (response.code() == 200) {
                     try {
                         String result = response.body().string();
-                        Type type = new TypeToken<List<CartBook>>() {
+                        Type type = new TypeToken<ResponseData<List<CartBook>>>() {
                         }.getType();
                         ResponseData<List<CartBook>> responseData = new Gson().fromJson(result, type);
                         List<CartBook> list = responseData.getData();
                         if (responseData != null) {
                             data.onSuccess(list);
                         } else {
-                            data.onFail("Sửa không thành công");
+                            data.onFail("Lỗi server");
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -213,14 +215,15 @@ FCartRepositoryImp implements FCartRepository {
                 if (response.code() == 200) {
                     try {
                         String result = response.body().string();
-                        Type type = new TypeToken<List<CartBook>>() {
+                        Type type = new TypeToken<ResponseData<List<CartBook>>>() {
                         }.getType();
-                        List<CartBook> responseData = new Gson().fromJson(result, type);
-
+                        ResponseData<List<CartBook>> responseData = new Gson().fromJson(result, type);
+                        List<CartBook> list = responseData.getData();
                         if (responseData != null) {
-                            data.onSuccess(responseData);
+                            data.onSuccess(list);
                         } else {
-                            data.onFail("Xóa không thành công");
+                            data.onFail("Lỗi server");
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
