@@ -56,7 +56,7 @@
                         android:textSize="@dimen/text_size_content" />
 
                     <TextView
-                        android:text="Unknown"
+                        android:text="Chưa cập nhật"
                         android:id="@+id/txtFullname"
                         android:textSize="@dimen/text_size_content" />
                 </TableRow>
@@ -68,80 +68,42 @@
                         android:textSize="@dimen/text_size_content" />
 
                     <TextView
+                        android:text="Chưa cập nhật"
                         android:id="@+id/txtEmail"
                         android:textSize="@dimen/text_size_content" />
                 </TableRow>
 
-                <TableRow android:layout_marginTop="5dp">
+                <TableRow android:layout_marginTop="10dp">
 
                     <TextView
                         android:text="Số điện thoại"
                         android:textSize="@dimen/text_size_content" />
 
                     <TextView
-                        android:text="Unknown"
+                        android:text="Chưa cập nhật"
                         android:id="@+id/txtPhone"
+                        android:textSize="@dimen/text_size_content" />
+
+                </TableRow>
+                <TableRow android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:text="Địa chỉ: "
+                        android:textSize="@dimen/text_size_content" />
+
+                    <TextView
+                        android:text="Chưa cập nhật"
+                        android:id="@+id/txtAddress"
                         android:textSize="@dimen/text_size_content" />
 
                 </TableRow>
             </TableLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="15dp">
-
-                <TextView
-                    style="@style/CustomTextViewTitleProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:drawableLeft="@drawable/ic_location_on_black_24dp"
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
-                    android:text="Địa chỉ" />
-
-                <TextView
-                    android:id="@+id/txtAddressManage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:layout_marginRight="15dp"
-                    android:text="Unknown"
-                    android:textSize="18dp" />
-            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="5dp">
-
-                <TextView
-                    style="@style/CustomTextViewTitleProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:drawableLeft="@drawable/ic_history_black_24dp"
-                    android:drawablePadding="10dp"
-
-                    android:gravity="center"
-                    android:text="@string/renting_history" />
-
-                <TextView
-                    android:id="@+id/txtHistoryReadmore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
-                    android:gravity="center"
-                    android:text="@string/read_more"
-                    android:textSize="18dp" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="16dp">
 
                 <TextView
                     android:id="@+id/btnLogout"

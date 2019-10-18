@@ -40,24 +40,27 @@
 
     <ListView
         android:paddingLeft="10dp"
-        android:id="@+id/listAddress"
+        android:id="@+id/listViewAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
     <EditText
+        android:layout_marginLeft="20dp"
         android:id="@+id/txtNewAddress"
         android:visibility="gone"
         android:hint="Địa chỉ"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
+        android:layout_marginLeft="25dp"
         android:onClick="onClickAddMoreAddress"
         android:gravity="center"
         android:id="@+id/buttonAddAddress"
         android:layout_width="wrap_content"
-        android:text="Thêm địa chỉ mới"
+        android:text="Thêm địa chỉ"
         android:layout_height="35sp"
-        android:background="#ffffff"
-       android:drawableLeft="@drawable/ic_add_circle_green_24dp"/>
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/roundbuttongreen"
+       />
     <TextView
         android:textSize="18dp"
         android:layout_marginTop="10dp"

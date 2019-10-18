@@ -39,7 +39,7 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_payment);
-        listView = findViewById(R.id.listAddress);
+        listView = findViewById(R.id.listViewAddress);
         btnAddAddress = findViewById(R.id.buttonAddAddress);
         txtNewAddress = findViewById(R.id.txtNewAddress);
         fAccountRepository = new FAccountRepositoryImp(this);

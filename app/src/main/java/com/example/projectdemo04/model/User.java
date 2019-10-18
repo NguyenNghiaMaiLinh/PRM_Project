@@ -43,6 +43,13 @@ public class User implements Serializable {
         this.address = address;
     }
 
+    public User( String email, String fullname, String phone, List<String> listAddress) {
+        this.email = email;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.listAddress = listAddress;
+    }
+
     public User(String fullname, String email, String phone, String address) {
         this.email = email;
         this.fullname = fullname;

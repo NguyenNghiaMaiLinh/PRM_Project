@@ -14,10 +14,6 @@ import android.widget.TextView;
 import com.example.projectdemo04.model.User;
 import com.example.projectdemo04.repositories.FAccountRepository;
 import com.example.projectdemo04.repositories.FAccountRepositoryImp;
-import com.example.projectdemo04.repositories.FBookRepositoryImp;
-import com.example.projectdemo04.utils.CallBackData;
-
-import java.util.List;
 
 
 /**
@@ -25,7 +21,7 @@ import java.util.List;
  */
 public class ProfileFragment extends Fragment {
     FAccountRepository repon ;
-    private TextView fullname, email, phone, txtAddress;
+    private TextView txtFullname, txtEmail, txtPhone, txtAddress;
     TextView btnEditProfile;
     User userInfo;
 
@@ -39,16 +35,15 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         repon = new FAccountRepositoryImp(getActivity());
-        fullname = view.findViewById(R.id.txtFullname);
-        email = view.findViewById(R.id.txtEmail);
-        phone = view.findViewById(R.id.txtPhone);
-        txtAddress = view.findViewById(R.id.txtAddressManage);
+        txtFullname = view.findViewById(R.id.txtFullname);
+        txtEmail = view.findViewById(R.id.txtEmail);
+        txtPhone = view.findViewById(R.id.txtPhone);
+        txtAddress = view.findViewById(R.id.txtAddress);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),EditProfileActivity.class);
-                intent.putExtra("userInfo",userInfo);
                 startActivity(intent);
             }
         });
@@ -57,26 +52,16 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initView() {
-        repon.getProfile(new CallBackData<User>() {
+        UserInfo userInformation = (UserInfo) getActivity().getApplication();
+        if(userInformation.getEmail() != null && !userInformation.getEmail().isEmpty())
+            txtEmail.setText(userInformation.getEmail());
+        if(userInformation.getFullname() != null && !userInformation.getFullname().isEmpty())
+            txtFullname.setText(userInformation.getFullname());
+        if(userInformation.getPhone() != null && !userInformation.getPhone().isEmpty())
+            txtPhone.setText(userInformation.getPhone());
+        if(userInformation.getListAddress() != null && !userInformation.getListAddress().isEmpty())
+            txtAddress.setText(userInformation.getListAddress().get(0) + "...");
 
-            @Override
-            public void onSuccess(User user) {
-                userInfo = user;
-                email.setText(user.getEmail());
-                if(user.getFullname() != null && !user.getFullname().isEmpty())
-                    fullname.setText(user.getFullname());
-
-                if(user.getPhone() != null && !user.getPhone().isEmpty())
-                    phone.setText(user.getPhone());
-                if(user.getAddress() != null && !user.getAddress().isEmpty())
-                    txtAddress.setText(user.getAddress());
-            }
-
-            @Override
-            public void onFail(String message) {
-
-            }
-        });
     }
 
 
