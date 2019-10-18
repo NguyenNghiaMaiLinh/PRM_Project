@@ -5,8 +5,12 @@ import com.example.projectdemo04.model.Book;
 
 import com.example.projectdemo04.model.CartBook;
 import com.example.projectdemo04.presenters.BooksPresenter;
+import com.example.projectdemo04.presenters.CartBookPresenter;
 import com.example.projectdemo04.presenters.CartPresenter;
+import com.example.projectdemo04.repositories.FBookRepository;
+import com.example.projectdemo04.repositories.FBookRepositoryImp;
 import com.example.projectdemo04.views.BookView;
+import com.example.projectdemo04.views.CartBookView;
 import com.example.projectdemo04.views.CartView;
 import com.squareup.picasso.Picasso;
 
@@ -25,15 +29,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDetailActivity extends AppCompatActivity implements BookView,CartView {
+public class BookDetailActivity extends AppCompatActivity implements BookView,CartView, CartBookView {
     ViewPager viewPager;
     private BooksPresenter mBooksPresenter;
     private CartPresenter mCartPresenter;
+    private CartBookPresenter cartBookPresenter;
     Adapter adapter;
     List<Book> bookList;
 
     TextView txtBookDescription;
-    TextView txtCartQuantity;
+    TextView cartQuantity;
     TextView productName1;
     TextView price1;
     TextView author1;
@@ -50,8 +55,8 @@ public class BookDetailActivity extends AppCompatActivity implements BookView,Ca
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
 
-        txtCartQuantity = findViewById(R.id.cartquantity);
-        txtCartQuantity.setVisibility(View.INVISIBLE);
+        cartQuantity = findViewById(R.id.cartquantity);
+        cartQuantity.setVisibility(View.INVISIBLE);
         viewPager = findViewById(R.id.viewPager011);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar01);
         setSupportActionBar(toolbar);
@@ -93,25 +98,15 @@ public class BookDetailActivity extends AppCompatActivity implements BookView,Ca
 
 
         mCartPresenter = new CartPresenter(this, this);
+        cartBookPresenter = new CartBookPresenter(this);
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        getTotalOfCartItemFromUserInfo();
+        cartBookPresenter.getAllInCart();
         mBooksPresenter.getTopDiscount();
-    }
-    private void getTotalOfCartItemFromUserInfo(){
-        UserInfo userInfo = (UserInfo) getApplication();
-        List<CartBook> list = userInfo.getListCart();
-        totalOfCartItem = 0;
-        for(CartBook cartBook: list){
-            totalOfCartItem+= cartBook.getQuantity();
-        }
-        txtCartQuantity.setText(totalOfCartItem+"");
-        if(totalOfCartItem > 0)
-            txtCartQuantity.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -132,25 +127,45 @@ public class BookDetailActivity extends AppCompatActivity implements BookView,Ca
     public void onAddToCart(View view) {
         mCartPresenter.postAddToCart(book.getId(), 1);
         totalOfCartItem = totalOfCartItem + 1;
-        txtCartQuantity.setText(totalOfCartItem + "");
+        cartQuantity.setText(totalOfCartItem + "");
         Toast.makeText(BookDetailActivity.this, "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
     }
     public void onClickToCart(View view) {
-       startActivity(new Intent(getApplicationContext(), CartActivity.class));
+        startActivity(new Intent(getApplicationContext(), CartActivity.class));
 
     }
-
-
-
+    public void onClickBookDetails(View view) {
+        TextView textView = view.findViewById(R.id.txtBookTitle);
+        Book book =(Book) textView.getTag();
+        FBookRepository fBookRepository = new FBookRepositoryImp(this);
+        fBookRepository.postClickedBook(book.getId());
+        Intent intent = new Intent(this, BookDetailActivity.class);
+        intent.putExtra("book", book);
+        startActivity(intent);
+    }
 
 
 
 
 
     @Override
+    public void getCartBookSuccess(List<CartBook> cartBooks) {
+        totalOfCartItem = 0;
+        for (CartBook cartBook : cartBooks) {
+            totalOfCartItem += cartBook.getQuantity();
+        }
+        cartQuantity.setText(totalOfCartItem + "");
+        cartQuantity.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void getCartBookFailed(String s) {
+        Toast.makeText(BookDetailActivity.this, s, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void getCartSuccess(List<CartBook> cart) {
-        UserInfo userInfo = (UserInfo) getApplication();
-        userInfo.setListCart(cart);
+
     }
 
     @Override

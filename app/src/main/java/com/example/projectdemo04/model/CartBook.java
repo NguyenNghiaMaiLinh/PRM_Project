@@ -21,6 +21,17 @@ public class CartBook implements Serializable {
         this.quantity = quantity;
     }
 
+    public CartBook(Book book, User user, int quantity) {
+        this.book = book;
+        this.user = user;
+        this.quantity = quantity;
+    }
+
+    public CartBook(Book book, int quantity) {
+        this.book = book;
+        this.quantity = quantity;
+    }
+
     public long getId() {
         return id;
     }
