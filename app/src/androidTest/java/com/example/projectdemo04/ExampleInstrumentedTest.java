@@ -1,4 +1,4 @@
-package com.example.projectdemo04;
+package fptt.example.bookshop;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.projectdemo04", appContext.getPackageName());
+        assertEquals("fptt.example.bookshop", appContext.getPackageName());
     }
 }

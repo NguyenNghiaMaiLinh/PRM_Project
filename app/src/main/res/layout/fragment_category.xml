@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".home.CategoryFragment">
+    tools:context="fptt.example.bookshop.home.CategoryFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

@@ -1,4 +1,4 @@
-package com.example.projectdemo04;
+package fptt.example.bookshop;
 
 import org.junit.Test;
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="10dp"
-    tools:context=".ConfirmPaymentActivity">
+    tools:context="fptt.example.bookshop.ConfirmPaymentActivity">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

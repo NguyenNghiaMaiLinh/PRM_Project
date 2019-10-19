@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:paddingHorizontal="10dp"
-    tools:context=".EditProfileActivity">
+    tools:context="fptt.example.bookshop.EditProfileActivity">
     <TableLayout
         android:layout_marginTop="30sp"
         android:layout_width="match_parent"

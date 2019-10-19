@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CartFragment">
+    tools:context="fptt.example.bookshop.CartFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
