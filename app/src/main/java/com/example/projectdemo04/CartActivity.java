@@ -87,6 +87,7 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
         repoCart.getAllInCart(new CallBackData<List<CartBook>>() {
             @Override
             public void onSuccess(List<CartBook> cartBooks) {
+                listProduct.clear();
                 listProduct.addAll(cartBooks);
                 updateView();
             }

@@ -63,9 +63,6 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.nav_product:
                         fragment = new ProductFragment();
                         break;
-                    case R.id.nav_notification:
-                        fragment = new NotificationFragment();
-                        break;
                     case R.id.nav_profile:
                         fragment = new ProfileFragment();
                         break;

@@ -9,10 +9,6 @@
         android:icon="@drawable/products"
         android:title="Products" />
     <item
-        android:id="@+id/nav_notification"
-        android:icon="@drawable/bells"
-        android:title="Notification" />
-    <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/profile"
         android:title="Profile" />
