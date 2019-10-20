@@ -1,7 +1,9 @@
 package com.example.projectdemo04.home;
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +16,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.projectdemo04.KProgressHUDManager;
 import com.example.projectdemo04.R;
 import com.example.projectdemo04.model.Book;
 import com.example.projectdemo04.model.CartBook;
 import com.example.projectdemo04.repositories.FBookRepositoryImp;
 import com.example.projectdemo04.repositories.FCartRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import java.util.ArrayList;
 import java.util.List;

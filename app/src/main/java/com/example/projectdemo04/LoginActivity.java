@@ -151,7 +151,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Regis
         bundle.putString("tokenType", tokenType);
 //        preferences.removeAccessToken(this);
         preferences.setAccessToken(this, tokenType + " " + accessToken);
-        Toast.makeText(getApplicationContext(), "Thành công", Toast.LENGTH_LONG).show();
         final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Thành công");
         new Handler().postDelayed(new Runnable() {
             @Override

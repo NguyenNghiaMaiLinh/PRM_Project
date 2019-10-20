@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.example.projectdemo04.repositories.FAccountRepositoryImp;
 import com.example.projectdemo04.repositories.FCartRepository;
 import com.example.projectdemo04.repositories.FCartRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,9 +49,9 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
         initView();
 
 
-
     }
-    private void initView(){
+
+    private void initView() {
         total = getIntent().getStringExtra("total");
         TextView textView = findViewById(R.id.txtTotal);
         textView.setText(total);
@@ -60,9 +62,9 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                if(currentAddressCheckBox != null)
-                        currentAddressCheckBox.setBackgroundResource(R.drawable.unselected_bg);
-                selectedAddress =(String) adapterView.getItemAtPosition(position);
+                if (currentAddressCheckBox != null)
+                    currentAddressCheckBox.setBackgroundResource(R.drawable.unselected_bg);
+                selectedAddress = (String) adapterView.getItemAtPosition(position);
                 TextView checkBox = view.findViewById(R.id.addressCheckbox);
                 checkBox.setBackgroundResource(R.drawable.selected_bg);
                 currentAddressCheckBox = checkBox;
@@ -72,12 +74,12 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
 
 
     }
-    public void onClickAddMoreAddress(View view){
-        if(txtNewAddress.getVisibility() == View.GONE){
+
+    public void onClickAddMoreAddress(View view) {
+        if (txtNewAddress.getVisibility() == View.GONE) {
             txtNewAddress.setVisibility(View.VISIBLE);
             btnAddAddress.setText("Lưu");
-        }
-        else {
+        } else {
             listAddress.add(txtNewAddress.getText().toString());
             addressListViewAdapter.notifyDataSetChanged();
             UserInfo userInfo = (UserInfo) getApplication();
@@ -98,18 +100,26 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
             btnAddAddress.setText("Thêm địa chỉ");
         }
     }
-    public void onClickMakePayment(View view){
-        if(selectedAddress == null){
-            Toast.makeText(this, "Làm ơn chọn 1 địa chỉ", Toast.LENGTH_SHORT).show();
-        }
-        else {
+
+    public void onClickMakePayment(View view) {
+        if (selectedAddress == null) {
+            Toast.makeText(this, "Xin hãy chọn 1 địa chỉ", Toast.LENGTH_SHORT).show();
+        } else {
             fCartRepository.payment(new MakePaymentRequest(selectedAddress), new CallBackData<Bill>() {
                 @Override
-                public void onSuccess(Bill bill) {
-                    Intent intent = new Intent(ConfirmPaymentActivity.this, SuccessPaymentActivity.class);
-                    intent.putExtra("total",total);
-                    intent.putExtra("bill", bill);
-                    startActivity(intent);
+                public void onSuccess(final Bill bill) {
+                    final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(ConfirmPaymentActivity.this, "Thành công");
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            kProgressHUD.dismiss();
+                            Intent intent = new Intent(ConfirmPaymentActivity.this, SuccessPaymentActivity.class);
+                            intent.putExtra("total", total);
+                            intent.putExtra("bill", bill);
+                            startActivity(intent);
+                        }
+                    }, 1500);// = 1 seconds
+
                 }
 
                 @Override

@@ -3,6 +3,7 @@ package com.example.projectdemo04;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.example.projectdemo04.repositories.FCartRepositoryImp;
 import com.example.projectdemo04.utils.CallBackData;
 import com.facebook.AccessToken;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import java.util.List;
 
@@ -73,7 +75,16 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
         });
-        initData();
+        final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Xin đợi");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                kProgressHUD.dismiss();
+                initData();
+            }
+        }, 1500);// = 1 seconds
+
+
 
 
     }

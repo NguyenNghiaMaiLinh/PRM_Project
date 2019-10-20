@@ -12,6 +12,7 @@ import com.example.projectdemo04.repositories.FBookRepositoryImp;
 import com.example.projectdemo04.views.BookView;
 import com.example.projectdemo04.views.CartBookView;
 import com.example.projectdemo04.views.CartView;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.squareup.picasso.Picasso;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -95,8 +97,6 @@ public class BookDetailActivity extends AppCompatActivity implements BookView,Ca
 
         mBooksPresenter = new BooksPresenter(this);
 
-
-
         mCartPresenter = new CartPresenter(this, this);
         cartBookPresenter = new CartBookPresenter(this);
 
@@ -128,7 +128,15 @@ public class BookDetailActivity extends AppCompatActivity implements BookView,Ca
         mCartPresenter.postAddToCart(book.getId(), 1);
         totalOfCartItem = totalOfCartItem + 1;
         cartQuantity.setText(totalOfCartItem + "");
-        Toast.makeText(BookDetailActivity.this, "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+        final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Đã thêm vào giở hàng");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                kProgressHUD.dismiss();
+
+            }
+        }, 1000);// = 1 seconds
+
     }
     public void onClickToCart(View view) {
         startActivity(new Intent(getApplicationContext(), CartActivity.class));
