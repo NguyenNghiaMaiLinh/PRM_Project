@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+
 import fptt.example.bookshop.R;
 
 import fptt.example.bookshop.model.User;
@@ -65,9 +67,11 @@ public class EditProfileActivity extends AppCompatActivity {
         userInfo.setEmail(email);
         userInfo.setFullname(fullname);
         userInfo.setPhone(phone);
+        final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Đang xử lý");
         fAccountRepository.updateProfile(user, new CallBackData<User>() {
             @Override
             public void onSuccess(User user) {
+                kProgressHUD.dismiss();
                 Toast.makeText(EditProfileActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(EditProfileActivity.this,HomeActivity.class));
             }

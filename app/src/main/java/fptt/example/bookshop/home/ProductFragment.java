@@ -69,13 +69,14 @@ public class ProductFragment extends Fragment {
                 return false;
             }
         });
+        initView();
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        initView();
+
     }
 
     private void setDataSetForSearchField() {

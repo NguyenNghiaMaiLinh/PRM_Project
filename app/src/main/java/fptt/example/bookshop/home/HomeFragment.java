@@ -76,6 +76,7 @@ public class HomeFragment extends Fragment {
                 return false;
             }
         });
+        initView();
         return view;
 
     }
@@ -118,7 +119,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        initView();
+
     }
 
     private void initView() {
