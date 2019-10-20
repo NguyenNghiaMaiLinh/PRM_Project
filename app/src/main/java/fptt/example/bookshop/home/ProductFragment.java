@@ -14,6 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+
+import fptt.example.bookshop.KProgressHUDManager;
 import fptt.example.bookshop.R;
 import fptt.example.bookshop.model.Book;
 import fptt.example.bookshop.model.CartBook;
@@ -37,6 +40,7 @@ public class ProductFragment extends Fragment {
     FCartRepository repoCart;
     TextView cartquantityhome;
     private int totalOfCartItem;
+    KProgressHUD kProgressHUD;
 
 
     public ProductFragment() {
@@ -92,6 +96,7 @@ public class ProductFragment extends Fragment {
     }
 
     private void initView() {
+        kProgressHUD = KProgressHUDManager.showProgessBar(getActivity(), "Đang tải dữ liệu, vui lòng đợi");
         repoCart.getAllInCart(new CallBackData<List<CartBook>>() {
             @Override
             public void onSuccess(List<CartBook> cartBooks) {
@@ -118,6 +123,7 @@ public class ProductFragment extends Fragment {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.add(R.id.homeContainer, new CategoryFragment("Truyện","Truyen",books));
                 transaction.commit();
+                kProgressHUD.dismiss();
             }
 
             @Override

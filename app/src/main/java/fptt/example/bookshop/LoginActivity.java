@@ -2,6 +2,7 @@ package fptt.example.bookshop;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import fptt.example.bookshop.R;
@@ -52,6 +54,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Regis
     private String id = null;
     private String name = null;
     private String email = null;
+    KProgressHUD kProgressHUD;
 
 
     @Override
@@ -130,6 +133,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Regis
             Toast.makeText(this, "Mật khẩu phải lớn hơn 6 ký tự", Toast.LENGTH_LONG).show();
         } else {
             mLoginPresenter.login(username, pass);
+            kProgressHUD = KProgressHUDManager.showProgessBar(this, "Đang xử lý");
 
         }
     }
@@ -146,6 +150,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Regis
 
     @Override
     public void loginSuccess(Token token) {
+        kProgressHUD.dismiss();
         accessToken = token.getAccessToken();
         tokenType = token.getTokenType();
         Bundle bundle = new Bundle();
@@ -154,19 +159,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Regis
 //        preferences.removeAccessToken(this);
         preferences.setAccessToken(this, tokenType + " " + accessToken);
         Toast.makeText(getApplicationContext(), "Thành công", Toast.LENGTH_LONG).show();
-        final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Thành công");
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                kProgressHUD.dismiss();
-                LoginActivity.this.startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-            }
-        }, 1000);// = 1 seconds
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
 
     }
 
     @Override
     public void loginFailed(String s) {
+        kProgressHUD.dismiss();
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 

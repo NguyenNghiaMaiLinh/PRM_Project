@@ -133,7 +133,10 @@ public class BookDetailActivity extends AppCompatActivity implements BookView, C
         Toast.makeText(BookDetailActivity.this, "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
     }
     public void onClickToCart(View view) {
-        startActivity(new Intent(getApplicationContext(), CartActivity.class));
+        if(totalOfCartItem > 0)
+            startActivity(new Intent(getApplicationContext(), CartActivity.class));
+        else
+            Toast.makeText(this, "Chưa có mặt hàng nào trong giỏ", Toast.LENGTH_SHORT).show();
 
     }
     public void onClickBookDetails(View view) {

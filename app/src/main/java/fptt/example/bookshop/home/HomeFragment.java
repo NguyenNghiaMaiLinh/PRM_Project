@@ -9,11 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+
+import fptt.example.bookshop.KProgressHUDManager;
 import fptt.example.bookshop.R;
 import fptt.example.bookshop.model.Book;
 import fptt.example.bookshop.model.CartBook;
@@ -37,6 +41,7 @@ public class HomeFragment extends Fragment {
     FCartRepositoryImp repoCart;
     TextView cartquantityhome;
     private int totalOfCartItem;
+    KProgressHUD kProgressHUD;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -117,6 +122,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initView() {
+        kProgressHUD = KProgressHUDManager.showProgessBar(getActivity(), "Đang tải dữ liệu, vui lòng đợi");
         repoCart.getAllInCart(new CallBackData<List<CartBook>>() {
 
             @Override
@@ -140,6 +146,7 @@ public class HomeFragment extends Fragment {
         repo.getBooksByCategory("topSales", 0, new CallBackData<List<Book>>() {
             @Override
             public void onSuccess(List<Book> books) {
+                kProgressHUD.dismiss();
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.add(R.id.homeContainer, new CategoryFragment("Bán chạy","topSale", books));
                 transaction.commit();
@@ -147,7 +154,8 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFail(String message) {
-
+                kProgressHUD.dismiss();
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         });
         repo.getBooksByCategory("discount",0,new CallBackData<List<Book>>() {

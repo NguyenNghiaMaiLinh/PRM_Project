@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+
 import fptt.example.bookshop.R;
 
 import fptt.example.bookshop.home.BookRecyclerAdapter;
@@ -27,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartActivity extends AppCompatActivity implements CartBookView, BillView {
-    private CartBookPresenter cartBookPresenter;
-    private BillPresenter billPresenter;
     Button button;
     CartAdapter adapter;
     FCartRepositoryImp repoCart;
@@ -36,7 +36,11 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     RecyclerView myCartRecyclerView;
     TextView txtTotalPrice;
     int total = 0;
+    Button btnPayment;
+    KProgressHUD kProgressHUD;
 
+    public CartActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,7 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
         adapter =new CartAdapter(listProduct,this);
         myCartRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         myCartRecyclerView.setAdapter(adapter);
+        btnPayment = findViewById(R.id.btnPayment);
 
 
 
@@ -66,8 +71,15 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     }
 
     public void onPayment(View view) {
-        Intent intent = new Intent(this, ConfirmPaymentActivity.class);
-        intent.putExtra("total",txtTotalPrice.getText().toString());
+        Intent intent = null;
+        if(total > 0){
+            intent = new Intent(this, ConfirmPaymentActivity.class);
+            intent.putExtra("total",txtTotalPrice.getText().toString());
+        }
+        else
+            intent = new Intent(this, HomeActivity.class);
+
+
         startActivity(intent);
 
     }
@@ -85,10 +97,13 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     }
 
     private void initView(){
+        kProgressHUD = KProgressHUDManager.showProgessBar(this, "Đang tải dữ liệu, vui lòng chờ");
+
 
         repoCart.getAllInCart(new CallBackData<List<CartBook>>() {
             @Override
             public void onSuccess(List<CartBook> cartBooks) {
+                kProgressHUD.dismiss();
                 listProduct.clear();
                 listProduct.addAll(cartBooks);
                 updateView();
@@ -115,10 +130,12 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
     public void onAddingItem(View view){
         ViewGroup row = (ViewGroup) view.getParent();
         TextView txtQuantity = row.findViewById(R.id.cart_item_quantity);
+        TextView btnSub = row.findViewById(R.id.btSub);
 
         int quan = Integer.parseInt(txtQuantity.getText().toString());
         quan++;
         txtQuantity.setText(quan+"");
+        btnSub.setVisibility(View.VISIBLE);
         total= 0;
         for(CartBook cartBook: listProduct){
             if(cartBook.getId() == (long) view.getTag()){
@@ -145,9 +162,11 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
         ViewGroup row = (ViewGroup) view.getParent();
         TextView txtQuantity = row.findViewById(R.id.cart_item_quantity);
         int quan = Integer.parseInt(txtQuantity.getText().toString());
-        quan--;
+        if(quan > 0)
+            quan--;
+        if(quan == 0)
+            view.setVisibility(View.INVISIBLE);
         txtQuantity.setText(quan+"");
-        total= 0;
         for(CartBook cartBook: listProduct){
             if(cartBook.getId() == (long) view.getTag()){
                 cartBook.setQuantity(quan);
@@ -198,5 +217,10 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
         }
         total = Math.round(sum);
         txtTotalPrice.setText(BookRecyclerAdapter.convertPriceToFormatString(total));
+        if(total > 0)
+            btnPayment.setText("Tiến hành thanh toán");
+        else
+            btnPayment.setText("Tiếp tục mua sắm");
+
     }
 }

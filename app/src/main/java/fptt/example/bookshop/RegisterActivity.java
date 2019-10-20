@@ -25,6 +25,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     private RegisterPresenter mRegisterPresenter;
     private EditText userName;
     private RadioButton check;
+    KProgressHUD kProgressHUD;
+    private String accessToken;
+    private String tokenType;
+    private Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
             Toast.makeText(this, "Bạn phải chấp nhận điều khoản của chúng tôi", Toast.LENGTH_LONG).show();
         } else {
             mRegisterPresenter.register(username, email, pass);
+            kProgressHUD = KProgressHUDManager.showProgessBar(this, "Đang xử lý");
 
         }
     }
@@ -72,18 +77,21 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     public void registerSuccess(Token token) {
-        final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Thành công");
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                kProgressHUD.dismiss();
-                RegisterActivity.this.startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
-            }
-        }, 1000);// = 1 seconds
+        accessToken = token.getAccessToken();
+        tokenType = token.getTokenType();
+        Bundle bundle = new Bundle();
+        bundle.putString("accessToken", accessToken);
+        bundle.putString("tokenType", tokenType);
+        preferences.setAccessToken(this, tokenType + " " + accessToken);
+        kProgressHUD.dismiss();
+        Toast.makeText(getApplicationContext(), "Thành công", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+
     }
 
     @Override
     public void registerFailed(String s) {
+        kProgressHUD.dismiss();
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 }

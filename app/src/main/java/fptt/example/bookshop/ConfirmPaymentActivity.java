@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+
 import fptt.example.bookshop.R;
 
 import fptt.example.bookshop.model.Bill;
@@ -105,9 +107,11 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
             Toast.makeText(this, "Làm ơn chọn 1 địa chỉ", Toast.LENGTH_SHORT).show();
         }
         else {
+            final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Đang xử lý");
             fCartRepository.payment(new MakePaymentRequest(selectedAddress), new CallBackData<Bill>() {
                 @Override
                 public void onSuccess(Bill bill) {
+                    kProgressHUD.dismiss();
                     Intent intent = new Intent(ConfirmPaymentActivity.this, SuccessPaymentActivity.class);
                     intent.putExtra("total",total);
                     intent.putExtra("bill", bill);
@@ -116,7 +120,8 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
 
                 @Override
                 public void onFail(String message) {
-
+                    kProgressHUD.dismiss();
+                    Toast.makeText(ConfirmPaymentActivity.this, message, Toast.LENGTH_SHORT).show();
                 }
             });
 

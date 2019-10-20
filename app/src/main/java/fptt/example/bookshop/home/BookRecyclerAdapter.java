@@ -97,8 +97,12 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     }
     public static String convertPriceToFormatString(long price){
-        String raw = price +"";
-        return raw.substring(0,raw.length()-3)+ "." + raw.substring(raw.length()-3) + " đ";
+        if(price > 999){
+            String raw = price +"";
+            return raw.substring(0,raw.length()-3)+ "." + raw.substring(raw.length()-3) + " đ";
+        }
+        else return price + "đ";
+
     }
 
     @Override

@@ -72,7 +72,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:id="@+id/btnPayment"
-                        android:text="Tiến Hành Thanh Toán"
+                        android:text="Tiếp tục mua sắm"
                         android:onClick="onPayment"/>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
