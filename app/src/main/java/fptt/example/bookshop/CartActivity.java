@@ -47,7 +47,7 @@ public class CartActivity extends AppCompatActivity implements CartBookView, Bil
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         button = findViewById(R.id.btnPayment);
-        txtTotalPrice = findViewById(R.id.total);
+        txtTotalPrice = findViewById(R.id.txtTotal);
         repoCart = new FCartRepositoryImp(this);
 
         listProduct = new ArrayList<>();

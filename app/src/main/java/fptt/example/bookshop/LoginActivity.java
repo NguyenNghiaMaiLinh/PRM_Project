@@ -184,19 +184,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Regis
         bundle.putString("accessToken", accessToken);
         bundle.putString("tokenType", tokenType);
         preferences.setAccessToken(this, tokenType + " " + accessToken);
-        final KProgressHUD kProgressHUD = KProgressHUDManager.showProgessBar(this, "Thành công");
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                kProgressHUD.dismiss();
-                LoginActivity.this.startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-            }
-        }, 1000);// = 1 seconds
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
     }
 
     @Override
     public void registerFailed(String s) {
         mLoginPresenter.login(id, "123456");
+        kProgressHUD = KProgressHUDManager.showProgessBar(this, "Đang xử lý");
     }
 }
 

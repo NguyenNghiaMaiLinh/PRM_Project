@@ -41,7 +41,11 @@ public class SuccessPaymentActivity extends AppCompatActivity {
         Bill bill =(Bill) getIntent().getSerializableExtra("bill");
         User user = bill.getUser();
         txtDate.setText(bill.getDateCreated());
-        String username = user.getFullname() != null && user.getFullname().isEmpty() ? user.getFullname() : user.getUsername();
+        String username;
+        if(user.getFullname() != null && !user.getFullname().isEmpty())
+            username = user.getFullname();
+        else
+            username = "Chưa cập nhật";
         txtCustomer.setText(username);
         txtDeliveryAddress.setText(bill.getDeliveryAddress());
         txtAmount.setText(getIntent().getStringExtra("total"));

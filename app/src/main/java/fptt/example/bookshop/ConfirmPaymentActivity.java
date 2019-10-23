@@ -88,6 +88,9 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
             userInfo.setListAddress(listAddress);
             txtNewAddress.setVisibility(View.GONE);
             User user = new User();
+            user.setFullname(userInfo.getFullname());
+            user.setEmail(userInfo.getEmail());
+            user.setPhone(userInfo.getPhone());
             user.setListAddress(listAddress);
             fAccountRepository.updateProfile(user, new CallBackData<User>() {
                 @Override
